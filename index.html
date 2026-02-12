@@ -1,0 +1,3570 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Cirque Abandonné - Spectacle d'Horreur</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Variables */
+        :root {
+            --background: hsl(0, 0%, 5%);
+            --foreground: hsl(0, 10%, 85%);
+            --card: hsl(0, 0%, 8%);
+            --primary: hsl(0, 70%, 40%);
+            --primary-foreground: hsl(0, 0%, 95%);
+            --border: hsl(0, 0%, 15%);
+            --muted: hsl(0, 0%, 12%);
+            --muted-foreground: hsl(0, 0%, 55%);
+            --accent-foreground: hsl(40, 40%, 90%);
+            --blood-glow: hsl(0, 80%, 30%);
+            --fog: hsl(200, 10%, 70%);
+            --font-display: 'Creepster', cursive;
+            --font-body: 'Crimson Text', serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--foreground);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+            letter-spacing: 0.05em;
+        }
+
+        /* Fog overlay */
+        .fog-overlay {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse at center, hsla(200, 10%, 70%, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            animation: fogDrift 8s ease-in-out infinite;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: hsla(0, 0%, 5%, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 2px solid var(--primary);
+            box-shadow: 0 2px 15px hsla(0, 80%, 30%, 0.4);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            animation: flicker 4s infinite;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: hsla(0, 10%, 85%, 0.7);
+            text-decoration: none;
+            font-size: 1.125rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--foreground);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            display: none;
+            background: hsla(0, 0%, 5%, 0.95);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--border);
+            padding: 1rem 1.5rem;
+        }
+
+        .mobile-menu.active {
+            display: block;
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 0.75rem 0;
+            color: hsla(0, 10%, 85%, 0.7);
+            text-decoration: none;
+            font-size: 1.125rem;
+            transition: color 0.3s;
+        }
+
+        .mobile-menu a:hover,
+        .mobile-menu a.active {
+            color: var(--primary);
+        }
+
+        /* Main content */
+        main {
+            flex: 1;
+            padding-top: 5rem;
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+        }
+
+        /* Hero section */
+        .hero {
+            position: relative;
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, hsla(0, 0%, 5%, 0.3) 0%, hsla(0, 0%, 5%, 0.6) 50%, var(--background) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 0 1.5rem;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 6rem);
+            color: var(--primary);
+            animation: flicker 4s infinite;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 30px var(--blood-glow);
+        }
+
+        .hero p {
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            color: hsla(0, 10%, 85%, 0.8);
+            max-width: 48rem;
+            margin: 0 auto;
+            font-style: italic;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.75rem 2rem;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            transition: all 0.5s;
+        }
+
+        .hero-btn:hover {
+            background: var(--primary);
+            color: var(--primary-foreground);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 1.5rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 4rem;
+        }
+
+        /* Cards grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .horror-card {
+            background: linear-gradient(145deg, var(--card) 0%, hsl(0, 0%, 6%) 100%);
+            border: 1px solid var(--border);
+            border-radius: 0.25rem;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .horror-card:hover {
+            border-color: hsla(0, 70%, 40%, 0.5);
+            box-shadow: 0 0 30px hsla(0, 80%, 30%, 0.2);
+        }
+
+        .card-image {
+            position: relative;
+            height: 16rem;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s;
+        }
+
+        .horror-card:hover .card-image img {
+            transform: scale(1.1);
+        }
+
+        .card-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, var(--background), transparent, transparent);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--accent-foreground);
+            margin-bottom: 0.75rem;
+        }
+
+        .card-text {
+            color: hsla(0, 10%, 85%, 0.7);
+            line-height: 1.8;
+        }
+
+        /* Quote section */
+        .quote-section {
+            padding: 5rem 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .quote-section blockquote {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: hsla(0, 10%, 85%, 0.6);
+            line-height: 1.8;
+            text-align: center;
+            max-width: 48rem;
+            margin: 0 auto;
+        }
+
+        .quote-author {
+            margin-top: 1.5rem;
+            text-align: center;
+            color: var(--muted-foreground);
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+        }
+
+        /* Info cards */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .info-card {
+            background: linear-gradient(145deg, var(--card) 0%, hsl(0, 0%, 6%) 100%);
+            border: 1px solid var(--border);
+            border-radius: 0.25rem;
+            padding: 1.5rem;
+            transition: all 0.4s ease;
+        }
+
+
+        .info-card:hover {
+            border-color: hsla(0, 70%, 40%, 0.5);
+            box-shadow: 0 0 30px hsla(0, 80%, 30%, 0.2);
+        }
+
+        .info-card-header {
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+        }
+
+        .info-card-icon {
+            font-size: 2rem;
+        }
+
+        .info-card-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            color: var(--accent-foreground);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-card-text {
+            color: hsla(0, 10%, 85%, 0.7);
+            line-height: 1.8;
+        }
+
+        /* FAQ */
+        .faq-item {
+            background: linear-gradient(145deg, var(--card) 0%, hsl(0, 0%, 6%) 100%);
+            border: 1px solid var(--border);
+            border-radius: 0.25rem;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1.25rem 1.5rem;
+            background: none;
+            border: none;
+            color: var(--accent-foreground);
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: color 0.3s;
+        }
+
+        .faq-question:hover {
+            color: var(--primary);
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .faq-question.active::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-answer.active {
+            max-height: 500px;
+        }
+
+        .faq-answer-content {
+            padding: 0 1.5rem 1.25rem;
+            color: hsla(0, 10%, 85%, 0.7);
+            line-height: 1.8;
+        }
+
+        /* Contact form */
+        .contact-form {
+            max-width: 42rem;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            color: var(--accent-foreground);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: var(--muted);
+            border: 1px solid var(--border);
+            border-radius: 0.25rem;
+            color: var(--foreground);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: var(--muted-foreground);
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 1px var(--primary);
+        }
+
+        .form-textarea {
+            resize: none;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--primary);
+            background: none;
+            color: var(--primary);
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.5s;
+        }
+
+        .form-submit:hover {
+            background: var(--primary);
+            color: var(--primary-foreground);
+        }
+
+        .contact-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .contact-info-card {
+            background: linear-gradient(145deg, var(--card) 0%, hsl(0, 0%, 6%) 100%);
+            border: 1px solid var(--border);
+            border-radius: 0.25rem;
+            padding: 1.5rem;
+        }
+
+        .contact-info-icon {
+            font-size: 1.5rem;
+        }
+
+        .contact-info-label {
+            font-family: var(--font-display);
+            color: var(--accent-foreground);
+            margin-top: 0.5rem;
+        }
+
+        .contact-info-value {
+            color: hsla(0, 10%, 85%, 0.6);
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .success-message {
+            background: linear-gradient(145deg, var(--card) 0%, hsl(0, 0%, 6%) 100%);
+            border: 1px solid var(--border);
+            border-radius: 0.25rem;
+            padding: 3rem;
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .success-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .success-text {
+            color: hsla(0, 10%, 85%, 0.6);
+            font-size: 1.125rem;
+            font-style: italic;
+        }
+
+        /* Page header */
+        .page-header {
+            position: relative;
+            height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .page-header img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+        }
+
+        .page-header-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            color: var(--primary);
+        }
+
+        .page-header p {
+            font-size: 1.25rem;
+            color: hsla(0, 10%, 85%, 0.6);
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            background: hsla(0, 0%, 5%, 0.8);
+            padding: 2rem 1.5rem;
+            text-align: center;
+        }
+
+        .footer-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-text {
+            color: var(--muted-foreground);
+            font-size: 0.875rem;
+        }
+
+        .footer-small {
+            color: hsla(0, 0%, 55%, 0.5);
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Blood splatter particles */
+        .blood-splatter {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: hsl(0, 80%, 30%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            opacity: 0;
+        }
+
+        @keyframes splatterFly {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(0.5);
+            }
+        }
+
+        /* Blood Transition Overlay */
+        .blood-transition {
+            position: fixed;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, 
+                hsl(0, 100%, 15%) 0%,
+                hsl(0, 90%, 25%) 20%,
+                hsl(0, 80%, 30%) 40%,
+                hsl(0, 70%, 25%) 60%,
+                hsl(0, 60%, 20%) 80%,
+                hsl(0, 50%, 15%) 100%);
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0;
+            filter: blur(2px);
+        }
+
+        .blood-transition::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 30%, hsla(0, 100%, 50%, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 60% 70%, hsla(0, 100%, 40%, 0.4) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, hsla(0, 100%, 45%, 0.35) 0%, transparent 50%),
+                radial-gradient(ellipse at 40% 80%, hsla(0, 100%, 35%, 0.3) 0%, transparent 50%);
+            animation: bloodPulse 0.8s ease-in-out infinite;
+        }
+
+        .blood-transition::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, hsl(0, 80%, 20%));
+            filter: blur(20px);
+        }
+
+        .blood-transition.active {
+            animation: bloodWave 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+
+        @keyframes bloodWave {
+            0% { 
+                top: -100%; 
+                opacity: 0;
+                transform: scaleY(0.8);
+            }
+            15% { 
+                top: 0; 
+                opacity: 0.95;
+                transform: scaleY(1.1);
+            }
+            30% {
+                top: 0;
+                opacity: 0.98;
+                transform: scaleY(1);
+            }
+            70% { 
+                top: 0; 
+                opacity: 0.98;
+                transform: scaleY(1);
+            }
+            85% {
+                top: 100%;
+                opacity: 0.9;
+                transform: scaleY(1.05);
+            }
+            100% { 
+                top: 100%; 
+                opacity: 0;
+                transform: scaleY(0.9);
+            }
+        }
+
+        @keyframes bloodPulse {
+            0%, 100% { 
+                opacity: 0.6;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+
+        /* Floating shadows */
+        .floating-shadow {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, hsla(0, 0%, 0%, 0.5) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0;
+        }
+
+        .floating-shadow:nth-child(1) { animation: floatShadow1 15s infinite; }
+        .floating-shadow:nth-child(2) { animation: floatShadow2 20s infinite; animation-delay: 5s; }
+        .floating-shadow:nth-child(3) { animation: floatShadow3 18s infinite; animation-delay: 10s; }
+
+        /* Creepy eyes */
+        .creepy-eyes {
+            position: fixed;
+            width: 40px;
+            height: 20px;
+            z-index: 5;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        .eye {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: radial-gradient(circle at 40% 40%, hsl(0, 80%, 50%) 0%, hsl(0, 100%, 20%) 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 20px hsla(0, 80%, 50%, 0.8);
+        }
+
+        .eye:first-child { left: 0; }
+        .eye:last-child { right: 0; }
+
+        .creepy-eyes.active {
+            animation: eyesAppear 4s ease-in-out;
+        }
+
+
+        /* Blood drips */
+        .blood-drip {
+            position: absolute;
+            width: 2px;
+            height: 0;
+            background: linear-gradient(to bottom, 
+                hsl(0, 80%, 40%) 0%, 
+                hsl(0, 70%, 30%) 50%, 
+                transparent 100%);
+            top: 0;
+            opacity: 0;
+            animation: drip 3s ease-in infinite;
+        }
+
+        .blood-drip:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .blood-drip:nth-child(2) { left: 25%; animation-delay: 0.5s; }
+        .blood-drip:nth-child(3) { left: 40%; animation-delay: 1s; }
+        .blood-drip:nth-child(4) { left: 60%; animation-delay: 1.5s; }
+        .blood-drip:nth-child(5) { left: 75%; animation-delay: 2s; }
+        .blood-drip:nth-child(6) { left: 90%; animation-delay: 2.5s; }
+
+
+
+        /* Animations */
+        @keyframes bloodWave {
+            0% { 
+                height: 0; 
+                opacity: 0; 
+            }
+            25% { 
+                height: 100%; 
+                opacity: 0.95; 
+            }
+            50% { 
+                height: 100%; 
+                opacity: 0.95; 
+            }
+            100% { 
+                height: 100%; 
+                opacity: 0; 
+                transform: translateY(100%);
+            }
+        }
+
+        @keyframes floatShadow1 {
+            0%, 100% { 
+                left: -10%; 
+                top: 20%; 
+                opacity: 0; 
+                transform: scale(0.5);
+            }
+            50% { 
+                left: 110%; 
+                top: 60%; 
+                opacity: 0.6; 
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes floatShadow2 {
+            0%, 100% { 
+                left: 110%; 
+                top: 70%; 
+                opacity: 0; 
+                transform: scale(0.8);
+            }
+            60% { 
+                left: -10%; 
+                top: 30%; 
+                opacity: 0.5; 
+                transform: scale(1);
+            }
+        }
+
+        @keyframes floatShadow3 {
+            0%, 100% { 
+                left: 50%; 
+                top: -10%; 
+                opacity: 0; 
+                transform: scale(0.6);
+            }
+            40% { 
+                left: 50%; 
+                top: 110%; 
+                opacity: 0.7; 
+                transform: scale(1.3);
+            }
+        }
+
+        @keyframes eyesAppear {
+            0%, 90%, 100% { opacity: 0; }
+            10%, 80% { opacity: 1; }
+            30%, 60% { opacity: 0.5; }
+        }
+
+        @keyframes glitch {
+            0%, 10% { 
+                transform: translate(0); 
+                filter: hue-rotate(0deg);
+            }
+            20% { 
+                transform: translate(-2px, 2px); 
+                filter: hue-rotate(0deg);
+            }
+            30% { 
+                transform: translate(2px, -2px); 
+                filter: hue-rotate(0deg);
+            }
+            50% { 
+                transform: translate(-2px, -2px); 
+                filter: hue-rotate(0deg);
+            }
+            70% { 
+                transform: translate(2px, 2px); 
+                filter: hue-rotate(0deg);
+            }
+        }
+
+        @keyframes drip {
+            0% { 
+                height: 0; 
+                opacity: 0; 
+                top: 0;
+            }
+            10% { 
+                opacity: 1; 
+            }
+            50% { 
+                height: 80px; 
+                opacity: 0.8; 
+                top: 0;
+            }
+            100% { 
+                height: 80px; 
+                opacity: 0; 
+                top: 100px;
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        @keyframes pulseHorror {
+            0%, 100% { 
+                transform: scale(1); 
+                filter: brightness(1);
+            }
+            50% { 
+                transform: scale(1.05); 
+                filter: brightness(1.2);
+            }
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            5% { opacity: 0.8; }
+            10% { opacity: 1; }
+            15% { opacity: 0.6; }
+            20% { opacity: 1; }
+            50% { opacity: 0.95; }
+            55% { opacity: 0.7; }
+            60% { opacity: 1; }
+        }
+
+        @keyframes fogDrift {
+            0% { transform: translateX(-10%) translateY(0); opacity: 0.3; }
+            50% { transform: translateX(10%) translateY(-5px); opacity: 0.5; }
+            100% { transform: translateX(-10%) translateY(0); opacity: 0.3; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px hsla(0, 80%, 30%, 0.3); }
+            50% { box-shadow: 0 0 40px hsla(0, 80%, 30%, 0.6); }
+        }
+
+        @keyframes slideInFromLeft {
+            from { 
+                opacity: 0; 
+                transform: translateX(-100%) rotate(-5deg); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0) rotate(0); 
+            }
+        }
+
+        @keyframes slideInFromRight {
+            from { 
+                opacity: 0; 
+                transform: translateX(100%) rotate(5deg); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0) rotate(0); 
+            }
+        }
+
+        /* Hover animations */
+        .horror-card {
+            animation: fadeInUp 0.5s ease-out forwards;
+            transition: all 0.4s ease;
+        }
+
+
+        .hero-btn:hover {
+            animation: glitch 0.2s infinite;
+        }
+
+        /* Page transition classes */
+/* Page transition classes - Effet vague de sang */
+.page-enter {
+    animation: bloodWaveEnter 1.5s ease-out;
+}
+
+.page-exit {
+    animation: bloodWaveExit 0.6s ease-out;
+}
+
+@keyframes bloodWaveExit {
+    from { 
+        opacity: 1; 
+        clip-path: inset(0 0 0 0);
+    }
+    to { 
+        opacity: 0; 
+        clip-path: inset(0 0 100% 0);
+    }
+}
+
+@keyframes bloodWaveEnter {
+    0% { 
+        opacity: 0; 
+        clip-path: inset(0 0 100% 0);
+        transform: translateY(-20px);
+    }
+    50% {
+        opacity: 0.5;
+        clip-path: inset(0 0 50% 0);
+    }
+    100% { 
+        opacity: 1; 
+        clip-path: inset(0 0 0 0);
+        transform: translateY(0);
+    }
+}
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .cards-grid,
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Page visibility */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+        /* ========== BANDEAU DEVENIR ACTEUR ========== */
+.actor-banner-section {
+    padding: 3rem 1.5rem;
+}
+
+.actor-banner {
+    position: relative;
+    display: block;
+    background: linear-gradient(135deg, 
+        var(--card) 0%, 
+        hsla(0, 70%, 15%, 0.9) 50%,
+        var(--card) 100%);
+    border: 3px solid var(--primary);
+    border-radius: 15px;
+    padding: 2.5rem 3rem;
+    text-decoration: none;
+    color: var(--foreground);
+    overflow: hidden;
+    transition: all 0.4s ease;
+    cursor: pointer;
+    box-shadow: 
+        0 0 30px hsla(0, 80%, 30%, 0.4),
+        inset 0 0 40px hsla(0, 80%, 30%, 0.1);
+}
+
+.actor-banner::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle,
+        hsla(0, 80%, 40%, 0.15) 0%,
+        transparent 70%
+    );
+    animation: rotateBanner 8s linear infinite;
+}
+
+.banner-glow {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        hsla(0, 80%, 50%, 0.2) 50%, 
+        transparent 100%);
+    animation: bannerGlow 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.banner-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    text-align: center;
+}
+
+.banner-icon {
+    font-size: 3rem;
+    filter: drop-shadow(0 0 10px var(--primary));
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.banner-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--primary);
+    margin: 0;
+    text-shadow: 0 0 20px var(--blood-glow);
+    letter-spacing: 0.05em;
+}
+
+.banner-text {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--muted-foreground);
+    font-style: italic;
+    margin: 0;
+    position: absolute;
+    bottom: -1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0.8;
+}
+
+.banner-arrow {
+    font-size: 2rem;
+    color: var(--primary);
+    transition: transform 0.3s ease;
+}
+
+.actor-banner:hover {
+    transform: translateY(-5px);
+    border-color: hsla(0, 80%, 50%, 1);
+    box-shadow: 
+        0 10px 50px hsla(0, 80%, 30%, 0.6),
+        inset 0 0 60px hsla(0, 80%, 30%, 0.2);
+}
+
+.actor-banner:hover .banner-arrow {
+    transform: translateX(10px);
+}
+
+.actor-banner:hover .banner-title {
+    text-shadow: 0 0 30px var(--blood-glow);
+}
+
+@keyframes rotateBanner {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes bannerGlow {
+    0%, 100% { 
+        transform: translateX(-100%); 
+        opacity: 0;
+    }
+    50% { 
+        transform: translateX(100%); 
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { 
+        transform: scale(1); 
+        filter: drop-shadow(0 0 10px var(--primary));
+    }
+    50% { 
+        transform: scale(1.1); 
+        filter: drop-shadow(0 0 20px var(--primary));
+    }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .actor-banner {
+        padding: 2rem 1.5rem;
+    }
+    
+    .banner-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .banner-icon {
+        font-size: 2.5rem;
+    }
+    
+    .banner-arrow {
+        display: none;
+    }
+    
+    .banner-text {
+        position: static;
+        transform: none;
+        margin-top: 0.5rem;
+    }
+}
+
+/* ========== PAGE RÉSERVATION ========== */
+.resa-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.resa-bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.35) saturate(0.7);
+}
+
+.resa-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        ellipse at center,
+        hsla(0, 80%, 10%, 0.6) 0%,
+        hsla(0, 0%, 0%, 0.85) 100%
+    );
+}
+
+.resa-center {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 2rem 1.5rem;
+}
+
+.resa-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 5vw, 3.5rem);
+    color: var(--foreground);
+    margin-bottom: 3rem;
+    text-shadow: 0 0 30px var(--blood-glow);
+    letter-spacing: 0.05em;
+}
+
+.resa-timer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+}
+
+.resa-time-box {
+    text-align: center;
+}
+
+.resa-num {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 8vw, 6rem);
+    color: var(--primary);
+    background: hsla(0, 0%, 5%, 0.8);
+    border: 2px solid var(--primary);
+    border-radius: 12px;
+    padding: 0.5rem 1rem;
+    min-width: 100px;
+    box-shadow: 
+        0 0 20px hsla(0, 80%, 30%, 0.4),
+        inset 0 0 20px hsla(0, 80%, 10%, 0.3);
+    text-shadow: 0 0 15px var(--blood-glow);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.resa-num.flip {
+    transform: translateY(-8px);
+    opacity: 0.5;
+}
+
+.resa-label {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--muted-foreground);
+    margin-top: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.resa-sep {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    color: var(--primary);
+    margin-bottom: 2rem;
+    animation: flicker 3s infinite;
+}
+
+.resa-date {
+    font-family: var(--font-body);
+    font-size: 1.125rem;
+    color: var(--muted-foreground);
+    font-style: italic;
+    margin-top: 2rem;
+}
+
+/* Message ouverture */
+.resa-open {
+    margin: 2rem 0;
+}
+
+.resa-open-text {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--primary);
+    margin-bottom: 2rem;
+    animation: flicker 2s infinite;
+}
+
+.resa-btn {
+    display: inline-block;
+    padding: 1.25rem 3rem;
+    background: var(--primary);
+    border: 2px solid var(--primary);
+    border-radius: 8px;
+    color: var(--primary-foreground);
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 30px hsla(0, 80%, 30%, 0.5);
+}
+
+.resa-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px hsla(0, 80%, 30%, 0.7);
+    background: hsla(0, 70%, 50%, 1);
+}
+
+@media (max-width: 600px) {
+    .resa-timer {
+        gap: 0.5rem;
+    }
+    .resa-num {
+        min-width: 70px;
+        padding: 0.4rem 0.6rem;
+    }
+    .resa-sep {
+        display: none;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Blood Transition -->
+    <div class="blood-transition" id="bloodTransition"></div>
+
+    <!-- Floating Shadows -->
+    <div class="floating-shadow"></div>
+    <div class="floating-shadow"></div>
+    <div class="floating-shadow"></div>
+
+    <!-- Creepy Eyes -->
+    <div class="creepy-eyes" id="creepyEyes" style="left: 50%; top: 50%;">
+        <div class="eye"></div>
+        <div class="eye"></div>
+    </div>
+
+    <!-- Fog overlay -->
+    <div class="fog-overlay"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <!-- Blood drips -->
+        <div class="blood-drip"></div>
+        <div class="blood-drip"></div>
+        <div class="blood-drip"></div>
+        <div class="blood-drip"></div>
+        <div class="blood-drip"></div>
+        <div class="blood-drip"></div>
+        
+        <div class="nav-container">
+            <a href="#" class="nav-logo" data-page="home">Le Cirque Abandonné</a>
+            <ul class="nav-links">
+                <li><a href="#" data-page="home" class="active">Accueil</a></li>
+                <li><a href="#" data-page="infos">Infos Pratiques</a></li>
+                <li><a href="#" data-page="L'expérience / Les avis">L'expérience / Les avis</a></li>
+                <li><a href="#" data-page="faq">FAQ</a></li>
+                <li><a href="#" data-page="Réservation">Réservation</a></li>
+                <li><a href="#" data-page="contact">Contact</a></li>
+            </ul>
+            <button class="mobile-toggle" id="mobileToggle">☰</button>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#" data-page="home" class="active">Accueil</a>
+            <a href="#" data-page="infos">Infos Pratiques</a>
+            <a href="#" data-page="L'expérience / Les avis">L'expérience / Les avis</a>
+            <a href="#" data-page="faq">FAQ</a>
+            <a href="#" data-page="Réservation">Réservation</a>
+            <a href="#" data-page="contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- HOME PAGE -->
+        <div id="home" class="page active">
+            <!-- Hero Section -->
+            <section class="hero">
+                <img src="assets/hero-circus.jpg" alt="Le Cirque Abandonné">
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <h1>Le Cirque Abandonné</h1>
+                    <p>« Entrez sous le chapiteau... si vous l'osez. »</p>
+                    <a href="#" class="hero-btn" data-page="Réservation">Réserver votre billet ...</a><br><br><br><br>
+        <div class="resa-center">
+            <h2 class="resa-title"><u>Les rideaux s'ouvre dans :</u></h2>
+                        </div>
+                    <div id="countdown">
+  <div class="time-box"><span id="days" class="num">0</span><p>Jours</p></div>
+  <div class="time-box"><span id="hours" class="num">0</span><p>Heures</p></div>
+  <div class="time-box"><span id="minutes" class="num">0</span><p>Minutes</p></div>
+  <div class="time-box"><span id="seconds" class="num">0</span><p>Secondes</p></div>
+</div>
+
+<style>
+#countdown {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  font-family: Arial, sans-serif;
+  margin-top: -60px;
+}
+
+.time-box {
+  text-align: center;
+}
+
+.time-box p {
+  color: white; /* Texte blanc */
+}
+
+.num {
+  font-size: 30px;
+  font-weight: bold;
+  display: inline-block;
+  padding: 10px 10px;
+  background: rgb(255, 145, 0);
+  color: black;
+  border-radius: 100px;
+  min-width: 80px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Animation slide */
+.slide {
+  transform: translateY(-20px);
+  opacity: 0;
+}
+</style>
+
+<script>
+// Date de l'événement
+const eventDate = new Date("October 31, 2026 17:30:00").getTime();
+
+function updateCountdown() {
+  const now = new Date().getTime();
+  const diff = eventDate - now;
+
+  if (diff <= 0) return;
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  updateNumber("days", days);
+  updateNumber("hours", hours);
+  updateNumber("minutes", minutes);
+  updateNumber("seconds", seconds);
+}
+
+function updateNumber(id, newValue) {
+  const element = document.getElementById(id);
+
+  if (element.innerText != newValue) {
+    element.classList.add("slide");
+
+    setTimeout(() => {
+      element.innerText = newValue;
+      element.classList.remove("slide");
+    }, 200);
+  }
+}
+
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+</script><br>
+            <p>Le cirque Abandonné revient le samedi 31 octobre 2026 !</p>
+
+                </div>
+            </section>
+
+            <!-- Attractions Section -->
+            <section class="container">
+                <h2 class="section-title">Ce qui vous attend chez nous …</h2>
+                <div class="cards-grid">
+                    <div class="horror-card">
+                        <div class="card-image">
+                            <img src="assets/entrance-circus.jpg" alt="L'Entrée Maudite">
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Nos acteurs</h3>
+                            <p class="card-text">Si vous osez entrer, souvenez-vous : vous n’êtes jamais seul. Des présences vous entourent, invisibles… ou pas !</p>
+                        </div>
+                    </div>
+                    <div class="horror-card">
+                        <div class="card-image">
+                            <img src="assets/carousel-circus.jpg" alt="Le Manège Infernal">
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Nos visiteurs</h3>
+                            <p class="card-text"><strong><h4><u>Plus de 220 visiteurs 🕵️‍♂️</u></h4></strong></p> <p class="card-text">lors de l'année précédente, pourquoi pas vous ?</p>
+                        </div>
+                    </div>
+                    <div class="horror-card">
+                        <div class="card-image">
+                            <img src="assets/stage-circus.jpg" alt="La Scène Oubliée">
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">Une expérience immersive</h3>
+                            <p class="card-text">Mêlant frisson, mystère et rencontres inquiétantes vous attend. Dans ce parcours sombre, d’anciens artistes rôdent encore…</p>
+                        </div>
+                    </div>
+                </div>
+</section>
+
+            <!-- Bandeau Devenir Acteur -->
+            <section class="actor-banner-section">
+                <div class="container">
+                    <a href="#" class="actor-banner" id="actorBanner">
+                        <div class="banner-glow"></div>
+                        <div class="banner-content">
+                            <span class="banner-icon">🎭</span>
+                            <h3 class="banner-title">Devenir acteur chez nous ?</h3>
+                            <p class="banner-text">Rejoins la troupe ... Une bonne ambiance et surtout plein de frissons !</p>
+                            <span class="banner-arrow">→</span>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Map Section -->
+    <section id="map-section" class="container" style="padding-bottom: 4rem;">
+        <div class="horror-card" style="padding: 2rem; text-align: center;">
+            <h2 class="section-title" style="margin-bottom: 1rem;">Comment nous trouver ?</h2>
+            <p class="card-text" style="margin-bottom: 1.5rem;">
+                Cliquer sur la carte pour voir l'emplacement exact du cirque abandonné et planifier votre itinéraire. Nous sommes impatients de vous accueillir... si vous osez venir !
+            </p>
+
+            <div style="position: relative; border-radius: 0.25rem; overflow: hidden; height: 400px;
+                        border: 2px solid var(--primary);
+                        box-shadow: 0 0 20px hsla(0, 80%, 30%, 0.3);">
+
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2014.6404879062288!2d-0.2186602818876123!3d44.43045649615364!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd55771fb45988d5%3A0x97acbecd3522a012!2sLe%20cirque%20Abandonn%C3%A9!5e0!3m2!1sfr!2sfr!4v1770738484483!5m2!1sfr!2sfr"
+                    width="100%"
+                    height="100%"
+                    style="border:0;"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+
+                <div style="position:absolute; inset:0; pointer-events:none;
+                            background:radial-gradient(circle at center,
+                            transparent 30%, hsla(0,80%,10%,0.4) 100%);"></div>
+
+            </div>
+        </div>
+    </section>
+
+
+
+            <!-- Quote Section -->
+            <section class="quote-section">
+                <div class="container">
+                    <blockquote>
+                        « Ils sont venus pour le spectacle. Aucun n'est jamais reparti. Le cirque ne libère pas ses spectateurs... il les collectionne. »
+                    </blockquote>
+                    <p class="quote-author">Venez voir par vous même . . .</p>
+                </div>
+            </section>
+        </div>
+
+<!-- INFOS PRATIQUES PAGE -->
+<div id="infos" class="page">
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <img src="assets/stage-circus.jpg" alt="La scène">
+        <div class="hero-overlay"></div>
+        <div class="page-header-content">
+            <h1>Infos Pratiques</h1>
+            <p>Tout ce que vous devez savoir avant d'entrer...</p><br><br><br><br><br>
+        </div>
+    </section>
+
+    <!-- Cartes Flip -->
+    <section class="container" style="padding: 3rem 1.5rem;">
+        <div class="cards-container">
+
+            <!-- Infos -->
+            <div class="flip-card">
+                <div class="flip-inner">
+                    <div class="flip-front">
+                        <div class="clown-mask">🕛</div>
+                        <div class="title-front">Horaires</div>
+                        <div class="small-txt">🤡 Cliquez pour retourner la carte</div>
+                    </div>
+                    <div class="flip-back">
+                        <p><strong><u>Horaires :</u></strong><br>
+                        - Ouverture des portes à 17h30<br><br>
+                        - 1ère session à 17h30 -> 19h<br>(sans acteurs)<br><br>
+                        - 2ème session à 19h30 -> 22h<strong><br>(avec acteurs)</strong><br><br>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+                        <!-- TARIFS -->
+            <div class="flip-card">
+                <div class="flip-inner">
+                    <div class="flip-front">
+                        <div class="clown-mask">🎟️</div>
+                        <div class="title-front">Tarifs</div>
+                        <div class="small-txt">🤡 Cliquez pour retourner la carte</div>
+                    </div>
+                    <div class="flip-back">
+                        <p><strong>Tarif unique : 5€</strong><br><br>
+                        Contient :<br>
+                        <strong>Entrée</strong> + <strong>bonbons</strong> + <strong>boisson</strong>.<br><br>
+                        Paiement CB ou espèces.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ACCUEIL -->
+            <div class="flip-card">
+                <div class="flip-inner">
+                    <div class="flip-front">
+                        <div class="clown-mask">👥</div>
+                        <div class="title-front">Accueil</div>
+                        <div class="small-txt">🤡 Cliquez pour retourner la carte</div>
+                    </div>
+                    <div class="flip-back">
+                        <p>Groupes de <strong>5 personnes max</strong>.<br><br>
+                        Durée <strong>5 à 10 minutes</strong>.<br><br>
+                        Bénévoles présents pour guider.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONSEILS -->
+            <div class="flip-card">
+                <div class="flip-inner">
+                    <div class="flip-front">
+                        <div class="clown-mask">⚠️</div>
+                        <div class="title-front">Conseils</div>
+                        <div class="small-txt">🤡 Cliquez pour retourner la carte</div>
+                    </div>
+                    <div class="flip-back">
+                        <p><strong>Déconseillé</strong> aux personnes sensibles.<br><br>
+                        Non adapté : <strong>cardiaques</strong>, <strong>épilepsie</strong>, <strong>anxiété sévère</strong>.<br><br>
+                        Effets sonores & lumineux <strong>intenses</strong>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PARKING -->
+            <div class="flip-card">
+                <div class="flip-inner">
+                    <div class="flip-front">
+                        <div class="clown-mask">🅿️</div>
+                        <div class="title-front">Parking</div>
+                        <div class="small-txt">🤡 Cliquez pour retourner la carte</div>
+                    </div>
+                    <div class="flip-back">
+                        <p><strong>Parking gratuit</strong> devant le Hall Polyvalent.<br><br>
+                        Merci de respecter les <strong>accès de secours</strong>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ACCESSIBILITÉ -->
+            <div class="flip-card">
+                <div class="flip-inner">
+                    <div class="flip-front">
+                        <div class="clown-mask">♿</div>
+                        <div class="title-front">Accès</div>
+                        <div class="small-txt">🤡 Cliquez pour retourner la carte</div>
+                    </div>
+                    <div class="flip-back">
+                        <p>Parcours <strong>sombre et étroit</strong>.<br><br>
+                        <strong>Non accessible</strong> aux fauteuils roulants.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTACT -->
+            <div class="flip-card">
+                <div class="flip-inner">
+                    <div class="flip-front">
+                        <div class="clown-mask">📱</div>
+                        <div class="title-front">Contact</div>
+                        <div class="small-txt">🤡 Cliquez pour retourner la carte</div>
+                    </div>
+                    <div class="flip-back">
+                        <p>📱 Instagram : <strong>le_cirque_abandonne</strong><br><br>
+                        📞 Tel. : <strong>06.04.14.80.19</strong><br><br>
+                        📩 Mail : <strong>maisondhorreur33@gmail.com</strong><br><br>
+                        Infos disponibles sur place le jour j.</p>
+                    </div>
+                </div>
+            </div>
+
+                        <!-- Acteurs -->
+            <div class="flip-card">
+                <div class="flip-inner">
+                    <div class="flip-front">
+                        <div class="clown-mask">📩</div>
+                        <div class="title-front">Devenir acteur</div>
+                        <div class="small-txt">🤡 Cliquez pour retourner la carte</div>
+                    </div>
+                    <div class="flip-back">
+                        <p><strong><u>Pour devenir acteur :</u></strong><br>
+                        Il te suffit de remplir le formulaire : <br><br>
+                              <a href="https://docs.google.com/forms/d/e/1FAIpQLSeIsw67Lfx7vHViLfdeRFhH5GFFP7KC2V8QJqMFOJjW3RK9jw/viewform?usp=send_form" target="_blank" style="color:#ffbdbd;">
+        ➤    Devenir acteur
+      </a><br><br>
+      <i>Toute candidature sera étudiée avec soin... et peut-être que tu rejoindras notre troupe de l'horreur !</i>
+                        
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section id="map-section" class="container" style="padding-bottom: 4rem;">
+        <div class="horror-card" style="padding: 2rem; text-align: center;">
+            <h2 class="section-title" style="margin-bottom: 1rem;">Comment nous trouver ?</h2>
+            <p class="card-text" style="margin-bottom: 1.5rem;">
+                Cliquer sur la carte pour voir l'emplacement exact du cirque abandonné et planifier votre itinéraire. Nous sommes impatients de vous accueillir... si vous osez venir !
+            </p>
+
+            <div style="position: relative; border-radius: 0.25rem; overflow: hidden; height: 400px;
+                        border: 2px solid var(--primary);
+                        box-shadow: 0 0 20px hsla(0, 80%, 30%, 0.3);">
+
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2014.6404879062288!2d-0.2186602818876123!3d44.43045649615364!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd55771fb45988d5%3A0x97acbecd3522a012!2sLe%20cirque%20Abandonn%C3%A9!5e0!3m2!1sfr!2sfr!4v1770738484483!5m2!1sfr!2sfr"
+                    width="100%"
+                    height="100%"
+                    style="border:0;"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+
+                <div style="position:absolute; inset:0; pointer-events:none;
+                            background:radial-gradient(circle at center,
+                            transparent 30%, hsla(0,80%,10%,0.4) 100%);"></div>
+
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<!-- CSS -->
+<style>
+html {
+    scroll-behavior: smooth;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    align-items: stretch;
+}
+
+.info-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.info-card-link {
+    display: flex;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+}
+
+.info-card-link .info-card {
+    height: 100%;
+}
+/* ========== CARTES FLIP (Infos Pratiques) ========== */
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.flip-card {
+    background-color: transparent;
+    width: 100%;
+    height: 260px;
+    perspective: 900px;
+    cursor: pointer;
+    position: relative;
+}
+
+.flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.65s ease;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.flip-card.clicked .flip-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-front, .flip-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* RECTO */
+.flip-front {
+    background: var(--card);
+    border: 3px solid var(--primary);
+    box-shadow: 0 0 20px var(--primary);
+    color: white;
+    font-family: var(--font-display);
+    text-align: center;
+}
+
+.clown-mask {
+    font-size: 55px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 15px var(--primary);
+}
+
+.title-front {
+    font-size: 35px;
+    margin-bottom: 8px;
+    color: var(--primary);
+}
+
+.small-txt {
+    font-family: var(--font-body);
+    font-size: 15px;
+    opacity: 0.7;
+}
+
+/* VERSO */
+.flip-back {
+    background: var(--card);
+    border: 2px solid var(--primary);
+    transform: rotateY(180deg);
+    font-family: var(--font-body);
+    font-size: 18px;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    line-height: 1.4;
+}
+
+.flip-back p {
+    margin: 0;
+}
+
+/* Mobile - 1 carte par ligne */
+@media (max-width: 10000px) {
+    .cards-container {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<!-- L'expérience / Les avis -->
+<div id="L'expérience / Les avis" class="page">
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <img src="assets/auto.jpg" alt="auto">
+        <div class="hero-overlay"></div>
+        <div class="page-header-content">
+            <h1>L'expérience / Les avis</h1>
+            <p>Qu'est-ce qui vous attend là-bas ... Et les avis de nos anciens visiteurs !</p><br><br><br><br>
+        </div>
+    </section>
+
+    <!-- Section L'Expérience -->
+    <section class="container" style="padding: 4rem 1.5rem 2rem;">
+        <div class="experience-content">
+            
+            <!-- Bloc 1 : L'Expérience -->
+            <div class="horror-card" style="margin-bottom: 3rem;">
+                <div class="card-content" style="padding: 2.5rem;">
+                    <h2 class="section-title" style="margin-bottom: 2rem; text-align: left;">🎪 L'Expérience</h2>
+                    <p style="font-size: 1.125rem; line-height: 1.8; margin-bottom: 1rem;">
+                        Plongez au cœur du <strong style="color: var(--primary);">Cirque Abandonné</strong>, un lieu où le temps semble s'être figé depuis que le dernier spectacle a sombré dans l'oubli.
+                    </p>
+                    <p style="font-size: 1.125rem; line-height: 1.8;">
+                        Derrière les rideaux sombres, les anciennes coulisses ont été réaménagées en un parcours mystérieux où chaque recoin réserve une atmosphère unique.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Bloc 2 : Un parcours immersif -->
+            <div class="horror-card" style="margin-bottom: 3rem;">
+                <div class="card-content" style="padding: 2.5rem;">
+                    <h2 class="section-title" style="margin-bottom: 2rem; text-align: left;">🌑 Un parcours immersif</h2>
+                    <p style="font-size: 1.125rem; line-height: 1.8; margin-bottom: 1rem;">
+                        Vous traverserez plusieurs <strong style="color: var(--primary);">zones thématiques</strong>, chacune marquée par une ambiance, un décor et une bande sonore propres.
+                    </p>
+                    <p style="font-size: 1.125rem; line-height: 1.8;">
+                        Entre obscurité, jeux de lumière, jet de fumée et sons étranges, <strong style="color: var(--primary);">l'immersion est totale</strong> du début à la fin.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Bloc 3 : Des personnages inoubliables -->
+            <div class="horror-card" style="margin-bottom: 3rem;">
+                <div class="card-content" style="padding: 2.5rem;">
+                    <h2 class="section-title" style="margin-bottom: 2rem; text-align: left;">🎭 Des personnages inoubliables</h2>
+                    <p style="font-size: 1.125rem; line-height: 1.8; margin-bottom: 1rem;">
+                        Sur votre route, vous croiserez d'anciens artistes du cirque…
+                    </p>
+                    <p style="font-size: 1.125rem; line-height: 1.8; margin-bottom: 1rem;">
+                        <em style="color: var(--muted-foreground);">Enfin, ce qu'il en reste.</em>
+                    </p>
+                    <p style="font-size: 1.125rem; line-height: 1.8; margin-bottom: 1rem;">
+                        Certains observent, d'autres se cachent, et quelques-uns attendent votre passage pour se manifester.
+                    </p>
+                    <p style="font-size: 1.125rem; line-height: 1.8;">
+                        Rassurez-vous : ils ne vous toucheront pas.<br>
+                        En tout cas… <strong style="color: var(--primary);">pas trop.</strong>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Bloc 4 : Un seul objectif -->
+            <div class="horror-card" style="margin-bottom: 3rem;">
+                <div class="card-content" style="padding: 2.5rem;">
+                    <h2 class="section-title" style="margin-bottom: 2rem; text-align: left;">🔦 Un seul objectif : avancer</h2>
+                    <p style="font-size: 1.125rem; line-height: 1.8; margin-bottom: 1rem;">
+                        Chaque salle contient des éléments intrigants, des détails troublants, et parfois même… <strong style="color: var(--primary);">des surprises.</strong>
+                    </p>
+                    <p style="font-size: 1.125rem; line-height: 1.8;">
+                        Mais une seule règle compte : <strong style="color: var(--primary);">ne jamais perdre de vue votre chemin.</strong>
+                    </p>
+                    <p style="font-size: 1.125rem; line-height: 1.8; font-style: italic; color: var(--muted-foreground);">
+                        Les visiteurs qui hésitent trop longtemps finissent souvent par regretter d'avoir traîné…
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Section Avis -->
+    <section class="container" style="padding: 2rem 1.5rem 4rem;">
+        
+        <!-- Bouton Laisser un avis -->
+            <div class="card-content" style="padding: 2.5rem; text-align: center;">
+                <a href="https://g.page/r/CRKgIjXNvqyXEBM/review" target="_blank" 
+                   style="display: inline-block; padding: 1rem 2.5rem; 
+                          background: var(--primary); color: white; 
+                          text-decoration: none; border-radius: 8px; 
+                          font-family: var(--font-display); font-size: 1.5rem;
+                          transition: all 0.3s ease;
+                          box-shadow: 0 0 20px hsla(0, 80%, 30%, 0.4);">
+                    📝 Laisser votre avis
+                </a>
+        </div>
+        
+        <!-- Titre Avis -->
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <h2 class="section-title">⭐ <u>Avis de nos visiteurs</u></h2>
+            <p style="font-size: 1.5rem; color: var(--primary); font-weight: bold; margin-top: 1rem;">
+                4,75 étoiles /5 en moyenne
+            </p>
+        </div>
+
+        <!-- Carrousel des avis -->
+        <div class="carousel">
+            <div class="track" id="track">
+                <div class="review">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div>Incroyable, une ambiance de fou, on a vraiment eu peur !</div>
+                </div>
+
+                <div class="review">
+                    <div class="stars">⭐⭐⭐⭐☆</div>
+                    <div>J'ai adoré les décors, super réaliste, je recommande !</div>
+                </div>
+
+                <div class="review">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div>Super expérience, on a passé un très bon moment ! On attend la prochaine session avec impatience !</div>
+                </div>
+
+                <div class="review">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div>Franchement bluffant, les acteurs jouent trop bien !</div>
+                </div>
+
+                <div class="review">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div>Une immersion totale, j'ai crié du début à la fin 😂</div>
+                </div>
+
+                <div class="review">
+                    <div class="stars">⭐⭐⭐⭐☆</div>
+                    <div>Effrayant mais génial, j'ai adoré chaque pièce du cirque. (big up aux dompteurs)</div>
+                </div>
+
+                <div class="review">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div>Tros bien</div>
+                </div>
+
+                <div class="review">
+                    <div class="stars">⭐⭐⭐⭐☆</div>
+                    <div>Super ambiance, vraiment flippant. Les clowns sont terrifiants surtout celui dans le carton.</div>
+                </div>
+
+                <div class="review">
+                    <div class="stars">⭐⭐⭐⭐☆</div>
+                    <div>C'était vraiment super bien j'ai kiffé participer, peut être un petit manque d'organisation dans certains trucs mais c'est pas dérangeant</div>
+                </div>
+
+                <div class="review">
+                    <div class="stars">⭐⭐⭐☆☆</div>
+                    <div>Pour une première c'était vraiment bien</div>
+                </div>
+
+                <div class="review">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div>On a bien rigolé grâce à vous, merci pour cette initiative.</div>
+                </div>
+
+                <div class="review">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div>J'ai adorée, première fois que je faisais ça et franchement j'ai kiffé !</div>
+                </div>
+
+                <div class="review">
+                    <div class="stars">⭐⭐⭐⭐☆</div>
+                    <div>Super ambiance, vraiment flippant. Les clowns sont terrifiants surtout celui dans le carton.</div>
+                </div>
+
+                <div class="review">
+                    <div class="stars">⭐⭐⭐☆☆</div>
+                    <div>Pas mal, quelques surprises effrayantes, mais un peu court.</div>
+                </div>
+
+                <div class="review">
+                    <div class="stars">⭐⭐⭐⭐☆</div>
+                    <div>Ambiance terrifiante, j'ai adoré les mannequins et les jumelles qui bougent.</div>
+                </div>
+
+                <div class="review">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div>Décors et acteurs parfaits, on se croirait dans un vrai film d'horreur.</div>
+                </div>
+
+                <div class="review">
+                    <div class="stars">⭐⭐⭐⭐☆</div>
+                    <div>C'était vrm sympa mais il manque deux trois petites choses pour que sa soit un 5 étoile !!</div>
+                </div>
+
+                <div class="review">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <div>J'ai adoré ta maison d'horreur même si j'ai peur de tout !!</div>
+                </div>
+
+                <div class="review">
+                    <div class="stars">⭐⭐⭐⭐☆</div>
+                    <div>C'était super cool malgré l'attente !!</div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+</div>
+<!-- FIN PAGE L'expérience / Les avis -->
+
+<style>
+    /* Styles pour le carrousel des avis - UNIQUEMENT pour la page avis */
+    .carousel {
+        overflow: hidden;
+        width: 100%;
+        margin-top: 2rem;
+    }
+
+    .track {
+        display: flex;
+        width: max-content;
+        gap: 20px;
+        animation: scroll 100s linear infinite;
+    }
+
+    .review {
+        background: white;
+        color: black;
+        padding: 18px 20px;
+        border-radius: 12px;
+        min-width: 260px;
+        max-width: 260px;
+        font-size: 15px;
+        border: 1px solid #ddd;
+        display: flex;
+        flex-direction: column;
+        line-height: 1.4;
+    }
+
+    .stars {
+        font-size: 18px;
+        margin-bottom: 6px;
+    }
+
+    @keyframes scroll {
+        from { transform: translateX(0); }
+        to   { transform: translateX(-50%); }
+    }
+</style>
+
+<script>
+    // Duplique automatiquement pour une boucle parfaite
+    const track = document.getElementById("track");
+    if (track) {
+        const clone = track.cloneNode(true);
+        track.append(...clone.children);
+    }
+</script>
+
+
+
+<!-- FAQ PAGE -->
+<div id="faq" class="page">
+            <!-- Page Header -->
+            <section class="page-header" style="height: 40vh;">
+                <img src="assets/magie-noir.jpg" alt="Magie">
+                <div class="hero-overlay"></div>
+                <div class="page-header-content">
+                    <h1>Foire Aux Question</h1>
+                    <p>Si ta question n'apparaît pas ici, retrouve moi dans la page <strong>"<u>Contact</u>"</strong></p><br><br><br><br>
+                </div>
+            </section>
+
+               <html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+
+<style>
+/* ----- CONTENEUR FAQ ----- */
+.faq-wrapper {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 28px;
+  background: #1c1c1c; /* FOND NOIR */
+  border-radius: 12px;
+  box-shadow: 0 0 40px rgba(255,0,0,0.12), inset 0 0 40px rgba(0,0,0,0.3);
+  border: 2px solid rgba(255,0,0,0.06);
+}
+
+/* ----- CATÉGORIES ----- */
+.faq-category {
+  margin: 35px 0 20px 0;
+  padding-bottom: 6px;
+  font-family: "Creepster", cursive;
+  font-size: 32px;
+  color: #e62222;
+  text-shadow: 0 0 14px black, 0 0 6px red;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 3px solid rgba(255,0,0,0.3);
+}
+
+/* ----- LISTE ----- */
+.faq-list {
+  display:flex;
+  flex-direction:column;
+  gap: 12px;
+}
+
+/* ----- ITEM ----- */
+.faq-item {
+  background: linear-gradient(180deg, rgba(0,0,0,0.48), rgba(0,0,0,0.52));
+  border-radius: 10px;
+  border: 1px solid rgba(255,0,0,0.06);
+  overflow: hidden;
+  position: relative;
+}
+
+/* ----- QUESTION ----- */
+.faq-q {
+  display:flex;
+  align-items:center;
+  gap: 12px;
+  padding: 14px 16px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.18s ease;
+  position: relative;
+}
+.faq-q:hover { background: rgba(255,0,0,0.03); }
+
+.faq-emoji {
+  width:44px; height:44px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:24px;
+  transition: transform .18s ease;
+}
+.faq-q:hover .faq-emoji { transform: rotate(-10deg) scale(1.12); }
+
+.faq-question {
+  font-family: "Creepster", cursive;
+  color: #ffdddd;
+  font-size: 18px;
+  position: relative;
+  z-index: 2;
+}
+.faq-q:hover .faq-question {
+  color: #ffecec;
+  text-shadow:
+    2px 0 0 #ff0000,
+    -2px 0 0 #ff7d7d;
+}
+
+/* Ligne laser */
+/* Ligne laser - DÉSACTIVÉE */
+.faq-question:after {
+  display: none !important;
+}
+.faq-q:hover .faq-question:after { 
+  display: none !important;
+}
+
+/* Texte "cliquez" */
+.faq-hint {
+  margin-left:auto;
+  font-size:12px;
+  color:#bfbfbf;
+  font-family: Arial, sans-serif;
+}
+
+/* ----- RÉPONSE ----- */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .45s ease, padding .3s ease;
+  padding: 0 16px;
+}
+.faq-item.open .faq-answer {
+  max-height: 800px;
+  padding: 14px 16px 18px 16px;
+}
+
+.faq-slasher {
+  display: none !important;
+  visibility: hidden !important;
+}
+.faq-item.open .faq-slasher { 
+  display: none !important;
+}
+
+/* Texte réponse */
+.faq-body {
+  font-family: Arial, sans-serif;
+  color: #e9e9e9;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+/* Bloc WARNING */
+.faq-warning {
+  background: rgba(255, 60, 60, 0.10);
+  border-left: 4px solid #ff3b3b;
+  color: #ffd6d6;
+  padding: 8px 10px;
+  margin: 10px 0;
+  border-radius: 6px;
+  font-weight:600;
+  font-size:14px;
+}
+
+@media (max-width:720px){
+  .faq-question { font-size:17px; }
+  .faq-emoji { width:38px; height:38px; font-size:20px; }
+  .faq-hint { display:none; }
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const items = document.querySelectorAll(".faq-item");
+  items.forEach(item => {
+    item.querySelector(".faq-q").addEventListener("click", () => {
+      const open = item.classList.contains("open");
+      items.forEach(i => i.classList.remove("open"));
+      if (!open) item.classList.add("open");
+    });
+  });
+});
+</script>
+
+
+
+
+<div class="faq-wrapper">
+
+<!-- SECTION 1 -->
+<div class="faq-category">🩸 1 — Réservations & Paiement</div>
+<div class="faq-list">
+
+  <div class="faq-item">
+    <div class="faq-q">
+      <div class="faq-emoji">🎫</div>
+      <div class="faq-question">Comment se déroule ma réservation ?</div>
+      <div class="faq-hint">Cliquez</div>
+    </div>
+
+    <div class="faq-answer"><div class="faq-body">
+      Après votre réservation, vous recevrez automatiquement un <strong>email de confirmation</strong> contenant votre/vos billet(s) en PDF.
+    </div></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">
+      <div class="faq-emoji">📧</div>
+      <div class="faq-question">Qui reçoit l’email de validation ?</div>
+      <div class="faq-hint">Cliquez</div>
+    </div>
+
+    <div class="faq-answer"><div class="faq-body">
+      L’email est envoyé à la <strong>personne qui fait la réservation</strong>. <br> 
+      Pour les groupes, elle reçoit <strong>tous les billets</strong> dans un seul email.
+    </div></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">
+      <div class="faq-emoji">⏳</div>
+      <div class="faq-question">Faut-il réserver à l’avance ?</div>
+      <div class="faq-hint">Cliquez</div>
+    </div>
+
+    <div class="faq-answer"><div class="faq-body">
+      Oui, la réservation est <strong>fortement conseillée</strong> pour fluidifier les entrées et éviter l’attente.
+    </div></div>
+  </div>
+
+</div>
+
+
+
+
+<!-- SECTION 2 -->
+<div class="faq-category">💸 2 — Paiement de la réservation</div>
+<div class="faq-list">
+
+  <div class="faq-item">
+    <div class="faq-q">
+      <div class="faq-emoji">💶</div>
+      <div class="faq-question">Combien coûte l’entrée ?</div>
+      <div class="faq-hint">Cliquez</div>
+    </div>
+
+    <div class="faq-answer"><div class="faq-body">
+      L’entrée coûte <strong>5 euros</strong> par personne.
+    </div></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">
+      <div class="faq-emoji">❓</div>
+      <div class="faq-question">Pourquoi 5 euros ?</div>
+      <div class="faq-hint">Cliquez</div>
+    </div>
+
+    <div class="faq-answer"><div class="faq-body">
+
+      Ce tarif couvre une partie des frais : <br> 
+      <strong>décors, matériel technique, son, lumières, sécurité, organisation</strong>.  
+      <br><br>
+
+      Il inclut également :  <br>
+      • <strong>l’accès complet</strong> au parcours <br> 
+      • <strong>1 boisson</strong> <br> 
+      • <strong>1 verre de bonbons</strong> <br>   
+
+    </div></div>
+  </div>
+
+</div>
+
+
+
+
+<!-- SECTION 3 -->
+<div class="faq-category">🎪 3 — Informations pratiques</div>
+<div class="faq-list">
+
+  <div class="faq-item">
+    <div class="faq-q">
+      <div class="faq-emoji">🍔</div>
+      <div class="faq-question">Où peut-on manger ?</div>
+      <div class="faq-hint">Cliquez</div>
+    </div>
+
+    <div class="faq-answer"><div class="faq-body">
+      Un <strong>food-truck</strong> sera installé juste devant le Hall pour manger avant ou après votre passage.
+    </div></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">
+      <div class="faq-emoji">🅿️</div>
+      <div class="faq-question">Où se garer ?</div>
+      <div class="faq-hint">Cliquez</div>
+    </div>
+
+    <div class="faq-answer"><div class="faq-body">
+      Un <strong>parking gratuit</strong> est disponible juste en face du Hall Polyvalent.  <br>
+      Il est accessible à tous et situé à quelques mètres seulement de l’entrée.
+    </div></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">
+      <div class="faq-emoji">👶</div>
+      <div class="faq-question">À partir de quel âge ?</div>
+      <div class="faq-hint">Cliquez</div>
+    </div>
+
+    <div class="faq-answer"><div class="faq-body">
+      Ouvert à <strong>tout âge</strong>.  
+      <br><br>
+      • <strong>18h – 19h15</strong> : Sans acteurs (tout public)  <br>
+      • <strong>19h30 – 22h</strong> : Avec acteurs (déconseillé -12 ans) <br> 
+      <div class="faq-warning">/!\ Ce n’est pas interdit, seulement déconseillé /!\</div>
+    </div></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">
+      <div class="faq-emoji">👥</div>
+      <div class="faq-question">Peut-on participer en groupe ?</div>
+      <div class="faq-hint">Cliquez</div>
+    </div>
+
+    <div class="faq-answer"><div class="faq-body">
+      Oui. Les passages se font en <strong>groupes de 5 maximum</strong>. <br> 
+      Si un groupe est incomplet, il est <strong>complété automatiquement</strong>.
+    </div></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">
+      <div class="faq-emoji">⏱️</div>
+      <div class="faq-question">Durée du parcours ?</div>
+      <div class="faq-hint">Cliquez</div>
+    </div>
+
+    <div class="faq-answer"><div class="faq-body">
+      Le parcours dure en moyenne <strong>5 à 10 minutes</strong> selon les groupes.
+    </div></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">
+      <div class="faq-emoji">🎭</div>
+      <div class="faq-question">Comment devenir acteur ?</div>
+      <div class="faq-hint">Cliquez</div>
+    </div>
+
+    <div class="faq-answer"><div class="faq-body">
+      Pour devenir acteur, remplissez simplement le formulaire :  
+      <br><br>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeIsw67Lfx7vHViLfdeRFhH5GFFP7KC2V8QJqMFOJjW3RK9jw/viewform?usp=send_form" target="_blank" style="color:#ffbdbd;">
+        ➤ Devenir acteur
+      </a>
+    </div></div>
+  </div>
+
+</div>
+
+
+
+
+<!-- SECTION 4 -->
+<div class="faq-category">⚠️ 4 — Sécurité & Contraintes</div>
+<div class="faq-list">
+
+  <div class="faq-item">
+    <div class="faq-q">
+      <div class="faq-emoji">🚪</div>
+      <div class="faq-question">Sortie en cas de panique ?</div>
+      <div class="faq-hint">Cliquez</div>
+    </div>
+
+    <div class="faq-answer"><div class="faq-body">
+      Oui. Le parcours dispose de <strong>sorties de secours</strong> accessibles à tout moment.
+    </div></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">
+      <div class="faq-emoji">👻</div>
+      <div class="faq-question">Les entités peuvent-elles nous toucher ?</div>
+      <div class="faq-hint">Cliquez</div>
+    </div>
+
+    <div class="faq-answer"><div class="faq-body">
+      Oui, un <strong>contact physique maîtrisé</strong> est autorisé.<br>  
+      <div class="faq-warning">/!\ Tous les contacts sont contrôlés en sécurité par les acteurs /!\</div>
+    </div></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">
+      <div class="faq-emoji">🚶</div>
+      <div class="faq-question">Indépendance de marche requise ?</div>
+      <div class="faq-hint">Cliquez</div>
+    </div>
+
+    <div class="faq-answer"><div class="faq-body">
+      Oui. Le parcours comporte des <strong>obstacles</strong> et parfois une <strong>faible visibilité</strong>, ce qui augmente les risques de chute.
+    </div></div>
+  </div>
+
+</div>
+
+
+
+
+<!-- SECTION 5 -->
+<div class="faq-category">🎒 5 — Objets personnels & Consignes</div>
+<div class="faq-list">
+
+  <div class="faq-item">
+    <div class="faq-q">
+      <div class="faq-emoji">📸</div>
+      <div class="faq-question">Photos & vidéos autorisées ?</div>
+      <div class="faq-hint">Cliquez</div>
+    </div>
+
+    <div class="faq-answer"><div class="faq-body">
+      Oui, mais <strong>sans flash</strong> afin de préserver l’ambiance immersive.
+    </div></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">
+      <div class="faq-emoji">🎒</div>
+      <div class="faq-question">Que faire de mes affaires ?</div>
+      <div class="faq-hint">Cliquez</div>
+    </div>
+
+    <div class="faq-answer"><div class="faq-body">
+      Un <strong>bac de consigne</strong> est disponible à l’entrée pour vos objets personnels.  <br>
+      Après votre passage, il sera <strong>transféré automatiquement à la sortie</strong>.
+    </div></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">
+      <div class="faq-emoji">🧥</div>
+      <div class="faq-question">Les costumes sont-ils autorisés ?</div>
+      <div class="faq-hint">Cliquez</div>
+    </div>
+
+    <div class="faq-answer"><div class="faq-body">
+      Oui, costumes et accessoires sont autorisés.  <br>
+      <div class="faq-warning">/!\ Tous les accessoires doivent être déposés dans le bac avant l'entrée /!\</div>
+    </div></div>
+  </div>
+
+</div>
+
+</div>
+
+                </div>
+            </section>
+        </div>
+
+<!-- PAGE RÉSERVATION -->
+<div id="Réservation" class="page">
+
+    <!-- Hero plein écran avec image de fond -->
+    <div class="resa-hero">
+        <img src="assets/rideau-cirque.jpg" alt="Cirque Abandonné" class="resa-bg-img">
+        <div class="resa-overlay"></div>
+
+        <div class="resa-center">
+            <h1 class="resa-title">Ouverture de la billetterie dans :</h1>
+
+            <!-- Timer -->
+            <div class="resa-timer" id="resaTimer">
+                <div class="resa-time-box">
+                    <span class="resa-num" id="resaDays">00</span>
+                    <p class="resa-label">Jours</p>
+                </div>
+                <div class="resa-sep">:</div>
+                <div class="resa-time-box">
+                    <span class="resa-num" id="resaHours">00</span>
+                    <p class="resa-label">Heures</p>
+                </div>
+                <div class="resa-sep">:</div>
+                <div class="resa-time-box">
+                    <span class="resa-num" id="resaMinutes">00</span>
+                    <p class="resa-label">Minutes</p>
+                </div>
+                <div class="resa-sep">:</div>
+                <div class="resa-time-box">
+                    <span class="resa-num" id="resaSeconds">00</span>
+                    <p class="resa-label">Secondes</p>
+                </div>
+            </div>
+
+            <!-- Message quand timer terminé -->
+            <div class="resa-open" id="resaOpen" style="display:none;">
+                <p class="resa-open-text">🎟️ La billetterie est ouverte !</p>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSeIsw67Lfx7vHViLfdeRFhH5GFFP7KC2V8QJqMFOJjW3RK9jw/viewform" 
+                   target="_blank" class="resa-btn">
+                    Réserver ma place →
+                </a>
+            </div>
+
+            <p class="resa-date">📅 Ouverture le 14 août 2026 à 12h00</p>
+        </div>
+    </div>
+
+</div>
+<!-- FIN PAGE RÉSERVATION -->
+
+ <!-- CONTACT PAGE -->
+<div id="contact" class="page"><br><br>
+    <!-- Page Header -->
+    <section class="page-header" style="height: 40vh;">
+        <img src="assets/entrance-circus.jpg" alt="Entrée du cirque">
+        <div class="hero-overlay"></div>
+        <div class="page-header-content">
+            <h1>Contact</h1>
+            <p>Laissez-nous un message... nous finirons par le lire. <br>Si vous n'avez pas de réponse après 48h, vous pouvez refaire un nouveau formulaire !</p><br><br><br><br>
+        </div>
+    </section>
+
+    <!-- Contact Content avec Flex Layout -->
+    <section class="container" style="padding: 4rem 1.5rem;">
+        
+        <!-- Conteneur Flex : Formulaire + Image -->
+        <div style="display: flex; gap: 3rem; align-items: flex-start; flex-wrap: wrap;">
+            
+            <!-- FORMULAIRE À GAUCHE -->
+            <div style="flex: 1; min-width: 320px;">
+
+<style>
+  .contact-form {
+    max-width: 425px;
+    margin: auto;
+  }
+
+  label {
+    display: block;
+    margin-top: 30px;
+    margin-bottom: 5px;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 12px;
+    background: #000;
+    border: 1px solid red;
+    color: white;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #777;
+  }
+
+  .field-error {
+    color: red;
+    font-size: 13px;
+    margin-top: 5px;
+    display: none;
+  }
+
+  textarea {
+    min-height: 130px;
+  }
+
+  button {
+    margin-top: 20px;
+    padding: 12px 35px;
+    background: transparent;
+    border: 2px solid white;
+    color: white;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: white;
+    color: black;
+  }
+
+  .captcha {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px dashed red;
+    border-radius: 10px;
+    background: #0a0a0a;
+  }
+
+  .captcha label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  .captcha input {
+    width: auto;
+    margin-right: 10px;
+    transform: scale(1.3);
+  }
+
+  .success {
+    margin-top: 20px;
+    color: #7CFC00;
+    font-weight: bold;
+    display: none;
+  }
+
+  .error {
+    margin-top: 15px;
+    color: red;
+    display: none;
+  }
+
+  .hidden {
+    display: none;
+  }
+</style>
+
+<div class="contact-form">
+  <form
+    id="contactForm"
+    action="https://formspree.io/f/mvzqeyzp"
+    method="POST"
+  >
+
+    <label>Nom :</label>
+    <input type="text" id="nom" name="nom" placeholder="VEDETTE">
+
+    <label>Prénom * :</label>
+    <input type="text" id="prenom" name="prenom" required placeholder="Clown">
+
+    <label>E-mail * :</label>
+    <input type="email" id="email" name="email" required placeholder="exemple@email.com">
+    <div class="field-error" id="emailError">
+      Adresse email invalide.
+    </div>
+
+    <label>Téléphone * :</label>
+    <input type="tel" id="telephone" name="telephone" required placeholder="06.00.00.00.00" maxlength="14">
+    <div class="field-error" id="phoneError">
+      Numéro invalide (format attendu : 06.00.00.00.00)
+    </div>
+
+    <label>Message * :</label>
+    <textarea name="message" required placeholder="Entrer votre message ou votre question"></textarea>
+
+    <!-- Honeypot -->
+    <div class="hidden">
+      <input type="text" name="_gotcha">
+    </div>
+
+    <div class="captcha">
+      <label>
+        <input type="checkbox" id="captchaCheck">
+        ☠️ Je jure ne pas être un clown caché ... 🤡
+      </label>
+    </div>
+
+    <div class="error" id="errorMsg">
+      ⚠️ Tu dois prouver que tu es humain…
+    </div>
+
+    <button type="submit">Envoyer</button>
+  </form>
+
+  <div class="success" id="successMsg">
+    🩸 Message envoyé… nous te répondrons au plus vite ... Si vous n'avez pas de réponse après 48h, vous pouvez refaire un nouveau formulaire !
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById("contactForm");
+
+  const nameInput = document.getElementById("nom");
+  const prenomInput = document.getElementById("prenom");
+  const phoneInput = document.getElementById("telephone");
+  const emailInput = document.getElementById("email");
+
+  const phoneError = document.getElementById("phoneError");
+  const emailError = document.getElementById("emailError");
+  const captcha = document.getElementById("captchaCheck");
+
+  const successMsg = document.getElementById("successMsg");
+  const errorMsg = document.getElementById("errorMsg");
+
+  const submitBtn = form.querySelector("button[type='submit']");
+
+  /* NOM → MAJUSCULE */
+  nameInput.addEventListener("input", () => {
+    nameInput.value = nameInput.value.toUpperCase();
+  });
+
+  /* PRÉNOM → 1ère LETTRE MAJ */
+  prenomInput.addEventListener("input", () => {
+    let value = prenomInput.value.toLowerCase();
+    prenomInput.value =
+      value.charAt(0).toUpperCase() + value.slice(1);
+  });
+
+  /* TÉLÉPHONE → 06.00.00.00.00 */
+  phoneInput.addEventListener("input", () => {
+    let digits = phoneInput.value.replace(/\D/g, "").slice(0, 10);
+    let formatted = digits.match(/.{1,2}/g)?.join(".") || "";
+    phoneInput.value = formatted;
+
+    phoneError.style.display =
+      formatted.length === 14 ? "none" : "block";
+  });
+
+  /* EMAIL → VALIDATION */
+  emailInput.addEventListener("blur", () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
+    emailError.style.display =
+      emailRegex.test(emailInput.value) ? "none" : "block";
+  });
+
+  /* ENVOI FORMULAIRE */
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    submitBtn.style.display = "none";
+
+    let valid = true;
+
+    if (phoneInput.value.length !== 14) {
+      phoneError.style.display = "block";
+      valid = false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
+    if (!emailRegex.test(emailInput.value)) {
+      emailError.style.display = "block";
+      valid = false;
+    }
+
+    if (!captcha.checked) {
+      errorMsg.style.display = "block";
+      valid = false;
+    } else {
+      errorMsg.style.display = "none";
+    }
+
+    if (!valid) {
+      submitBtn.style.display = "inline-block";
+      return;
+    }
+
+    fetch(form.action, {
+      method: "POST",
+      body: new FormData(form),
+      headers: { Accept: "application/json" }
+    })
+    .then(response => {
+      if (response.ok) {
+        form.reset();
+        successMsg.style.display = "block";
+        phoneError.style.display = "none";
+        emailError.style.display = "none";
+
+        setTimeout(() => {
+          submitBtn.style.display = "inline-block";
+        }, 1000);
+      } else {
+        errorMsg.textContent = "Une erreur obscure est survenue…";
+        errorMsg.style.display = "block";
+        submitBtn.style.display = "inline-block";
+      }
+    })
+    .catch(() => {
+      errorMsg.textContent = "Impossible de contacter l'au-delà.";
+      errorMsg.style.display = "block";
+      submitBtn.style.display = "inline-block";
+    });
+  });
+  // ========== TIMER PAGE RÉSERVATION ==========
+const resaTarget = new Date("August 14, 2026 12:00:00").getTime();
+
+function updateResaTimer() {
+    const now = new Date().getTime();
+    const diff = resaTarget - now;
+
+    if (diff <= 0) {
+        // Timer terminé : afficher le bouton de réservation
+        document.getElementById('resaTimer').style.display = 'none';
+        document.getElementById('resaOpen').style.display = 'block';
+        document.querySelector('.resa-date').style.display = 'none';
+        return;
+    }
+
+    const days    = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours   = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    function setVal(id, val) {
+        const el = document.getElementById(id);
+        const formatted = String(val).padStart(2, '0');
+        if (el && el.textContent !== formatted) {
+            el.classList.add('flip');
+            setTimeout(() => {
+                el.textContent = formatted;
+                el.classList.remove('flip');
+            }, 200);
+        }
+    }
+
+    setVal('resaDays',    days);
+    setVal('resaHours',   hours);
+    setVal('resaMinutes', minutes);
+    setVal('resaSeconds', seconds);
+}
+
+setInterval(updateResaTimer, 1000);
+updateResaTimer();
+</script>
+
+            </div>
+            
+            <!-- IMAGE À DROITE -->
+            <div style="flex: 1; min-width: 320px;">
+                <div style="position: relative; border-radius: 8px; overflow: hidden;
+                            border: 3px solid var(--primary);
+                            box-shadow: 0 0 30px hsla(0, 80%, 30%, 0.5);">
+                    <img src="assets/clown.jpg" alt="Clown effrayant" 
+                         style="width: 100%; height: auto; display: block; 
+                                object-fit: cover; filter: brightness(0.85) contrast(1.15);">
+                </div>
+            </div>
+            
+        </div>
+
+        <!-- Contact Info -->
+        <div class="contact-info-grid" style="margin-top: 4rem;">
+            <div class="contact-info-card">
+                <span class="contact-info-icon">✉️</span>
+                <p class="contact-info-label">Email</p>
+                <p class="contact-info-value">
+                    <a class="footer-link"
+                       href="https://mail.google.com/mail/?view=cm&fs=1&to=maisondhorreur33@gmail.com"
+                       target="_blank">
+                        <span class="__cf_email__" data-cfemail="cda0aca4bea2a3a9a5a2bfbfa8b8bffefe8daaa0aca4a1e3aea2a0">maisondhorreur33@gmail.com</span>
+                    </a>
+                </p>
+            </div>
+            <div class="contact-info-card">
+                <span class="contact-info-icon">📞</span>
+                <p class="contact-info-label">Téléphone</p>
+                <p class="contact-info-value">06 . 04 . 14 . 80 . 19</p>
+            </div>
+            <div class="contact-info-card">
+                <span class="contact-info-icon">📍</span>
+                <p class="contact-info-label">Adresse</p>
+                <p class="contact-info-value">Hall polyvalent , Bazas <br>2 VC Ausone, 33430 Bazas</p>
+            </div>
+        </div>
+    </section>
+</div>
+<!-- FIN PAGE CONTACT -->
+
+<!-- Footer -->
+<!-- ===== FOOTER COMPLET ===== -->
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+.footer {
+  background: #0b0b0b;
+  color: #d0d0d0;
+  padding: 60px 20px 30px;
+  font-family: Arial, sans-serif;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 40px;
+  text-align: center;
+}
+
+.footer-title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #ff0000;
+}
+
+.footer-subtitle {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  color: #ffffff;
+}
+
+.footer-text {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.footer-small {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 10px;
+}
+
+.footer-link {
+  color: #2e3fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  font-size: 30px;
+}
+
+.social-icons a {
+  color: #cccccc;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #ff2e2e;
+  transform: scale(1.2);
+}
+
+.footer-copy {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #777;
+}
+
+</style>
+
+<footer class="footer">
+  <div class="footer-container">
+
+    <div>
+      <p class="footer-title">Le Cirque Abandonné</p>
+      <p class="footer-text">
+        Événement d'horreur immersif Halloween organisé par le Handball Club Bazadais.
+      </p>
+      <p class="footer-small">Âmes sensibles, s'abstenir.</p>
+    </div>
+
+    <div>
+      <p class="footer-subtitle">Réseaux sociaux</p>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/le_cirque_abandonne/" target="_blank" title="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://www.tiktok.com/@cirque.abandonne" target="_blank" title="TikTok">
+          <i class="fab fa-tiktok"></i>
+        </a>
+        <a href="https://discord.com/invite/UrEKfuuXrZ" target="_blank" title="Discord">
+          <i class="fab fa-discord"></i>
+        </a>
+        <a href="https://g.page/r/CRKgIjXNvqyXEBM/review" target="_blank" title="Avis Google">
+           <i class="fas fa-map-marker-alt"></i>
+          <i class="fab fa-avis"></i>
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <p class="footer-subtitle">Contact</p>
+      <a class="footer-link"
+         href="https://mail.google.com/mail/?view=cm&fs=1&to=maisondhorreur33@gmail.com"
+         target="_blank" title="Email">
+        📧 maisondhorreur33@gmail.com
+          </a>
+        <p class="footer-text">📞 Téléphone : 06 . 04 . 14 . 80 . 19</p>
+      
+    </div>
+
+  </div>
+
+  <p class="footer-copy">
+    <strong>© 2026 – Handball Club Bazadais. Tous droits réservés.</strong>
+  </p>
+</footer>
+<!-- ===== FIN FOOTER ===== -->
+
+
+
+    <!-- JavaScript -->
+    <script>
+        // Navigation
+        const pages = document.querySelectorAll('.page');
+        const navLinks = document.querySelectorAll('[data-page]');
+        const mobileToggle = document.getElementById('mobileToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const bloodTransition = document.getElementById('bloodTransition');
+        const creepyEyes = document.getElementById('creepyEyes');
+
+        // Random creepy eyes appearance
+        function showCreepyEyes() {
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 100);
+            creepyEyes.style.left = x + 'px';
+            creepyEyes.style.top = y + 'px';
+            creepyEyes.classList.add('active');
+            
+            setTimeout(() => {
+                creepyEyes.classList.remove('active');
+            }, 4000);
+        }
+
+        // Trigger eyes randomly
+        setInterval(() => {
+            if (Math.random() > 0.7) {
+                showCreepyEyes();
+            }
+        }, 15000);
+
+        // Random glitch effect
+        function addGlitchEffect(element) {
+            element.classList.add('glitch');
+            setTimeout(() => {
+                element.classList.remove('glitch');
+            }, 300);
+        }
+
+        // Random shake effect
+        function addShakeEffect(element) {
+            element.classList.add('shake');
+            setTimeout(() => {
+                element.classList.remove('shake');
+            }, 500);
+        }
+
+        // Blood transition effect with splatters
+        function triggerBloodTransition() {
+            bloodTransition.classList.add('active');
+            
+            // Create blood splatters
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    createBloodSplatterParticle();
+                }, i * 50);
+            }
+            
+            setTimeout(() => {
+                bloodTransition.classList.remove('active');
+            }, 1500);
+        }
+
+        function createBloodSplatterParticle() {
+            const splatter = document.createElement('div');
+            splatter.className = 'blood-splatter';
+            
+            // Random position on the edges
+            const side = Math.random() > 0.5 ? 'left' : 'right';
+            const startX = side === 'left' ? 0 : window.innerWidth;
+            const startY = Math.random() * window.innerHeight;
+            
+            splatter.style.left = startX + 'px';
+            splatter.style.top = startY + 'px';
+            
+            // Random trajectory
+            const tx = (Math.random() - 0.5) * 200;
+            const ty = (Math.random() - 0.5) * 200;
+            splatter.style.setProperty('--tx', tx + 'px');
+            splatter.style.setProperty('--ty', ty + 'px');
+            
+            document.body.appendChild(splatter);
+            
+            // Activate animation
+            setTimeout(() => {
+                splatter.classList.add('active');
+            }, 10);
+            
+            // Remove after animation
+            setTimeout(() => {
+                splatter.remove();
+            }, 1000);
+        }
+
+        function showPage(pageName) {
+            // Trigger blood transition
+            triggerBloodTransition();
+
+            // Random scary sound effect (visual only)
+            if (Math.random() > 0.5) {
+                setTimeout(() => {
+                    addShakeEffect(document.body);
+                }, 500);
+            }
+
+            // Wait for blood wave
+            setTimeout(() => {
+                // Hide all pages with exit animation
+                pages.forEach(page => {
+                    if (page.classList.contains('active')) {
+                        page.classList.add('page-exit');
+                        setTimeout(() => {
+                            page.classList.remove('active', 'page-exit');
+                        }, 300);
+                    }
+                });
+                
+                // Show selected page with enter animation
+                const selectedPage = document.getElementById(pageName);
+                if (selectedPage) {
+                    setTimeout(() => {
+                        selectedPage.classList.add('active', 'page-enter');
+                        setTimeout(() => {
+                            selectedPage.classList.remove('page-enter');
+                        }, 800);
+                    }, 300);
+                }
+
+                // Update active nav links
+                navLinks.forEach(link => {
+                    if (link.dataset.page === pageName) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+
+                // Close mobile menu
+                mobileMenu.classList.remove('active');
+
+                // Scroll to top
+                window.scrollTo(0, 0);
+            }, 300);
+        }
+
+        // Add click listeners to all nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                showPage(link.dataset.page);
+                
+                // Random glitch on logo
+                if (Math.random() > 0.6) {
+                    const logo = document.querySelector('.nav-logo');
+                    addGlitchEffect(logo);
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        mobileToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            mobileToggle.textContent = mobileMenu.classList.contains('active') ? '✕' : '☰';
+        });
+
+        // Add hover effects to cards
+        document.querySelectorAll('.horror-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                if (Math.random() > 0.7) {
+                    addGlitchEffect(card);
+                }
+            });
+        });
+
+        // Add pulse effect to buttons
+        document.querySelectorAll('.hero-btn, .form-submit').forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                btn.classList.add('pulse-horror');
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.classList.remove('pulse-horror');
+            });
+        });
+
+        // FAQ Accordions with effects
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isActive = question.classList.contains('active');
+
+                // Add shake effect
+                addShakeEffect(question);
+
+                // Close all FAQs
+                faqQuestions.forEach(q => {
+                    q.classList.remove('active');
+                    q.nextElementSibling.classList.remove('active');
+                });
+
+                // Toggle current FAQ
+                if (!isActive) {
+                    question.classList.add('active');
+                    answer.classList.add('active');
+                    
+                    // Random glitch
+                    if (Math.random() > 0.5) {
+                        setTimeout(() => addGlitchEffect(answer), 200);
+                    }
+                }
+            });
+        });
+
+        // Contact Form
+        const contactForm = document.getElementById('contactForm');
+        const contactFormContainer = document.getElementById('contactFormContainer');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Add shake before submit
+            addShakeEffect(contactForm);
+            
+            setTimeout(() => {
+                // Show success message
+                contactFormContainer.innerHTML = `
+                    <div class="success-message">
+                        <p class="success-title">Message reçu.</p>
+                        <p class="success-text">
+                            Nous avons bien reçu votre message. Quelqu'un — ou quelque chose — vous répondra bientôt.
+                        </p>
+                    </div>
+                `;
+                
+                // Add glitch to success message
+                setTimeout(() => {
+                    const successMsg = document.querySelector('.success-message');
+                    addGlitchEffect(successMsg);
+                }, 500);
+            }, 500);
+        });
+
+        // Random ambient effects
+        setInterval(() => {
+            // Random shake on random element
+            if (Math.random() > 0.95) {
+                const elements = document.querySelectorAll('h1, h2, .horror-card, .info-card');
+                const randomElement = elements[Math.floor(Math.random() * elements.length)];
+                if (randomElement) {
+                    addShakeEffect(randomElement);
+                }
+            }
+
+            // Random glitch on nav
+            if (Math.random() > 0.98) {
+                const nav = document.querySelector('nav');
+                addGlitchEffect(nav);
+            }
+        }, 3000);
+
+        // Mouse move parallax effect on hero
+        document.addEventListener('mousemove', (e) => {
+            const heroImages = document.querySelectorAll('.hero img, .page-header img');
+            heroImages.forEach(img => {
+                const speed = 0.05;
+                const x = (window.innerWidth - e.pageX * speed) / 100;
+                const y = (window.innerHeight - e.pageY * speed) / 100;
+                img.style.transform = `translateX(${x}px) translateY(${y}px)`;
+            });
+        });
+
+        // Flickering text effect
+        setInterval(() => {
+            const flickerElements = document.querySelectorAll('.nav-logo, .section-title, .page-header h1');
+            flickerElements.forEach(el => {
+                if (Math.random() > 0.9) {
+                    el.style.opacity = '0.5';
+                    setTimeout(() => {
+                        el.style.opacity = '1';
+                    }, 50);
+                }
+            });
+        }, 2000);
+
+        // Card entrance animations on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+// Track which elements have already been animated
+const animatedElements = new Set();
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        // Only animate if element hasn't been animated yet
+        if (entry.isIntersecting && !animatedElements.has(entry.target)) {
+            entry.target.style.animationPlayState = 'running';
+            
+            // Add random entrance animation
+            const animations = ['slideInFromLeft', 'slideInFromRight', 'scaleIn', 'fadeInUp'];
+            const randomAnim = animations[Math.floor(Math.random() * animations.length)];
+            entry.target.style.animation = `${randomAnim} 0.8s ease-out forwards`;
+            
+            // Mark this element as animated
+            animatedElements.add(entry.target);
+            
+            // Stop observing this element since it's been animated
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+// Observe all cards
+document.querySelectorAll('.horror-card, .info-card, .faq-item').forEach(card => {
+    observer.observe(card);
+});
+
+        // Add blood splatter effect on certain clicks
+        document.addEventListener('click', (e) => {
+            if (Math.random() > 0.85 && e.target.tagName !== 'A' && e.target.tagName !== 'BUTTON') {
+                createBloodSplatter(e.pageX, e.pageY);
+            }
+        });
+
+        function createBloodSplatter(x, y) {
+            const splatter = document.createElement('div');
+            splatter.style.position = 'absolute';
+            splatter.style.left = x + 'px';
+            splatter.style.top = y + 'px';
+            splatter.style.width = '20px';
+            splatter.style.height = '20px';
+            splatter.style.background = 'radial-gradient(circle, hsl(0, 80%, 40%) 0%, transparent 70%)';
+            splatter.style.borderRadius = '50%';
+            splatter.style.pointerEvents = 'none';
+            splatter.style.zIndex = '100';
+            splatter.style.animation = 'fadeOut 2s forwards';
+            document.body.appendChild(splatter);
+            
+            setTimeout(() => {
+                splatter.remove();
+            }, 2000);
+        }
+
+        // Screen shake on scroll sometimes
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (Math.abs(scrollTop - lastScrollTop) > 200 && Math.random() > 0.95) {
+                addShakeEffect(document.body);
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // Initial page load effects
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                showCreepyEyes();
+            }, 3000);
+        });
+        // ========== CARTES FLIP (Infos Pratiques) ==========
+const flipCards = document.querySelectorAll('.flip-card');
+
+flipCards.forEach(card => {
+    card.addEventListener('click', () => {
+        // Fermer les autres cartes
+        flipCards.forEach(other => {
+            if (other !== card) {
+                other.classList.remove('clicked');
+            }
+        });
+        
+        // Toggle carte actuelle
+        card.classList.toggle('clicked');
+    });
+});
+
+// ========== BANDEAU DEVENIR ACTEUR - Navigation ==========
+const actorBanner = document.getElementById('actorBanner');
+if (actorBanner) {
+    actorBanner.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Aller à la page Infos Pratiques
+        showPage('infos');
+        
+        // Attendre que la page soit complètement chargée et visible
+        setTimeout(() => {
+            // Trouver la dernière carte (Devenir acteur)
+            const actorCard = document.querySelector('#infos .flip-card:last-child');
+            
+            if (actorCard) {
+                // Scroller vers la carte
+                actorCard.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center' 
+                });
+                
+                // Ouvrir automatiquement la carte après le scroll
+                setTimeout(() => {
+                    actorCard.classList.add('clicked');
+                }, 1000);
+            }
+        }, 1000); // Augmenté à 1 seconde pour laisser le temps à la page de se charger
+    });
+}
+    </script>
+</body>
+</html>
