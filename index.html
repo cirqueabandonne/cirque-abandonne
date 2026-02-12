@@ -1427,28 +1427,33 @@
 #countdown {
   display: flex;
   justify-content: center;
-  gap: 30px;
+  gap: 20px;  /* Réduit de 30px à 20px */
   font-family: Arial, sans-serif;
   margin-top: -60px;
+  flex-wrap: wrap;  /* Permet de passer à la ligne si nécessaire */
+  padding: 0 10px;  /* Ajoute un peu d'espace sur les côtés */
 }
 
 .time-box {
   text-align: center;
+  flex-shrink: 0;  /* Empêche les blocs de rétrécir */
 }
 
 .time-box p {
-  color: white; /* Texte blanc */
+  color: white;
+  font-size: 14px;  /* Taille du texte "Jours", "Heures", etc. */
+  margin-top: 5px;
 }
 
 .num {
-  font-size: 20px;
+  font-size: 28px;  /* Réduit de 30px à 28px */
   font-weight: bold;
   display: inline-block;
-  padding: 5px 5px;
+  padding: 10px 15px;  /* Ajusté pour plus de compacité */
   background: rgb(255, 145, 0);
   color: black;
   border-radius: 100px;
-  min-width: 80px;
+  min-width: 70px;  /* Réduit de 80px à 70px */
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
@@ -1456,6 +1461,24 @@
 .slide {
   transform: translateY(-20px);
   opacity: 0;
+}
+
+/* VERSION MOBILE : Encore plus compact */
+@media (max-width: 600px) {
+  #countdown {
+    gap: 12px;  /* Espace encore plus réduit sur mobile */
+    padding: 0 5px;
+  }
+  
+  .num {
+    font-size: 24px;  /* Police plus petite */
+    padding: 8px 12px;  /* Padding réduit */
+    min-width: 60px;  /* Largeur minimale réduite */
+  }
+  
+  .time-box p {
+    font-size: 12px;  /* Texte plus petit */
+  }
 }
 </style>
 
