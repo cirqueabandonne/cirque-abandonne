@@ -3330,7 +3330,7 @@ mobileToggle.textContent = '☰';  // Reset l'icône du bouton;
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
-                showPage(link.dataset.page);
+                showPage(link.dataset.page); mobileToggle.textContent = '☰';
                 
                 // Random glitch on logo
                 if (Math.random() > 0.6) {
