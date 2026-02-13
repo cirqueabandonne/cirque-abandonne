@@ -57,109 +57,152 @@
         }
 
         /* Navbar */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 50;
-            background: hsla(0, 0%, 5%, 0.9);
-            backdrop-filter: blur(12px);
-            border-bottom: 2px solid var(--primary);
-            box-shadow: 0 2px 15px hsla(0, 80%, 30%, 0.4);
-        }
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background: hsla(0, 0%, 5%, 0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 2px solid var(--primary);
+    box-shadow: 0 2px 15px hsla(0, 80%, 30%, 0.4);
+}
 
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
-        .nav-logo {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            color: var(--primary);
-            text-decoration: none;
-            letter-spacing: 0.1em;
-            animation: flicker 4s infinite;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 60vw;
-        }
+.nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--primary);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    animation: flicker 4s infinite;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 60vw;
+}
 
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
 
-        .nav-links a {
-            color: hsla(0, 10%, 85%, 0.7);
-            text-decoration: none;
-            font-size: 1.125rem;
-            transition: color 0.3s;
-            white-space: nowrap;
-        }
+.nav-links a {
+    color: hsla(0, 10%, 85%, 0.7);
+    text-decoration: none;
+    font-size: 1.125rem;
+    transition: color 0.3s;
+    white-space: nowrap;
+}
 
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--primary);
-        }
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--primary);
+}
 
-        .mobile-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--foreground);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
+.mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--foreground);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
 
-        .mobile-menu {
-            display: none;
-            background: hsla(0, 0%, 5%, 0.95);
-            backdrop-filter: blur(12px);
-            border-top: 1px solid var(--border);
-            padding: 1rem 1.5rem;
-        }
+.mobile-menu {
+    display: none;
+    background: hsla(0, 0%, 5%, 0.95);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border);
+    padding: 1rem 1.5rem;
+}
 
-        .mobile-menu.active {
-            display: block;
-        }
+.mobile-menu.active {
+    display: block;
+}
 
-        .mobile-menu a {
-            display: block;
-            padding: 0.75rem 0;
-            color: hsla(0, 10%, 85%, 0.7);
-            text-decoration: none;
-            font-size: 1.125rem;
-            transition: color 0.3s;
-        }
+.mobile-menu a {
+    display: block;
+    padding: 0.75rem 0;
+    color: hsla(0, 10%, 85%, 0.7);
+    text-decoration: none;
+    font-size: 1.125rem;
+    transition: color 0.3s;
+}
 
-        .mobile-menu a:hover,
-        .mobile-menu a.active {
-            color: var(--primary);
-        }
+.mobile-menu a:hover,
+.mobile-menu a.active {
+    color: var(--primary);
+}
 
-        /* ===== GRAND ÉCRAN (1200px+) ===== */
-        @media (min-width: 1200px) {
-            .nav-container { padding: 1rem 2rem; }
-            .nav-logo { font-size: 1.6rem; }
-            .nav-links { gap: 2.5rem; }
-            .nav-links a { font-size: 1.2rem; }
-        }
+/* ===== GRAND ÉCRAN (1200px+) ===== */
+@media (min-width: 1200px) {
+    .nav-container {
+        padding: 1rem 2rem;
+    }
+    .nav-logo {
+        font-size: 1.6rem;
+    }
+    .nav-links {
+        gap: 2.5rem;
+    }
+    .nav-links a {
+        font-size: 1.2rem;
+    }
+}
 
-        /* ===== TABLETTE (769px - 1100px) ===== */
-        @media (max-width: 1100px) and (min-width: 769px) {
-            .nav-container { padding: 0.8rem 1rem; }
-            .nav-logo { font-size: 1.2rem; }
-            .nav-links { gap: 1rem; }
-            .nav-links a { font-size: 0.95rem; }
-        }
+/* ===== TABLETTE (768px - 1100px) ===== */
+@media (max-width: 1100px) and (min-width: 769px) {
+    .nav-container {
+        padding: 0.8rem 1rem;
+    }
+    .nav-logo {
+        font-size: 1.2rem;
+    }
+    .nav-links {
+        gap: 1rem;
+    }
+    .nav-links a {
+        font-size: 0.95rem;
+    }
+}
+
+/* ===== MOBILE (max 768px) ===== */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    .mobile-toggle {
+        display: block;
+    }
+    .nav-container {
+        padding: 0.5rem 0.8rem;
+    }
+    .nav-logo {
+        font-size: 1rem;
+        max-width: 70vw;
+    }
+}
+
+/* ===== TRÈS PETIT MOBILE (max 380px) ===== */
+@media (max-width: 380px) {
+    .nav-container {
+        padding: 0.4rem 0.6rem;
+    }
+    .nav-logo {
+        font-size: 0.85rem;
+    }
+}
 
         /* Main content */
         main {
@@ -1037,25 +1080,40 @@
             .nav-links {
                 display: none;
             }
+
+            @media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .mobile-toggle {
+        display: block;
+    }
+
+    /* ← AJOUTE CES LIGNES ICI ↓ */
+    .nav-container {
+        padding: 0.5rem 0.8rem;
+    }
+
+    .nav-logo {
+        font-size: 1rem;
+    }
+}
+
+            .nav-logo {
+     font-size: 1rem;
+}
+.nav-container {
+    padding: 0.5rem 0.8rem;
+}
             .mobile-toggle {
                 display: block;
             }
-            .nav-container {
-                padding: 0.5rem 0.8rem;
-            }
-            .nav-logo {
-                font-size: 1rem;
-            }
+
             .cards-grid,
             .info-grid {
                 grid-template-columns: 1fr;
             }
-        }
-
-        /* ===== TRÈS PETIT MOBILE (max 380px) ===== */
-        @media (max-width: 380px) {
-            .nav-container { padding: 0.4rem 0.6rem; }
-            .nav-logo { font-size: 0.85rem; }
         }
 
         /* Page visibility */
@@ -1773,7 +1831,7 @@ updateCountdown();
                     <div class="flip-back">
                         <p>📱 Instagram : <strong>le_cirque_abandonne</strong><br><br>
                         📞 Tel. : <strong>06.04.14.80.19</strong><br><br>
-                        📩 Mail : <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a7cac6ced4c8c9c3cfc8d5d5c2d2d59494e7c0cac6cecb89c4c8ca">[email&#160;protected]</a></strong><br><br>
+                        📩 Mail : <strong>maisondhorreur33@gmail.com</strong><br><br>
                         Infos disponibles sur place le jour j.</p>
                     </div>
                 </div>
@@ -2213,7 +2271,7 @@ html {
     }
 </style>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
     // Duplique automatiquement pour une boucle parfaite
     const track = document.getElementById("track");
     if (track) {
@@ -3062,7 +3120,7 @@ updateResaTimer();
                     <a class="footer-link"
                        href="https://mail.google.com/mail/?view=cm&fs=1&to=maisondhorreur33@gmail.com"
                        target="_blank">
-                        <span class="__cf_email__" data-cfemail="cda0aca4bea2a3a9a5a2bfbfa8b8bffefe8daaa0aca4a1e3aea2a0"><span class="__cf_email__" data-cfemail="a3cec2cad0cccdc7cbccd1d1c6d6d19090e3c4cec2cacf8dc0ccce">[email&#160;protected]</span></span>
+                        <span class="__cf_email__" data-cfemail="cda0aca4bea2a3a9a5a2bfbfa8b8bffefe8daaa0aca4a1e3aea2a0">maisondhorreur33@gmail.com</span>
                     </a>
                 </p>
             </div>
@@ -3197,7 +3255,7 @@ updateResaTimer();
       <a class="footer-link"
          href="https://mail.google.com/mail/?view=cm&fs=1&to=maisondhorreur33@gmail.com"
          target="_blank" title="Email">
-        📧 <span class="__cf_email__" data-cfemail="670a060e140809030f081515021215545427000a060e0b4904080a">[email&#160;protected]</span>
+        📧 maisondhorreur33@gmail.com
           </a>
         <p class="footer-text">📞 Téléphone : 06 . 04 . 14 . 80 . 19</p>
       
@@ -3214,7 +3272,7 @@ updateResaTimer();
 
 
     <!-- JavaScript -->
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         // Navigation
         const pages = document.querySelectorAll('.page');
         const navLinks = document.querySelectorAll('[data-page]');
@@ -3606,4 +3664,21 @@ if (actorBanner) {
             // Trouver la dernière carte (Devenir acteur)
             const actorCard = document.querySelector('#infos .flip-card:last-child');
             
-            if
+            if (actorCard) {
+                // Scroller vers la carte
+                actorCard.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center' 
+                });
+                
+                // Ouvrir automatiquement la carte après le scroll
+                setTimeout(() => {
+                    actorCard.classList.add('clicked');
+                }, 1000);
+            }
+        }, 1000); // Augmenté à 1 seconde pour laisser le temps à la page de se charger
+    });
+}
+    </script>
+</body>
+</html>
