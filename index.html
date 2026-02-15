@@ -1502,7 +1502,7 @@ nav {
                 <div class="hero-content">
                     <h1>Le Cirque Abandonné</h1>
                     <p>« Entrez sous le chapiteau... si vous l'osez. »</p>
-                    <a href="#" class="hero-btn" data-page="Réservation">Réservez votre billet ...</a><br><br><br><br>
+                    <a href="#" class="brush-btn" data-page="Réservation">Réservez votre billet</a><br><br><br><br>
         <div class="resa-center">
             <h2 class="resa-title"><u>Les rideaux s'ouvrent dans :</u></h2>
                         </div>
@@ -1569,6 +1569,66 @@ nav {
   .time-box p {
     font-size: 12px;  /* Texte plus petit */
   }
+}
+
+    /* ========== BOUTON COUP DE PINCEAU ========== */
+.brush-btn {
+    position: relative;
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 3vw, 1.25rem);
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    cursor: pointer;
+    z-index: 1;
+    transition: color 0.3s ease;
+}
+
+.brush-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--primary);
+    z-index: -1;
+    transform: skewX(-3deg) skewY(-1deg);
+    clip-path: polygon(
+        0% 15%,
+        2% 5%,
+        5% 0%,
+        10% 8%,
+        20% 2%,
+        35% 6%,
+        50% 0%,
+        65% 4%,
+        80% 1%,
+        90% 6%,
+        95% 2%,
+        100% 10%,
+        98% 85%,
+        96% 95%,
+        90% 100%,
+        75% 93%,
+        60% 98%,
+        45% 94%,
+        30% 100%,
+        15% 95%,
+        5% 98%,
+        2% 90%
+    );
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.brush-btn:hover::before {
+    transform: skewX(-3deg) skewY(-1deg) scale(1.05);
+    filter: brightness(1.2);
+}
+
+.brush-btn:hover {
+    color: #fff;
 }
 </style>
 
@@ -2107,15 +2167,9 @@ html {
         
         <!-- Bouton Laisser un avis -->
             <div class="card-content" style="padding: 2.5rem; text-align: center;">
-                <a href="https://g.page/r/CRKgIjXNvqyXEBM/review" target="_blank" 
-                   style="display: inline-block; padding: 1rem 2.5rem; 
-                          background: var(--primary); color: white; 
-                          text-decoration: none; border-radius: 8px; 
-                          font-family: var(--font-display); font-size: 1.5rem;
-                          transition: all 0.3s ease;
-                          box-shadow: 0 0 20px hsla(0, 80%, 30%, 0.4);">
-                    📝 Laisser votre avis
-                </a>
+                <a href="https://g.page/r/CRKgIjXNvqyXEBM/review" target="_blank" class="brush-btn">
+    📝 Laisser votre avis
+</a>
         </div>
         
         <!-- Titre Avis -->
