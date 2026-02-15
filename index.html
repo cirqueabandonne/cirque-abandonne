@@ -246,7 +246,7 @@ nav {
         }
 
         .hero h1 {
-            font-size: clamp(2rem, 8vw, 6rem);
+            font-size: clamp(3rem, 10vw, 6rem);
             color: var(--primary);
             animation: flicker 4s infinite;
             margin-bottom: 1.5rem;
@@ -1442,8 +1442,6 @@ nav {
     </style>
 </head>
 <body>
-
-
     <!-- Blood Transition -->
     <div class="blood-transition" id="bloodTransition"></div>
 
@@ -1522,7 +1520,7 @@ nav {
   gap: 20px;  /* Réduit de 30px à 20px */
   font-family: Arial, sans-serif;
   margin-top: -60px;
-  flex-wrap: nowrap;  /* Permet de passer à la ligne si nécessaire */
+  flex-wrap: wrap;  /* Permet de passer à la ligne si nécessaire */
   padding: 0 10px;  /* Ajoute un peu d'espace sur les côtés */
 }
 
@@ -1545,7 +1543,7 @@ nav {
   background: rgb(255, 145, 0);
   color: black;
   border-radius: 100px;
-  min-width: 55px;  /* Réduit de 80px à 70px */
+  min-width: 65px;  /* Réduit de 80px à 70px */
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
@@ -1558,7 +1556,7 @@ nav {
 /* VERSION MOBILE : Encore plus compact */
 @media (max-width: 600px) {
   #countdown {
-    gap: 10px;  /* Espace encore plus réduit sur mobile */
+    gap: 12px;  /* Espace encore plus réduit sur mobile */
     padding: 0 5px;
   }
   
@@ -1572,6 +1570,7 @@ nav {
     font-size: 12px;  /* Texte plus petit */
   }
 }
+</style>
 
 <script>
 // Date de l'événement
