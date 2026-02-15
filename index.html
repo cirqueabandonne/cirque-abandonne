@@ -1502,9 +1502,7 @@ nav {
                 <div class="hero-content">
                     <h1>Le Cirque Abandonné</h1>
                     <p>« Entrez sous le chapiteau... si vous l'osez. »</p>
-                    <div style="text-align: center;">
-    <a href="#" class="brush-btn" data-page="Réservation">Réservez votre billet</a>
-</div><br><br><br><br>
+                    <a href="#" class="hero-btn" data-page="Réservation">Réservez votre billet ...</a><br><br><br><br>
         <div class="resa-center">
             <h2 class="resa-title"><u>Les rideaux s'ouvrent dans :</u></h2>
                         </div>
@@ -1571,37 +1569,6 @@ nav {
   .time-box p {
     font-size: 12px;  /* Texte plus petit */
   }
-}
-
-   /* ========== BOUTON PINCEAU ========== */
-.brush-btn {
-    position: relative;
-    display: inline-block;
-    padding: 4rem 4rem;
-    background-image: url('assets/brush.png');
-    background-size: 110% 110%;
-    background-repeat: no-repeat;
-    background-color: transparent;
-    border: none;
-    color: #fff;
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    letter-spacing: 0.15em;
-    text-decoration: none;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: transform 0.3s ease, filter 0.3s ease;
-    text-align: center;
-    white-space: nowrap;
-    line-height: 1;
-    vertical-align: middle;
-}
-
-.brush-btn:hover {
-    transform: scale(1.05);
-    filter: brightness(1.2);
-    color: #fff;
-    text-decoration: none;
 }
 </style>
 
@@ -2140,11 +2107,15 @@ html {
         
         <!-- Bouton Laisser un avis -->
             <div class="card-content" style="padding: 2.5rem; text-align: center;">
-                <div style="text-align: center;">
-                <a href="https://g.page/r/CRKgIjXNvqyXEBM/review" target="_blank" class="brush-btn">
-    📝 Laisser votre avis
-                    </div>
-</a>
+                <a href="https://g.page/r/CRKgIjXNvqyXEBM/review" target="_blank" 
+                   style="display: inline-block; padding: 1rem 2.5rem; 
+                          background: var(--primary); color: white; 
+                          text-decoration: none; border-radius: 8px; 
+                          font-family: var(--font-display); font-size: 1.5rem;
+                          transition: all 0.3s ease;
+                          box-shadow: 0 0 20px hsla(0, 80%, 30%, 0.4);">
+                    📝 Laisser votre avis
+                </a>
         </div>
         
         <!-- Titre Avis -->
