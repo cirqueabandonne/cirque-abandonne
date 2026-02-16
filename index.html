@@ -1502,7 +1502,7 @@ nav {
                 <div class="hero-content">
                     <h1>Le Cirque Abandonné</h1>
                     <p>« Entrez sous le chapiteau... si vous l'osez. »</p>
-                    <a href="#" class="hero-btn" data-page="Réservation">Réservez votre billet ...</a><br><br><br><br>
+                    <div style="text-align:center;"><a href="#" class="brush-btn" data-page="Réservation">Réservez votre billet</a></div><br><br><br><br>
         <div class="resa-center">
             <h2 class="resa-title"><u>Les rideaux s'ouvrent dans :</u></h2>
                         </div>
@@ -1570,8 +1570,37 @@ nav {
     font-size: 12px;  /* Texte plus petit */
   }
 }
+
+    /* Bouton pinceau */
+    .brush-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('assets/brush.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    padding: 2.5rem 3rem 3.2rem 6rem;
+    color: #ffffff;
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    letter-spacing: 0.2em;
+    text-decoration: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+.brush-btn:hover {
+    transform: scale(1.06);
+    filter: brightness(1.15);
+    color: #ffffff;
+    text-decoration: none;
+}
 </style>
 
+                    
 <script>
 // Date de l'événement
 const eventDate = new Date("October 31, 2026 17:30:00").getTime();
@@ -2107,15 +2136,7 @@ html {
         
         <!-- Bouton Laisser un avis -->
             <div class="card-content" style="padding: 2.5rem; text-align: center;">
-                <a href="https://g.page/r/CRKgIjXNvqyXEBM/review" target="_blank" 
-                   style="display: inline-block; padding: 1rem 2.5rem; 
-                          background: var(--primary); color: white; 
-                          text-decoration: none; border-radius: 8px; 
-                          font-family: var(--font-display); font-size: 1.5rem;
-                          transition: all 0.3s ease;
-                          box-shadow: 0 0 20px hsla(0, 80%, 30%, 0.4);">
-                    📝 Laisser votre avis
-                </a>
+                <a href="https://g.page/r/CRKgIjXNvqyXEBM/review" target="_blank" class="brush-btn">Laisser votre avis</a>
         </div>
         
         <!-- Titre Avis -->
