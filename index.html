@@ -1502,7 +1502,9 @@ nav {
                 <div class="hero-content">
                     <h1>Le Cirque Abandonné</h1>
                     <p>« Entrez sous le chapiteau... si vous l'osez. »</p>
-                    <div style="text-align:center;"><a href="#" class="brush-btn" data-page="Réservation">Réservez votre billet</a></div><br><br><br><br>
+                    <div class="brush-btn-container">
+    <a href="#" class="brush-btn" data-page="Réservation">Réservez votre billet</a>
+</div><br><br><br><br>
         <div class="resa-center">
             <h2 class="resa-title"><u>Les rideaux s'ouvrent dans :</u></h2>
                         </div>
@@ -1572,7 +1574,15 @@ nav {
 }
 
     /* Bouton pinceau */
-    .brush-btn {
+    /* Conteneur pour centrer le bouton */
+.brush-btn-container {
+    text-align: center;
+    margin: 2rem 0;
+    width: 100%;
+}
+
+/* Bouton pinceau */
+.brush-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1592,11 +1602,27 @@ nav {
     white-space: nowrap;
     transition: transform 0.3s ease, filter 0.3s ease;
 }
+
 .brush-btn:hover {
     transform: scale(1.06);
     filter: brightness(1.15);
     color: #ffffff;
     text-decoration: none;
+}
+
+/* Responsive pour le bouton */
+@media (max-width: 768px) {
+    .brush-btn {
+        font-size: 1rem;
+        padding: 2rem 2.5rem 2.7rem 5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .brush-btn {
+        font-size: 0.85rem;
+        padding: 1.5rem 2rem 2.2rem 4rem;
+    }
 }
 </style>
 
@@ -2136,7 +2162,9 @@ html {
         
         <!-- Bouton Laisser un avis -->
             <div class="card-content" style="padding: 2.5rem; text-align: center;">
-                <a href="https://g.page/r/CRKgIjXNvqyXEBM/review" target="_blank" class="brush-btn">Laisser votre avis</a>
+                <div class="brush-btn-container">
+    <a href="https://g.page/r/CRKgIjXNvqyXEBM/review" target="_blank" class="brush-btn">Laisser votre avis</a>
+</div>
         </div>
         
         <!-- Titre Avis -->
