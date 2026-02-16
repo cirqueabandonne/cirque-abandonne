@@ -1439,6 +1439,35 @@ nav {
         display: none;
     }
 }
+
+        /* ========== LAYOUT EXPÉRIENCE + VIDÉO ========== */
+.experience-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.experience-video {
+    position: sticky;
+    top: 5rem;
+}
+
+.experience-video video {
+    width: 100%;
+    border-radius: 12px;
+    border: 2px solid var(--primary);
+    box-shadow: 0 0 30px hsla(0, 80%, 30%, 0.4);
+}
+
+@media (max-width: 768px) {
+    .experience-layout {
+        grid-template-columns: 1fr;
+    }
+    .experience-video {
+        position: static;
+    }
+}
     </style>
 </head>
 <body>
@@ -2034,8 +2063,9 @@ html {
     </section>
 
     <!-- Section L'Expérience -->
-    <section class="container" style="padding: 4rem 1.5rem 2rem;">
-        <div class="experience-content">
+<section class="container" style="padding: 4rem 1.5rem 2rem;">
+    <div class="experience-layout">
+        <div class="experience-texts">
             
             <!-- Bloc 1 : L'Expérience -->
             <div class="horror-card" style="margin-bottom: 3rem;">
@@ -2079,9 +2109,18 @@ html {
                     </p>
                 </div>
             </div>
+</div>
 
+        <!-- Vidéo de présentation -->
+        <div class="experience-video">
+            <video controls preload="none" poster="assets/auto.jpg">
+                <source src="assets/presentation.mp4" type="video/mp4">
+            </video>
         </div>
-    </section>
+
+    </div>
+</section>
+
 
     <!-- Section Avis -->
     <section class="container" style="padding: 2rem 1.5rem 4rem;">
