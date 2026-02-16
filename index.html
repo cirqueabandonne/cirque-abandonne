@@ -1500,9 +1500,11 @@ nav {
                 <img src="assets/hero-circus.jpg" alt="Le Cirque Abandonné">
                 <div class="hero-overlay"></div>
                 <div class="hero-content">
-                    <h1>Le Cirque Abandonné</h1>
-                    <p>« Entrez sous le chapiteau... si vous l'osez. »</p>
-                    <div class="brush-btn-container">
+                   <h1>Le Cirque Abandonné</h1>
+<p>« Entrez sous le chapiteau... si vous l'osez. »</p>
+<div class="brush-btn-container">
+    <a href="#" class="brush-btn" data-page="Réservation">Réservez votre billet</a>
+</div>
     <a href="#" class="brush-btn" data-page="Réservation">Réservez votre billet</a>
 </div><br><br><br><br>
         <div class="resa-center">
@@ -1573,12 +1575,16 @@ nav {
   }
 }
 
-    /* Bouton pinceau */
-    /* Conteneur pour centrer le bouton */
+   /* ==================== BOUTON PINCEAU - SECTION COMPLÈTE ==================== */
+
+/* Conteneur pour centrer le bouton */
 .brush-btn-container {
-    text-align: center;
-    margin: 2rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
+    margin: 3rem 0 2rem 0; /* Plus d'espace en haut pour éviter le chevauchement */
+    padding: 0 1rem; /* Padding pour mobile */
 }
 
 /* Bouton pinceau */
@@ -1601,6 +1607,8 @@ nav {
     text-transform: uppercase;
     white-space: nowrap;
     transition: transform 0.3s ease, filter 0.3s ease;
+    position: relative;
+    z-index: 5; /* Assure que le bouton est au-dessus */
 }
 
 .brush-btn:hover {
@@ -1610,18 +1618,52 @@ nav {
     text-decoration: none;
 }
 
-/* Responsive pour le bouton */
+/* ==================== RESPONSIVE ==================== */
+
+/* Tablettes (jusqu'à 1024px) */
+@media (max-width: 1024px) {
+    .brush-btn {
+        font-size: 1.1rem;
+        padding: 2.2rem 2.7rem 2.9rem 5.5rem;
+    }
+    .brush-btn-container {
+        margin: 2.5rem 0 1.8rem 0;
+    }
+}
+
+/* Tablettes moyennes (jusqu'à 768px) */
 @media (max-width: 768px) {
     .brush-btn {
         font-size: 1rem;
         padding: 2rem 2.5rem 2.7rem 5rem;
     }
+    .brush-btn-container {
+        margin: 2rem 0 1.5rem 0;
+    }
 }
 
+/* Mobiles (jusqu'à 480px) */
 @media (max-width: 480px) {
     .brush-btn {
-        font-size: 0.85rem;
-        padding: 1.5rem 2rem 2.2rem 4rem;
+        font-size: 0.9rem;
+        padding: 1.8rem 2.2rem 2.4rem 4.5rem;
+        letter-spacing: 0.15em;
+    }
+    .brush-btn-container {
+        margin: 1.5rem 0 1rem 0;
+        padding: 0 0.5rem;
+    }
+}
+
+/* Très petits mobiles (jusqu'à 380px) */
+@media (max-width: 380px) {
+    .brush-btn {
+        font-size: 0.75rem;
+        padding: 1.5rem 1.8rem 2rem 3.8rem;
+        letter-spacing: 0.1em;
+    }
+    .brush-btn-container {
+        margin: 1rem 0 0.8rem 0;
     }
 }
 </style>
@@ -2163,7 +2205,9 @@ html {
         <!-- Bouton Laisser un avis -->
             <div class="card-content" style="padding: 2.5rem; text-align: center;">
                 <div class="brush-btn-container">
+    <div class="brush-btn-container">
     <a href="https://g.page/r/CRKgIjXNvqyXEBM/review" target="_blank" class="brush-btn">Laisser votre avis</a>
+</div>
 </div>
         </div>
         
