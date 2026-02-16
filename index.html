@@ -1572,8 +1572,9 @@ nav {
 }
 
     /* Bouton pinceau */
-    .brush-btn {
-    display: flex;
+.brush-btn {
+    display: block;
+    margin: 0 auto;
     align-items: center;
     justify-content: center;
     background-image: url('assets/brush.png');
@@ -1597,6 +1598,10 @@ nav {
     filter: brightness(1.15);
     color: #ffffff;
     text-decoration: none;
+    /* AJOUTEZ CES LIGNES ICI ↓ */
+.brush-btn {
+    max-width: fit-content;
+}
 }
 </style>
 
