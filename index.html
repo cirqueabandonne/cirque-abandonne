@@ -3338,6 +3338,17 @@ updateResaTimer();
             }, 500);
         }
 
+        // ========== PAUSE VIDÉO AU CHANGEMENT DE PAGE ==========
+const experienceVideo = document.querySelector('.experience-video video');
+
+document.querySelectorAll('[data-page]').forEach(link => {
+    link.addEventListener('click', () => {
+        if (experienceVideo && !experienceVideo.paused) {
+            experienceVideo.pause();
+        }
+    });
+});
+
         // Blood transition effect with splatters
         function triggerBloodTransition() {
             bloodTransition.classList.add('active');
