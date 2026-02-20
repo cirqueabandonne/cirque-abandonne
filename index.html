@@ -1504,6 +1504,7 @@ nav {
                 <li><a href="#" data-page="home" class="active">Accueil</a></li>
                 <li><a href="#" data-page="infos">Infos Pratiques</a></li>
                 <li><a href="#" data-page="L'expérience / Les avis">L'expérience / Les avis</a></li>
+                <li><a href="#" data-page="reglement">Règlement</a></li>
                 <li><a href="#" data-page="faq">FAQ</a></li>
                 <li><a href="#" data-page="Réservation">Réservation</a></li>
                 <li><a href="#" data-page="contact">Contact</a></li>
@@ -1514,6 +1515,7 @@ nav {
             <a href="#" data-page="home" class="active">Accueil</a>
             <a href="#" data-page="infos">Infos Pratiques</a>
             <a href="#" data-page="L'expérience / Les avis">L'expérience / Les avis</a>
+            <a href="#" data-page="reglement">Règlement</a>
             <a href="#" data-page="faq">FAQ</a>
             <a href="#" data-page="Réservation">Réservation</a>
             <a href="#" data-page="contact">Contact</a>
@@ -2301,6 +2303,224 @@ html {
     }
 </script>
 
+
+<!-- RÈGLEMENT PAGE -->
+<div id="reglement" class="page">
+
+    <section class="page-header">
+        <img src="assets/clown horreur.png" alt="Clown Horreur" style="object-position: center 20%;">
+        <div class="hero-overlay"></div>
+        <div class="page-header-content">
+            <h1>Règlement Visiteur</h1>
+            <p>Avant d'entrer, prenez connaissance des règles...</p><br><br><br><br>
+        </div>
+    </section>
+
+    <section class="container" style="padding: 4rem 1.5rem;">
+        <div style="text-align:center; margin-bottom: 3rem;">
+            <img src="assets/Règlement visiteur.png" alt="Règlement visiteur" style="max-width: 100%; width: 600px; border-radius: 8px; box-shadow: 0 0 30px hsla(0,80%,30%,0.4);">
+        </div>
+        <style>
+.reglement-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.reglement-bloc {
+    position: relative;
+    text-align: center;
+    cursor: pointer;
+    padding: 1rem;
+    border-radius: 8px;
+    transition: background 0.3s;
+}
+
+.reglement-bloc:hover {
+    background: hsla(0, 80%, 30%, 0.1);
+}
+
+.reglement-bloc img {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+}
+
+.reglement-label {
+    margin-top: 0.75rem;
+    font-family: var(--font-display);
+    color: var(--accent-foreground);
+    font-size: 1rem;
+    line-height: 1.3;
+}
+
+.reglement-tooltip {
+    position: absolute;
+    bottom: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: hsla(0, 0%, 8%, 0.97);
+    border: 1px solid var(--primary);
+    color: var(--foreground);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    width: 200px;
+    line-height: 1.5;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 100;
+    box-shadow: 0 0 15px hsla(0, 80%, 30%, 0.3);
+}
+
+.reglement-bloc:hover .reglement-tooltip,
+.reglement-bloc.actif .reglement-tooltip {
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .reglement-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .reglement-tooltip {
+        width: 160px;
+        font-size: 0.8rem;
+    }
+}
+</style>
+
+<section class="container" style="padding: 0 1.5rem 4rem;">
+
+    </div>
+</section>
+
+<script>
+document.querySelectorAll('.reglement-bloc').forEach(bloc => {
+    bloc.addEventListener('click', () => {
+        const estActif = bloc.classList.contains('actif');
+        document.querySelectorAll('.reglement-bloc').forEach(b => b.classList.remove('actif'));
+        if (!estActif) bloc.classList.add('actif');
+    });
+});
+</script>
+    </section>
+</div>
+<style>
+.reglement-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.reglement-bloc {
+    background: linear-gradient(145deg, var(--card) 0%, hsl(0, 0%, 6%) 100%);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.reglement-bloc:hover {
+    border-color: hsla(0, 70%, 40%, 0.5);
+    box-shadow: 0 0 20px hsla(0, 80%, 30%, 0.2);
+}
+
+.reglement-titre {
+    font-family: var(--font-display);
+    color: var(--primary);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.reglement-explication {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+    color: hsla(0, 10%, 85%, 0.7);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    border-top: 0px solid var(--border);
+}
+
+.reglement-bloc.actif .reglement-explication,
+.reglement-bloc:hover .reglement-explication {
+    max-height: 200px;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+    margin-top: 0.75rem;
+}
+
+@media (max-width: 768px) {
+    .reglement-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+</style>
+
+<section class="container" style="padding: 0 1.5rem 4rem;">
+    <h2 class="section-title" style="margin-bottom: 2rem;">⚠️ Explications du règlement</h2>
+    <div class="reglement-grid">
+
+        <div class="reglement-bloc">
+            <p class="reglement-titre">🚫 Interdit aux femmes enceintes</p>
+            <div class="reglement-explication">Le parcours contient des effets sonores intenses, des lumières stroboscopiques, des frayeurs soudaines et des zones physiquement exigeantes. Ces éléments peuvent être dangereux pour les femmes enceintes.</div>
+        </div>
+
+        <div class="reglement-bloc">
+            <p class="reglement-titre">❤️ Interdit aux personnes cardiaques</p>
+            <div class="reglement-explication">Les frayeurs, bruits soudains et effets lumineux peuvent provoquer un stress intense. Déconseillé à toute personne souffrant de troubles cardiaques.</div>
+        </div>
+
+        <div class="reglement-bloc">
+            <p class="reglement-titre">🦽 Indépendance de marche requise</p>
+            <div class="reglement-explication">Le parcours se déroule dans des espaces sombres, étroits et parfois instables. Une mobilité autonome est indispensable pour votre sécurité.</div>
+        </div>
+
+        <div class="reglement-bloc">
+            <p class="reglement-titre">⚡ Déconseillée aux personnes sujettes à l'épilepsie</p>
+            <div class="reglement-explication">Des effets stroboscopiques et lumineux intenses sont présents tout au long du parcours. Fortement déconseillé aux personnes sujettes à l'épilepsie.</div>
+        </div>
+
+        <div class="reglement-bloc">
+            <p class="reglement-titre">🔥 Effets de chaleur, fumée, eau et lasers</p>
+            <div class="reglement-explication">Le parcours contient des effets de chaleur, fumée, eau et lasers. Ces éléments peuvent être dangereux pour les personnes sensibles.</div>
+        </div>
+
+        <div class="reglement-bloc">
+            <p class="reglement-titre">🔊 Niveau de son élevé</p>
+            <div class="reglement-explication">Des effets sonores forts et soudains sont diffusés tout au long du parcours. Des bouchons d'oreilles peuvent être demandés à l'entrée.</div>
+        </div>
+
+        <div class="reglement-bloc">
+            <p class="reglement-titre">🚬 Interdiction de fumer et de vapoter</p>
+            <div class="reglement-explication">Il est strictement interdit de fumer ou de vapoter à l'intérieur et aux abords immédiats du parcours, pour la sécurité de tous.</div>
+        </div>
+
+        <div class="reglement-bloc">
+            <p class="reglement-titre">🍔 Interdiction de manger et de boire</p>
+            <div class="reglement-explication">Il est interdit d'introduire de la nourriture ou des boissons dans le parcours. Des espaces de restauration sont disponibles à l'extérieur.</div>
+        </div>
+
+    </div>
+</section>
+
+<script>
+document.querySelectorAll('.reglement-bloc').forEach(bloc => {
+    bloc.addEventListener('click', () => {
+        const estActif = bloc.classList.contains('actif');
+        document.querySelectorAll('.reglement-bloc').forEach(b => b.classList.remove('actif'));
+        if (!estActif) bloc.classList.add('actif');
+    });
+});
+</script>
+<!-- FIN PAGE RÈGLEMENT -->
 
 
 <!-- FAQ PAGE -->
