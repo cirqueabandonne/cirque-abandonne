@@ -1468,6 +1468,135 @@ nav {
         position: static;
     }
 }
+
+/* ========== WIDGET ROND PRÉ-INSCRIPTION ========== */
+.widget-preinscription {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 9999;
+}
+
+.widget-rond {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 3px solid var(--primary);
+    animation: widgetPulse 2s ease-in-out infinite;
+}
+
+.widget-rond:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 30px hsla(0, 80%, 30%, 0.8);
+}
+
+.widget-rond img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@keyframes widgetPulse {
+    0%, 100% { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); }
+    50% { box-shadow: 0 6px 30px hsla(0, 80%, 30%, 0.8); }
+}
+
+/* Bulle de dialogue */
+.widget-bulle {
+    position: fixed;
+    bottom: 120px;
+    right: 30px;
+    background: var(--card);
+    border: 2px solid var(--primary);
+    border-radius: 16px;
+    padding: 1.5rem;
+    max-width: 300px;
+    box-shadow: 0 8px 30px hsla(0, 80%, 30%, 0.6);
+    z-index: 9998;
+    display: none;
+}
+
+.widget-bulle.active {
+    display: block;
+    animation: bubbleAppear 0.3s ease-out;
+}
+
+@keyframes bubbleAppear {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.widget-bulle h3 {
+    font-family: var(--font-display);
+    color: var(--primary);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.widget-bulle p {
+    font-family: var(--font-body);
+    color: var(--foreground);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.widget-boutons {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.widget-btn {
+    padding: 0.6rem 1.2rem;
+    border: 2px solid var(--primary);
+    border-radius: 8px;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+.widget-btn-oui {
+    background: var(--primary);
+    color: #fff;
+}
+
+.widget-btn-oui:hover {
+    background: hsla(0, 70%, 50%, 1);
+    transform: translateY(-2px);
+}
+
+.widget-btn-non {
+    background: transparent;
+    color: var(--foreground);
+}
+
+.widget-btn-non:hover {
+    background: hsla(0, 70%, 30%, 0.2);
+}
+
+@media (max-width: 768px) {
+    .widget-rond {
+        width: 60px;
+        height: 60px;
+    }
+    .widget-preinscription {
+        bottom: 20px;
+        right: 20px;
+    }
+    .widget-bulle {
+        bottom: 90px;
+        right: 20px;
+        max-width: 250px;
+    }
+}
     </style>
 </head>
 <body>
@@ -3924,6 +4053,44 @@ if (actorBanner) {
         }, 1000); // Augmenté à 1 seconde pour laisser le temps à la page de se charger
     });
 }
+// ========== WIDGET PRÉ-INSCRIPTION ==========
+document.addEventListener('DOMContentLoaded', () => {
+    const widgetClown = document.getElementById('widgetClown');
+    const widgetBulle = document.getElementById('widgetBulle');
+    const widgetNon = document.getElementById('widgetNon');
+
+    if (widgetClown && widgetBulle) {
+        widgetClown.addEventListener('click', () => {
+            widgetBulle.classList.toggle('active');
+        });
+    }
+
+    if (widgetNon && widgetBulle) {
+        widgetNon.addEventListener('click', () => {
+            widgetBulle.classList.remove('active');
+        });
+    }
+});
     </script>
+    <!-- WIDGET PRÉ-INSCRIPTION -->
+<div class="widget-preinscription">
+    <div class="widget-rond" id="widgetClown">
+        <img src="assets/clown-widget.jpg" alt="Clown">
+    </div>
+</div>
+
+<!-- BULLE DE DIALOGUE -->
+<div class="widget-bulle" id="widgetBulle">
+    <h3>🎪 Pré-inscription</h3>
+    <p>Voulez-vous être notifié de l'ouverture de la billetterie ?</p>
+    <div class="widget-boutons">
+        <a href="https://forms.gle/LFYVqdHx9nUnMvhS9" target="_blank" class="widget-btn widget-btn-oui">
+            Oui, je m'inscris !
+        </a>
+        <button class="widget-btn widget-btn-non" id="widgetNon">
+            Non merci
+        </button>
+    </div>
+</div>
 </body>
 </html>
