@@ -1080,6 +1080,11 @@ nav {
             .nav-links {
                 display: none;
             }
+            .widget-speech-bubble {
+        bottom: 90px;
+        right: 500px;
+        max-width: 200px;
+    }
 
             @media (max-width: 768px) {
     .nav-links {
@@ -1505,7 +1510,66 @@ nav {
     50% { box-shadow: 0 6px 30px hsla(0, 80%, 30%, 0.8); }
 }
 
-/* Bulle de dialogue */
+
+ /* Bulle de dialogue style BD (texte) */
+.widget-speech-bubble {
+    position: fixed;
+    bottom: 120px;
+    right: 50px;
+    background: var(--card);
+    border: 2px solid var(--primary);
+    border-radius: 20px;
+    padding: 1.25rem;
+    max-width: 280px;
+    box-shadow: 0 8px 30px hsla(0, 80%, 30%, 0.6);
+    z-index: 9998;
+    display: none;
+}
+
+.widget-speech-bubble.visible {
+    display: flex;
+    flex-direction: column;
+    animation: speechAppear 0.3s ease-out;
+}
+
+.widget-speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    right: 20px;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 12px solid var(--card);
+}
+
+.widget-speech-bubble::before {
+    content: '';
+    position: absolute;
+    bottom: -13px;
+    right: 19px;
+    width: 0;
+    height: 0;
+    border-left: 16px solid transparent;
+    border-right: 16px solid transparent;
+    border-top: 13px solid var(--primary);
+}
+
+@keyframes speechAppear {
+    from { opacity: 0; transform: translateY(-10px) scale(0.9); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.widget-speech-bubble p {
+    font-family: var(--font-body);
+    color: var(--foreground);
+    font-size: 0.95rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Bulle de formulaire */
 .widget-bulle {
     position: fixed;
     bottom: 120px;
@@ -1514,14 +1578,17 @@ nav {
     border: 2px solid var(--primary);
     border-radius: 16px;
     padding: 1.5rem;
-    max-width: 300px;
+    width: 450px;
+    height: 600px;
     box-shadow: 0 8px 30px hsla(0, 80%, 30%, 0.6);
     z-index: 9998;
     display: none;
+    overflow: hidden;
 }
 
 .widget-bulle.active {
-    display: block;
+    display: flex;
+    flex-direction: column;
     animation: bubbleAppear 0.3s ease-out;
 }
 
@@ -1530,72 +1597,40 @@ nav {
     to { opacity: 1; transform: translateY(0); }
 }
 
+.widget-bulle-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--primary);
+}
+
 .widget-bulle h3 {
     font-family: var(--font-display);
     color: var(--primary);
     font-size: 1.2rem;
-    margin-bottom: 1rem;
+    margin: 0;
 }
 
-.widget-bulle p {
-    font-family: var(--font-body);
-    color: var(--foreground);
-    font-size: 0.95rem;
-    margin-bottom: 1.5rem;
-    line-height: 1.5;
-}
-
-.widget-boutons {
-    display: flex;
-    gap: 0.75rem;
-}
-
-.widget-btn {
-    padding: 0.6rem 1.2rem;
-    border: 2px solid var(--primary);
-    border-radius: 8px;
-    font-family: var(--font-display);
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-    text-align: center;
-}
-
-.widget-btn-oui {
-    background: var(--primary);
-    color: #fff;
-}
-
-.widget-btn-oui:hover {
-    background: hsla(0, 70%, 50%, 1);
-    transform: translateY(-2px);
-}
-
-.widget-btn-non {
+.widget-close {
     background: transparent;
+    border: none;
     color: var(--foreground);
+    font-size: 1.8rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.3s ease;
 }
 
-.widget-btn-non:hover {
-    background: hsla(0, 70%, 30%, 0.2);
+.widget-close:hover {
+    color: var(--primary);
 }
 
-@media (max-width: 768px) {
-    .widget-rond {
-        width: 60px;
-        height: 60px;
-    }
-    .widget-preinscription {
-        bottom: 20px;
-        right: 20px;
-    }
-    .widget-bulle {
-        bottom: 90px;
-        right: 20px;
-        max-width: 250px;
-    }
+.widget-iframe {
+    flex: 1;
+    border: none;
+    border-radius: 8px;
 }
     </style>
 </head>
@@ -4056,18 +4091,22 @@ if (actorBanner) {
 // ========== WIDGET PRÉ-INSCRIPTION ==========
 document.addEventListener('DOMContentLoaded', () => {
     const widgetClown = document.getElementById('widgetClown');
+    const widgetSpeech = document.getElementById('widgetSpeech');
     const widgetBulle = document.getElementById('widgetBulle');
-    const widgetNon = document.getElementById('widgetNon');
+    const widgetClose = document.getElementById('widgetClose');
 
-    if (widgetClown && widgetBulle) {
+   // Clic sur le clown : masquer/afficher la bulle
+    if (widgetClown && widgetSpeech) {
         widgetClown.addEventListener('click', () => {
-            widgetBulle.classList.toggle('active');
+            widgetSpeech.classList.toggle('visible');
         });
     }
 
-    if (widgetNon && widgetBulle) {
+    // Bouton "Non merci" : fermer la bulle
+    const widgetNon = document.getElementById('widgetNon');
+    if (widgetNon && widgetSpeech) {
         widgetNon.addEventListener('click', () => {
-            widgetBulle.classList.remove('active');
+            widgetSpeech.classList.remove('visible');
         });
     }
 });
@@ -4079,18 +4118,35 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
 </div>
 
-<!-- BULLE DE DIALOGUE -->
-<div class="widget-bulle" id="widgetBulle">
-    <h3>🎪 Pré-inscription</h3>
-    <p>Voulez-vous être notifié de l'ouverture de la billetterie ?</p>
-    <div class="widget-boutons">
-        <a href="https://forms.gle/LFYVqdHx9nUnMvhS9" target="_blank" class="widget-btn widget-btn-oui">
-            Oui, je m'inscris !
-        </a>
-        <button class="widget-btn widget-btn-non" id="widgetNon">
-            Non merci
-        </button>
+<div class="widget-speech-bubble visible" id="widgetSpeech">
+    <p style="margin-bottom: 1rem;">🎪 Souhaitez-vous être notifié lors de la sortie de la billetterie ?</p>
+    <div style="display: flex; gap: 0.75rem; justify-content: center;">
+    <button onclick="window.open('https://forms.gle/LFYVqdHx9nUnMvhS9', '_blank')"
+            style="padding: 0.6rem 1.2rem; background: var(--primary); color: #fff; border: 2px solid var(--primary); border-radius: 8px; font-family: var(--font-display); font-size: 1rem; cursor: pointer; transition: all 0.3s ease;">
+        Oui
+    </button>
+    <button id="widgetNon"
+            style="padding: 0.6rem 1.2rem; background: transparent; color: var(--foreground); border: 2px solid var(--primary); border-radius: 8px; font-family: var(--font-display); font-size: 1rem; cursor: pointer; transition: all 0.3s ease;">
+        Non
+    </button>
     </div>
+</div>
+
+</body>
+</html>
+
+<!-- BULLE DE DIALOGUE AVEC FORMULAIRE -->
+<div class="widget-bulle" id="widgetBulle">
+    <div class="widget-bulle-header">
+        <h3>🎪 Pré-inscription</h3>
+        <button class="widget-close" id="widgetClose">&times;</button>
+    </div>
+    <iframe 
+        class="widget-iframe"
+        src="https://docs.google.com/forms/d/e/1FAIpQLSezCYxzd-gKoC8TJ1MvLBKOXt1h9vHGQMELPmJC7hJqD4-_LQ/viewform?embedded=true"
+        frameborder="0">
+        Chargement du formulaire...
+    </iframe>
 </div>
 </body>
 </html>
