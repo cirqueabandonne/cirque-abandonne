@@ -1992,19 +1992,19 @@ updateCountdown();
             <div class="title-front">Trop peur ?</div>
             <div class="small-txt">🤡 Cliquez pour retourner la carte</div>
         </div>
-        <div class="flip-back" style="display: flex; flex-direction: row; gap: 1rem; align-items: center; justify-content: center; padding: 1rem; overflow: hidden;">
-            <div style="flex: 1; text-align: left; font-size: 17px;">
-    <p style="margin: 0; line-height: 1.5;">
-        Cette année, le<br>
-        <strong style="color: var(--primary); font-size: 1.5rem;">Badge anti monstre</strong><br>
-        permet d'<strong>éloigner</strong> nos artistes.<br><br>
-        Disponible à la caisse.
-    </p>
-</div>
-            <div style="flex: 0 0 20px; height: 20px; display: flex; align-items: center; justify-content: center;">
-    <img src="assets/badge anti monstre.png" alt="Badge anti monstre" 
-         style="width: 300px; height: 300px; object-fit: contain; filter: drop-shadow(0 0 12px hsla(0, 80%, 30%, 0.6));">
-</div>
+        <div class="flip-back badge-back">
+            <div class="badge-text">
+                <p style="margin: 0; line-height: 1.5;">
+                    Cette année, le<br>
+                    <strong style="color: var(--primary); font-size: 1.2rem;">Badge anti monstre</strong><br>
+                    permet d'<strong>éloigner</strong> nos artistes.<br><br>
+                    Disponible à la caisse.
+                </p>
+            </div>
+            <div class="badge-img">
+                <img src="assets/badge anti monstre.png" alt="Badge anti monstre"
+                     style="width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 12px hsla(0, 80%, 30%, 0.6));">
+            </div>
         </div>
     </div>
 </div>
@@ -2229,6 +2229,31 @@ html {
 
 .flip-back p {
     margin: 0;
+}
+
+/* Badge card responsive */
+.badge-back {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem;
+    overflow: hidden;
+}
+.badge-text {
+    flex: 1;
+    text-align: left;
+    font-size: 17px;
+}
+.badge-img {
+    flex: 0 0 240px;
+    height: 240px;
+}
+@media (max-width: 500px) {
+    .flip-card { height: auto !important; min-height: 260px; }
+    .badge-back { flex-direction: column !important; padding: 1rem !important; }
+    .badge-img { flex: 0 0 150px !important; height: 150px !important; }
+    .badge-text { font-size: 14px !important; text-align: center !important; }
 }
 
 /* Mobile - 1 carte par ligne */
