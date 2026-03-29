@@ -696,6 +696,7 @@ nav {
             position: relative;
             z-index: 10;
             text-align: center;
+            padding-bottom: 4rem;
         }
 
         .page-header h1 {
@@ -806,7 +807,7 @@ nav {
         }
 
         .blood-transition.active {
-            animation: bloodWave 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+            animation: bloodWave 0.8s cubic-bezier(0.65, 0, 0.35, 1);
         }
 
         @keyframes bloodWave {
@@ -1095,7 +1096,7 @@ nav {
         /* Page transition classes */
 /* Page transition classes - Effet vague de sang */
 .page-enter {
-    animation: bloodWaveEnter 1.5s ease-out;
+    animation: bloodWaveEnter 0.6s ease-out;
 }
 
 .page-exit {
@@ -1651,7 +1652,7 @@ nav {
 .widget-preinscription {
     position: fixed;
     bottom: 30px;
-    right: 30px;
+    right: 100px;
     z-index: 9999;
 }
 
@@ -2015,7 +2016,7 @@ updateCountdown();
                         </div>
                         <div class="card-content">
                             <h3 class="card-title">Nos visiteurs</h3>
-                            <p class="card-text"><strong><h4><u>Plus de 220 visiteurs 🕵️‍♂️</u></h4></strong></p> <p class="card-text">lors de l'année précédente, pourquoi pas vous ?</p>
+                            <p class="card-text"><strong style="color: var(--accent-foreground); font-size: 1.2rem; text-decoration: underline;">Plus de 220 visiteurs 🕵️‍♂️</strong></p> <p class="card-text">lors de l'année précédente, pourquoi pas vous ?</p>
                         </div>
                     </div>
                     <div class="horror-card">
@@ -2099,7 +2100,7 @@ updateCountdown();
         <div class="hero-overlay"></div>
         <div class="page-header-content">
             <h1>Infos Pratiques</h1>
-            <p>Tout ce que vous devez savoir avant d'entrer...</p><br><br><br><br><br>
+            <p>Tout ce que vous devez savoir avant d'entrer...</p>
         </div>
     </section>
 
@@ -2227,7 +2228,7 @@ updateCountdown();
                 </div>
             </div>
 
- <div class="flip-card flip-card-badge">
+ <div class="flip-card">
     <div class="flip-inner">
         <div class="flip-front">
             <div class="clown-mask">😱</div>
@@ -2474,34 +2475,30 @@ html {
 }
 
 /* Badge card */
-.flip-card-badge {
-    height: 320px;
-}
 .badge-back {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.75rem;
-    padding: 1.25rem;
+    gap: 0.5rem;
+    padding: 1rem;
     overflow: hidden;
     text-align: center;
 }
 .badge-text {
-    font-size: 0.95rem;
-    line-height: 1.5;
+    font-size: 0.85rem;
+    line-height: 1.4;
     margin: 0;
     color: var(--foreground);
 }
 .badge-img {
-    width: 140px;
-    height: 140px;
+    width: 120px;
+    height: 120px;
     flex-shrink: 0;
 }
 @media (max-width: 500px) {
-    .flip-card-badge { height: 300px; }
-    .badge-img { width: 110px; height: 110px; }
-    .badge-text { font-size: 0.85rem; }
+    .badge-img { width: 100px; height: 100px; }
+    .badge-text { font-size: 0.8rem; }
 }
 
 /* Mobile - 1 carte par ligne */
@@ -2521,7 +2518,7 @@ html {
         <div class="hero-overlay"></div>
         <div class="page-header-content">
             <h1>L'expérience / Les avis</h1>
-            <p>Qu'est-ce qui vous attend là-bas ... Et les avis de nos anciens visiteurs !</p><br><br><br><br>
+            <p>Qu'est-ce qui vous attend là-bas ... Et les avis de nos anciens visiteurs !</p>
         </div>
     </section>
 
@@ -2772,25 +2769,10 @@ html {
         <div class="hero-overlay"></div>
         <div class="page-header-content">
             <h1>Règlement Visiteur</h1>
-            <p>Avant d'entrer, prenez connaissance des règles...</p><br><br><br><br>
+            <p>Avant d'entrer, prenez connaissance des règles...</p>
         </div>
     </section>
 
-    <section class="container" style="padding: 1.5rem 1.5rem 0;">
-    <div style="text-align:center; margin-bottom: 1.5rem;">
-        <img src="assets/Règlement visiteur.png" alt="Règlement visiteur" style="max-width: 100%; width: 600px; border-radius: 8px; box-shadow: 0 0 30px hsla(0,80%,30%,0.4);">
-    </div>
-    <div style="text-align: center;">
-        <iframe width="700" height="394"
-            src="https://www.youtube.com/embed/6ySI83UTJo4"
-            title="Règlement visiteur"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            style="max-width: 100%; border-radius: 8px; border: 2px solid var(--primary); box-shadow: 0 0 30px hsla(0,80%,30%,0.4);">
-        </iframe>
-    </div>
-</section>
 
 <style>
 .reglement-grid {
@@ -2914,7 +2896,7 @@ document.querySelectorAll('.reglement-bloc').forEach(bloc => {
                 <div class="hero-overlay"></div>
                 <div class="page-header-content">
                     <h1>Foire Aux Questions</h1>
-                    <p>Si ta question n'apparaît pas ici, retrouve moi dans la page <strong>"<u>Contact</u>"</strong></p><br><br><br><br>
+                    <p>Si ta question n'apparaît pas ici, retrouve moi dans la page <strong>"<u>Contact</u>"</strong></p>
                 </div>
             </section>
 
@@ -3260,7 +3242,7 @@ details.faq-item-native[open] .faq-summary-arrow {
         <div class="hero-overlay"></div>
         <div class="page-header-content">
             <h1>Contact</h1>
-            <p>Laissez-nous un message... nous finirons par le lire. <br>Si vous n'avez pas de réponse après 48h, vous pouvez soumettre un nouveau formulaire !</p><br><br><br><br>
+            <p>Laissez-nous un message... nous finirons par le lire. <br>Si vous n'avez pas de réponse après 48h, vous pouvez soumettre un nouveau formulaire !</p>
         </div>
     </section>
 
@@ -3279,7 +3261,7 @@ details.faq-item-native[open] .faq-summary-arrow {
     margin: auto;
   }
 
-  label {
+  .contact-form label {
     display: block;
     margin-top: 15px;
     margin-bottom: 5px;
@@ -3820,7 +3802,7 @@ document.querySelectorAll('[data-page]').forEach(link => {
             
             setTimeout(() => {
                 bloodTransition.classList.remove('active');
-            }, 1500);
+            }, 800);
         }
 
         function createBloodSplatterParticle() {
@@ -3873,10 +3855,10 @@ document.querySelectorAll('[data-page]').forEach(link => {
                         page.classList.add('page-exit');
                         setTimeout(() => {
                             page.classList.remove('active', 'page-exit');
-                        }, 300);
+                        }, 200);
                     }
                 });
-                
+
                 // Show selected page with enter animation
                 const selectedPage = document.getElementById(pageName);
                 if (selectedPage) {
@@ -3884,7 +3866,7 @@ document.querySelectorAll('[data-page]').forEach(link => {
                         selectedPage.classList.add('active', 'page-enter');
                         setTimeout(() => {
                             selectedPage.classList.remove('page-enter');
-                        }, 800);
+                        }, 400);
                     }, 300);
                 }
 
@@ -3903,7 +3885,7 @@ mobileToggle.textContent = '☰';  // Reset l'icône du bouton;
 
                 // Scroll to top
                 window.scrollTo(0, 0);
-            }, 300);
+            }, 150);
         }
 
         // Add click listeners to all nav links
@@ -4170,6 +4152,18 @@ document.addEventListener('DOMContentLoaded', () => {
         Chargement du formulaire...
     </iframe>
 </div>
+
+<!-- Featurebase Widget -->
+<script>
+!function(e,t){var a="https://do.featurebase.app/js/sdk.js";function n(){if(!t.getElementById("featurebase-sdk")){var e=t.createElement("script");e.id="featurebase-sdk",e.src=a,t.head.appendChild(e)}}if("function"!=typeof e.Featurebase){var s=function(){s.q.push(arguments)};s.q=[],e.Featurebase=s,"complete"===t.readyState||"interactive"===t.readyState?n():t.addEventListener("DOMContentLoaded",n)}}(window,document);
+
+// Initialize the Messenger widget (chat + support)
+Featurebase("boot", {
+    appId: "69c7ef44b7ea2e70297dcf9a",
+    theme: "dark",
+    language: "fr"
+});
+</script>
 
 </body>
 </html>
