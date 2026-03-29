@@ -3941,5 +3941,17 @@ if (actorBanner) {
     });
 }
     </script>
+<!-- Featurebase Widget -->
+<script>
+!function(e,t){var a="https://do.featurebase.app/js/sdk.js";function n(){if(!t.getElementById("featurebase-sdk")){var e=t.createElement("script");e.id="featurebase-sdk",e.src=a,t.head.appendChild(e)}}if("function"!=typeof e.Featurebase){var s=function(){s.q.push(arguments)};s.q=[],e.Featurebase=s,"complete"===t.readyState||"interactive"===t.readyState?n():t.addEventListener("DOMContentLoaded",n)}}(window,document);
+
+// Initialize the Messenger widget (chat + support)
+Featurebase("boot", {
+    appId: "69c7ef44b7ea2e70297dcf9a",
+    theme: "dark",
+    language: "fr"
+});
+</script>
+
 </body>
 </html>
