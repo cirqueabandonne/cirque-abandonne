@@ -4198,8 +4198,8 @@ infos supplémentaire : Nous avons à cœur de rendre l'expérience accessible a
         },
         body: JSON.stringify({
           model: "grok-3-mini",
-          max_tokens: 120,
-          system: `Réponds toujours en 3-4 phrases maximum, de façon courte et directe. Tu es l'assistant du Cirque Abandonné, une maison d'horreur. Réponds de façon chaleureuse mais avec une légère touche mystérieuse, uniquement en te basant sur les informations ci-dessous. Si tu ne sais pas, invite à contacter les organisateurs depuis la page de "contact".\n\nINFOS :\n${CB_EVENT_INFO}`,
+          max_tokens: 70,
+          system: `Réponds toujours en 2-3 phrases maximum !, de façon courte et directe. Tu es l'assistant du Cirque Abandonné, une maison d'horreur. Réponds de façon chaleureuse mais simple afin qu'ils aient une réponse claire, uniquement en te basant sur les informations ci-dessous. Si tu ne sais pas, invite à contacter les organisateurs depuis la page de "contact".\n\nINFOS :\n${CB_EVENT_INFO}`,
           messages: cbHistory
         })
       });
