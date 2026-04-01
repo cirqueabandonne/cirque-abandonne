@@ -3939,17 +3939,291 @@ if (actorBanner) {
     });
 }
     </script>
-<!-- Featurebase Widget -->
+
+<!-- ══ CHATBOT ÉVÉNEMENT ══ -->
+<style>
+  #cb-toggle {
+  position: fixed; bottom: 28px; right: 28px;
+  width: 60px !important; height: 60px !important; min-width: 60px !important; min-height: 60px !important; border-radius: 50% !important;
+  padding: 0 !important; margin: 0 !important;
+ background: hsl(0, 70%, 40%); 
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 24px hsla(0, 80%, 30%, 0.6);
+    transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s;
+    z-index: 9999;
+  }
+  #cb-toggle:hover { transform: scale(1.1); box-shadow: 0 6px 30px hsla(0,80%,30%,0.8); }
+  #cb-toggle .cb-icon-open  { opacity:1; transform:rotate(0deg); transition: opacity 0.2s, transform 0.2s; }
+  #cb-toggle .cb-icon-close { opacity:0; transform:rotate(-90deg); position:absolute; transition: opacity 0.2s, transform 0.2s; }
+  #cb-toggle.open .cb-icon-open  { opacity:0; transform:rotate(90deg); }
+  #cb-toggle.open .cb-icon-close { opacity:1; transform:rotate(0deg); }
+
+#cb-badge {
+    position: fixed; bottom: 100px; right: 16px;
+    background: hsl(0, 70%, 40%); color: #fff;
+    font-family: 'Crimson Text', serif; font-size: 13px;
+    padding: 6px 12px; border-radius: 20px; z-index: 9998;
+    box-shadow: 0 4px 16px hsla(0,80%,30%,0.4);
+    animation: cb-pop 0.4s cubic-bezier(.34,1.56,.64,1) both;
+    pointer-events: none;
+  }
+  #cb-badge.hidden { display: none; }
+
+  #cb-window {
+    position: fixed; bottom: 100px; right: 28px;
+    width: 340px; max-width: calc(100vw - 56px);
+    height: 480px; max-height: calc(100vh - 140px);
+    background: hsl(0, 0%, 6%);
+    border: 1px solid hsl(0, 70%, 40%);
+    border-radius: 16px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.7), 0 0 30px hsla(0,80%,30%,0.2);
+    display: flex; flex-direction: column; overflow: hidden;
+    z-index: 9998;
+    transform: translateY(20px) scale(0.95); opacity: 0; pointer-events: none;
+    transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), opacity 0.25s ease;
+  }
+  #cb-window.open { transform: translateY(0) scale(1); opacity: 1; pointer-events: all; }
+
+  #cb-header {
+    padding: 16px 18px;
+    border-bottom: 1px solid hsla(0,70%,40%,0.4);
+    display: flex; align-items: center; gap: 12px;
+    background: hsl(0, 0%, 8%);
+  }
+  .cb-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: hsl(0, 70%, 40%);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  #cb-header-text h3 {
+    margin: 0; font-family: 'Creepster', cursive;
+    font-size: 16px; color: hsl(0,10%,85%); letter-spacing: 0.05em;
+  }
+  #cb-header-text p { margin: 2px 0 0; font-size: 12px; color: hsl(0,0%,55%); font-family: 'Crimson Text', serif; }
+  .cb-online-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: hsl(0, 70%, 40%); margin-left: auto; flex-shrink: 0;
+    box-shadow: 0 0 8px hsla(0,80%,30%,0.8);
+    animation: cb-pulse 2s infinite;
+  }
+
+  #cb-messages {
+    flex: 1; overflow-y: auto; padding: 16px;
+    display: flex; flex-direction: column; gap: 10px;
+    scrollbar-width: thin; scrollbar-color: hsla(0,70%,40%,0.3) transparent;
+  }
+  .cb-msg { display: flex; max-width: 85%; animation: cb-in 0.3s ease both; }
+  .cb-msg.user { align-self: flex-end; }
+  .cb-msg.bot  { align-self: flex-start; }
+  .cb-msg-bubble {
+    padding: 10px 14px; border-radius: 14px;
+    font-family: 'Crimson Text', serif; font-size: 14px; line-height: 1.5;
+    word-break: break-word;
+  }
+  .cb-msg.user .cb-msg-bubble {
+    background: hsl(0, 70%, 40%); color: #fff;
+    border-bottom-right-radius: 4px;
+  }
+  .cb-msg.bot .cb-msg-bubble {
+    background: hsl(0, 0%, 10%); color: hsl(0,10%,85%);
+    border: 1px solid hsl(0,0%,18%); border-bottom-left-radius: 4px;
+  }
+  .cb-typing {
+    display: flex; gap: 4px; padding: 12px 14px;
+    background: hsl(0,0%,10%); border: 1px solid hsl(0,0%,18%);
+    border-radius: 14px; border-bottom-left-radius: 4px; width: fit-content;
+  }
+  .cb-typing span {
+    width: 6px; height: 6px;
+    background: hsl(0,70%,40%); border-radius: 50%;
+    animation: cb-bounce 1.2s infinite;
+  }
+  .cb-typing span:nth-child(2) { animation-delay: 0.2s; }
+  .cb-typing span:nth-child(3) { animation-delay: 0.4s; }
+
+  #cb-input-zone {
+    padding: 12px 14px;
+    border-top: 1px solid hsla(0,70%,40%,0.3);
+    display: flex; gap: 8px; align-items: flex-end;
+    background: hsl(0,0%,6%);
+  }
+  #cb-input {
+    flex: 1; background: hsl(0,0%,10%);
+    border: 1px solid hsl(0,0%,18%); border-radius: 10px;
+    padding: 9px 12px; color: hsl(0,10%,85%);
+    font-family: 'Crimson Text', serif; font-size: 14px;
+    resize: none; outline: none; min-height: 38px; max-height: 90px;
+    transition: border-color 0.2s; line-height: 1.4;
+  }
+  #cb-input::placeholder { color: hsl(0,0%,45%); }
+  #cb-input:focus { border-color: hsla(0,70%,40%,0.6); }
+  #cb-send {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: hsl(0,70%,40%); border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    transition: transform 0.2s, opacity 0.2s;
+    padding: 0 !important; margin: 0 !important;
+  }
+  #cb-send:hover { transform: scale(1.08); }
+  #cb-send:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+  @keyframes cb-in { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes cb-bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-5px)} }
+  @keyframes cb-pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  @keyframes cb-pop { from{opacity:0;transform:scale(0.8)} to{opacity:1;transform:scale(1)} }
+</style>
+
+<button id="cb-toggle" aria-label="Ouvrir le chat">
+  <svg class="cb-icon-open" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  <svg class="cb-icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+</button>
+
+<div id="cb-badge" class="hidden">🎪 Une question ?</div>
+
+<div id="cb-window">
+  <div id="cb-header">
+    <div class="cb-avatar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/></svg>
+    </div>
+    <div id="cb-header-text">
+      <h3>Assistant du Cirque</h3>
+      <p>Posez vos questions afin d'avoir plus d'informations</p>
+    </div>
+    <div class="cb-online-dot"></div>
+  </div>
+  <div id="cb-messages"></div>
+  <div id="cb-input-zone">
+    <textarea id="cb-input" placeholder="Votre question…" rows="1"></textarea>
+<button id="cb-send" aria-label="Envoyer">
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+</button>
+  </div>
+</div>
+
 <script>
-!function(e,t){var a="https://do.featurebase.app/js/sdk.js";function n(){if(!t.getElementById("featurebase-sdk")){var e=t.createElement("script");e.id="featurebase-sdk",e.src=a,t.head.appendChild(e)}}if("function"!=typeof e.Featurebase){var s=function(){s.q.push(arguments)};s.q=[],e.Featurebase=s,"complete"===t.readyState||"interactive"===t.readyState?n():t.addEventListener("DOMContentLoaded",n)}}(window,document);
+  const CB_API_KEY = "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"; // 🔑 Remplace par ta clé sur console.anthropic.com
 
-// Initialize the Messenger widget (chat + support)
-Featurebase("boot", {
-    appId: "69c7ef44b7ea2e70297dcf9a",
-    theme: "dark",
-    language: "fr"
-});
+  const CB_EVENT_INFO = `
+Nom : Le Cirque Abandonné — Maison d'horreur
+Date : Samedi 31 octobre 2026
+Lieu : Hall polyvalent deBazas (33)
+Prix : Entrée 5€ / Contient :Entrée + bonbons + boisson.
+Concept : Une maison hanté temporairement instalé dans le hall polyvalent de Bazas pour Halloween. Parcours immersif avec décors, acteurs, et animations effrayantes. Ouvert à tous les âges (déconseillé au enfant de moins de 12 ans).
+Horraire : Ouverture des portes à 17h30 / Première session sans acteurs de 17h30 à 19h / Deuxième session avec acteurs de 19h30 à 22h
+Organisateurs : Handball Club Bazadais
+Créateurs : Lylian BONTEMPS & Alban BONTEMPS & Lorianne TOUTENUIT & Océane ESPAGNET MICHEAU
+Adresse précise : 2 VC Ausone, 33430 Bazas, 33430 Bazas (Le cirque Abandonné sur google maps)
+Groupe : Groupe de 5 personnes maximum, les groupes incomplets seront automatiquement complétés par des visiteurs seuls ou d'autres groupes pour garantir une expérience optimale.
+Conseil : Portez des vêtements confortables 
+Déconseiller : aux personnes cardiaques, épileptiques, femmes enceintes, l'expérience peut être intense et effrayante.
+Trop peur : Un badge anti-monstre est disponible à l'entrée pour signaler aux acteurs de ne pas s'approcher trop près. Sachez que dans la maison ce badge n'est pas valide !
+Parking : Parking gratuit est disponible juste devant le hall polyvalent
+Accés : Parcours non accessible aux personnes à mobilité réduite
+Réseaux sociaux : Instagram (@le_cirque_abandonne), TikTok (@cirque.abandonne), Youtube (@cirqueabandonne)
+Acteur : Si tu souhaites devenir acteur pour la prochaine édition, voici le lien : https://docs.google.com/forms/d/e/1FAIpQLSeIsw67Lfx7vHViLfdeRFhH5GFFP7KC2V8QJqMFOJjW3RK9jw/viewform (fait un texte cliquable)
+Stats : Plus de 220 visiteurs lors de notre précédente édition, avec un taux de satisfaction de 4.75/5
+Contact : Pour toute question, n'hésitez pas à nous contacter sur la page "Contact" de notre site
+Manger : Un food truck sera présent à l'extérieur du hall vous permettant de vous restaurer avant ou après votre visite.
+Durée du parcours : Le parcours dure environ 5 à 10 minutes, selon votre rythme
+Sortie de secours : Des sorties de secours sont présentes tout au long du parcours, clairement indiquées par des panneaux éclairés
+Contact avec les acteurs : Les acteurs ont entièrement le droit de vous toucher pour rendre l'expérience plus immersive, au contraire de vous ou vous n'avez pas le droit de les toucher
+Photo et vidéo : La prise de photo et vidéo est entièrement autorisé ! La seul règle à respecter est de ne pas utiliser de flash. N'hésitez pas à partager vos photos et vidéos sur les réseaux sociaux avec le hashtag #lecirqueabandonne !
+Affaire perso : Un bac sera disponible à l'entrée de la maison pour y déposer vos affaires, le bac est transférer directement à la sortie du parcours
+Affaire perso 2 : Le Cirque Abandonné décline toute responsabilité en cas de perte, de vol, de détérioration ou de tout autre dommage concernant les effets personnels des visiteurs. En cas de non-respect du règlement, le Cirque Abandonné se dégage également de toute responsabilité
+infos supplémentaire : Nous avons à cœur de rendre l'expérience accessible au plus grand nombre, n'hésitez pas à nous faire part de vos besoins spécifiques ou de toute question supplémentaire que vous pourriez avoir. Notre équipe est là pour vous aider à passer un moment inoubliable au Cirque Abandonné !
+
+  `;
+
+  const cbToggle   = document.getElementById('cb-toggle');
+  const cbWindow   = document.getElementById('cb-window');
+  const cbMessages = document.getElementById('cb-messages');
+  const cbInput    = document.getElementById('cb-input');
+  const cbSend     = document.getElementById('cb-send');
+  const cbBadge    = document.getElementById('cb-badge');
+  let cbOpen = false, cbHistory = [];
+
+  setTimeout(() => addCbBot("Bienvenue au Cirque Abandonné... 🎪 Quelle est votre question ?"), 400);
+
+  cbToggle.addEventListener('click', () => {
+    cbOpen = !cbOpen;
+    cbWindow.classList.toggle('open', cbOpen);
+    cbToggle.classList.toggle('open', cbOpen);
+    if (cbOpen) { cbBadge.classList.add('hidden'); cbInput.focus(); }
+  });
+
+  cbInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendCbMsg(); }
+  });
+  cbInput.addEventListener('input', () => {
+    cbInput.style.height = 'auto';
+    cbInput.style.height = Math.min(cbInput.scrollHeight, 90) + 'px';
+  });
+  cbSend.addEventListener('click', sendCbMsg);
+
+  function addCbUser(text) {
+    const d = document.createElement('div');
+    d.className = 'cb-msg user';
+    d.innerHTML = `<div class="cb-msg-bubble">${escCb(text)}</div>`;
+    cbMessages.appendChild(d); cbMessages.scrollTop = cbMessages.scrollHeight;
+  }
+  function addCbBot(text) {
+    const d = document.createElement('div');
+    d.className = 'cb-msg bot';
+    d.innerHTML = `<div class="cb-msg-bubble">${text}</div>`;
+    cbMessages.appendChild(d); cbMessages.scrollTop = cbMessages.scrollHeight;
+  }
+  function showCbTyping() {
+    const d = document.createElement('div');
+    d.className = 'cb-msg bot'; d.id = 'cb-typing';
+    d.innerHTML = `<div class="cb-typing"><span></span><span></span><span></span></div>`;
+    cbMessages.appendChild(d); cbMessages.scrollTop = cbMessages.scrollHeight;
+  }
+  function removeCbTyping() { const t = document.getElementById('cb-typing'); if(t) t.remove(); }
+  function escCb(t) { return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>'); }
+
+  async function sendCbMsg() {
+    const text = cbInput.value.trim();
+    if (!text || cbSend.disabled) return;
+    addCbUser(text);
+    cbHistory.push({ role: "user", content: text });
+    cbInput.value = ''; cbInput.style.height = 'auto';
+    cbSend.disabled = true; showCbTyping();
+
+    try {
+      const res = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": CB_API_KEY,
+          "anthropic-version": "2023-06-01",
+          "anthropic-dangerous-direct-browser-calls": "true"
+        },
+        body: JSON.stringify({
+          model: "claude-haiku-4-5-20251001",
+          max_tokens: 500,
+          system: `Tu es l'assistant du Cirque Abandonné, une maison d'horreur. Réponds de façon chaleureuse mais avec une légère touche mystérieuse, uniquement en te basant sur les informations ci-dessous. Si tu ne sais pas, invite à contacter les organisateurs.\n\nINFOS :\n${CB_EVENT_INFO}`,
+          messages: cbHistory
+        })
+      });
+      const data = await res.json();
+      removeCbTyping();
+      if (data.content?.[0]) {
+        const reply = data.content[0].text;
+        addCbBot(escCb(reply));
+        cbHistory.push({ role: "assistant", content: reply });
+      } else {
+        addCbBot("Une erreur s'est produite… réessayez.");
+        cbHistory.pop();
+      }
+    } catch(err) {
+      removeCbTyping();
+      addCbBot("Impossible de me connecter. Je suis actuellement en maintenance, si vous avez des question, n'hésitez pas à nous en faire part dans la section Contact.");
+      cbHistory.pop();
+    }
+    cbSend.disabled = false; cbInput.focus();
+  }
 </script>
-
+<!-- ══ FIN CHATBOT ══ -->
 </body>
 </html>
