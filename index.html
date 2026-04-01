@@ -4102,7 +4102,7 @@ if (actorBanner) {
 </div>
 
 <script>
-  const CB_API_KEY = "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"; // 🔑 Remplace par ta clé sur console.anthropic.com
+  const CB_API_KEY = "";
 
   const CB_EVENT_INFO = `
 Nom : Le Cirque Abandonné — Maison d'horreur
@@ -4191,13 +4191,11 @@ infos supplémentaire : Nous avons à cœur de rendre l'expérience accessible a
     cbSend.disabled = true; showCbTyping();
 
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
+      const res = await fetch("https://cirque-api.maisondhorreur33.workers.dev/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-api-key": CB_API_KEY,
           "anthropic-version": "2023-06-01",
-          "anthropic-dangerous-direct-browser-calls": "true"
         },
         body: JSON.stringify({
           model: "claude-haiku-4-5-20251001",
