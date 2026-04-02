@@ -4112,7 +4112,10 @@ Prix : Entrée 5€ / Contient :Entrée + bonbons + boisson.
 Concept : Une maison hanté temporairement instalé dans le hall polyvalent de Bazas pour Halloween. Parcours immersif avec décors, acteurs, et animations effrayantes. Ouvert à tous les âges (déconseillé au enfant de moins de 12 ans).
 Horraire : Ouverture des portes à 17h30 / Première session sans acteurs de 17h30 à 19h / Deuxième session avec acteurs de 19h30 à 22h
 Organisateurs : Handball Club Bazadais
-Créateurs : Lylian BONTEMPS & Alban BONTEMPS & Lorianne TOUTENUIT & Océane ESPAGNET MICHEAU
+Si trop peur : il existe deux sessions, une première sans acteurs afin de faire quand même la maison sans le côté horreur mais en gardant l'ambiance et une deuxième session avec acteur est donc avec la parti horreur
+Intensité de peur : Session sans acteur = 2/5 
+Intensité de peur : Session avec acteur = 5/5
+Créateurs de l'évènement : Lylian BONTEMPS & Alban BONTEMPS & Lorianne TOUTENUIT & Océane ESPAGNET MICHEAU
 Adresse précise : 2 VC Ausone, 33430 Bazas, 33430 Bazas (Le cirque Abandonné sur google maps)
 Groupe : Groupe de 5 personnes maximum, les groupes incomplets seront automatiquement complétés par des visiteurs seuls ou d'autres groupes pour garantir une expérience optimale.
 Conseil : Portez des vêtements confortables 
@@ -4199,8 +4202,8 @@ infos supplémentaire : Nous avons à cœur de rendre l'expérience accessible a
         },
         body: JSON.stringify({
           model: "grok-3-mini",
-          max_tokens: 70,
-          system: `Réponds toujours en 2-3 phrases maximum !, de façon courte et directe. Je veux une belle mis en page de tes réponse mais sans les carractère gras, n'i italique, ni souligné, je veux juste une réponse bien construit. Tu es l'assistant du Cirque Abandonné, une maison d'horreur. Réponds de façon chaleureuse mais simple afin qu'ils aient une réponse claire, uniquement en te basant sur les informations ci-dessous. Si tu ne sais pas, invite à contacter les organisateurs depuis la page de "contact".\n\nINFOS :\n${CB_EVENT_INFO}`,
+          max_tokens: 120,
+          system: `Réponds en moins de 80 mots. Réponds toujours en 2-3 phrases maximum !, de façon courte et directe. Je veux une belle mis en page de tes réponse mais sans les carractère gras, n'i italique, ni souligné, je veux juste une réponse bien construit. Tu es l'assistant du Cirque Abandonné, une maison d'horreur. Réponds de façon chaleureuse mais simple afin qu'ils aient une réponse claire, uniquement en te basant sur les informations ci-dessous. Si tu ne sais pas, invite à contacter les organisateurs depuis la page de "contact".\n\nINFOS :\n${CB_EVENT_INFO}`,
           messages: cbHistory
         })
       });
