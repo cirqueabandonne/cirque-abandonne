@@ -4200,7 +4200,7 @@ infos supplémentaire : Nous avons à cœur de rendre l'expérience accessible a
         body: JSON.stringify({
           model: "grok-3-mini",
           max_tokens: 70,
-          system: `Fais en sorte d'attendre 3sec avant de répondre histoire de faire genre que quelqu'un répond vraiment à leur question. Réponds toujours en 2-3 phrases maximum !, de façon courte et directe. Je veux une belle mis en page de tes réponse mais sans les carractère gras, n'i italique, ni souligné, je veux juste une réponse bien construit. Tu es l'assistant du Cirque Abandonné, une maison d'horreur. Réponds de façon chaleureuse mais simple afin qu'ils aient une réponse claire, uniquement en te basant sur les informations ci-dessous. Si tu ne sais pas, invite à contacter les organisateurs depuis la page de "contact".\n\nINFOS :\n${CB_EVENT_INFO}`,
+          system: `Réponds toujours en 2-3 phrases maximum !, de façon courte et directe. Je veux une belle mis en page de tes réponse mais sans les carractère gras, n'i italique, ni souligné, je veux juste une réponse bien construit. Tu es l'assistant du Cirque Abandonné, une maison d'horreur. Réponds de façon chaleureuse mais simple afin qu'ils aient une réponse claire, uniquement en te basant sur les informations ci-dessous. Si tu ne sais pas, invite à contacter les organisateurs depuis la page de "contact".\n\nINFOS :\n${CB_EVENT_INFO}`,
           messages: cbHistory
         })
       });
