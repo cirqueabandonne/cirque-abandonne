@@ -4180,7 +4180,7 @@ function addCbBot(text) {
   const d = document.createElement('div');
   d.className = 'cb-msg bot';
   const linked = escCb(text).replace(
-    /https?:\/\/[^\s<]+/g,
+    /https?:\/\/[^\s<.,)]+/g,
     url => `<a href="${url}" target="_blank" style="color:hsl(0,70%,60%);text-decoration:underline;">${url}</a>`
   );
   d.innerHTML = `<div class="cb-msg-bubble">${linked}</div>`;
