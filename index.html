@@ -4176,12 +4176,16 @@ Costume autorisé : Oui les costumes et accessoire sont entièrement autorisé !
     d.innerHTML = `<div class="cb-msg-bubble">${escCb(text)}</div>`;
     cbMessages.appendChild(d); cbMessages.scrollTop = cbMessages.scrollHeight;
   }
-  function addCbBot(text) {
-    const d = document.createElement('div');
-    d.className = 'cb-msg bot';
-    d.innerHTML = `<div class="cb-msg-bubble">${text}</div>`;
-    cbMessages.appendChild(d); cbMessages.scrollTop = cbMessages.scrollHeight;
-  }
+function addCbBot(text) {
+  const d = document.createElement('div');
+  d.className = 'cb-msg bot';
+  const linked = escCb(text).replace(
+    /https?:\/\/[^\s<]+/g,
+    url => `<a href="${url}" target="_blank" style="color:hsl(0,70%,60%);text-decoration:underline;">${url}</a>`
+  );
+  d.innerHTML = `<div class="cb-msg-bubble">${linked}</div>`;
+  cbMessages.appendChild(d); cbMessages.scrollTop = cbMessages.scrollHeight;
+}
   function showCbTyping() {
     const d = document.createElement('div');
     d.className = 'cb-msg bot'; d.id = 'cb-typing';
