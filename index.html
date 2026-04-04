@@ -4180,7 +4180,7 @@ function addCbBot(text) {
   const d = document.createElement('div');
   d.className = 'cb-msg bot';
   const linked = escCb(text).replace(
-    /https?:\/\/[^\s<.,)]+/g,
+  /https?:\/\/[^\s<]+/g,
     url => `<a href="${url}" target="_blank" style="color:hsl(0,70%,60%);text-decoration:underline;">${url}</a>`
   );
   d.innerHTML = `<div class="cb-msg-bubble">${linked}</div>`;
@@ -4212,7 +4212,7 @@ function addCbBot(text) {
         body: JSON.stringify({
           model: "grok-3-mini",
           max_tokens: 120,
-          system: `Répond sans faute d'orthographe, corrige les fautes si il y en a dans ton message. Réponds en moins de 80 mots. Réponds toujours en 2-3 phrases maximum !, de façon courte et directe. Je veux une belle mis en page de tes réponse mais sans les carractère gras, n'i italique, ni souligné, je veux juste une réponse bien construit. Tu es l'assistant du Cirque Abandonné, une maison d'horreur. Réponds de façon chaleureuse mais simple afin qu'ils aient une réponse claire, uniquement en te basant sur les informations ci-dessous. Si tu ne sais pas, invite à contacter les organisateurs depuis la page de "contact". Si une question t'éloigne du sujet, recentre la conversation vers le sujet principale (cirque abandonné)\n\nINFOS :\n${CB_EVENT_INFO}`,
+          system: `Répond sans faute d'orthographe, corrige les fautes si il y en a dans ton message. Réponds en moins de 80 mots. Réponds toujours en 2-3 phrases maximum !, de façon courte et directe. Je veux une belle mis en page de tes réponse mais sans les carractère gras, n'i italique, ni souligné, je veux juste une réponse bien construit. Tu es l'assistant du Cirque Abandonné, une maison d'horreur. Réponds de façon chaleureuse mais simple afin qu'ils aient une réponse claire, uniquement en te basant sur les informations ci-dessous. Si tu ne sais pas, invite à contacter les organisateurs depuis la page de "contact". Si une question t'éloigne du sujet, recentre la conversation vers le sujet principale (cirque abandonné). Si jamais, on te pose une question sur comment on devient acteur, ne met pas de point après le lien, sinon le lien ne fonctionne pas.\n\nINFOS :\n${CB_EVENT_INFO}`,
           messages: cbHistory
         })
       });
