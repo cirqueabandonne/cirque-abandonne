@@ -3967,6 +3967,7 @@ if (actorBanner) {
     box-shadow: 0 4px 16px hsla(0,80%,30%,0.4);
     animation: cb-pop 0.4s cubic-bezier(.34,1.56,.64,1) both;
     pointer-events: none;
+    overflow: visible;
   }
   #cb-badge.hidden { display: none; }
     #cb-badge-close:hover {
@@ -4083,8 +4084,8 @@ if (actorBanner) {
 </button>
 
 <div id="cb-badge" class="hidden">
+  <span id="cb-badge-close" onclick="document.getElementById('cb-badge').classList.add('hidden')" style="position:absolute; top:-8px; right:-8px; width:18px; height:18px; background:#111; border:2px solid #fff; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:10px; color:#fff; line-height:1;">✕</span>
   🎪 Une question ? Je suis l'assistant du Cirque !
-  <span id="cb-badge-close" onclick="cbBadge.classList.add('hidden')" style="margin-left:8px; cursor:pointer; font-size:0.75rem; opacity:0.7;">✕</span>
 </div>
 
 <div id="cb-window">
