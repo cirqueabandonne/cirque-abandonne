@@ -4079,7 +4079,7 @@ if (actorBanner) {
   <svg class="cb-icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
 </button>
 
-<div id="cb-badge" class="hidden">🎪 Une question ?</div>
+<div id="cb-badge">🎪 Une question ? Je suis l'assistant du Cirque !</div>
 
 <div id="cb-window">
   <div id="cb-header">
@@ -4159,7 +4159,12 @@ Pré-inscription : Cela permet d'être alerté dans les premiers pour avoir acc�
     cbOpen = !cbOpen;
     cbWindow.classList.toggle('open', cbOpen);
     cbToggle.classList.toggle('open', cbOpen);
-    if (cbOpen) { cbBadge.classList.add('hidden'); cbInput.focus(); }
+    if (cbOpen) {
+  cbBadge.classList.add('hidden');
+  cbInput.focus();
+} else {
+  cbBadge.classList.remove('hidden');
+}
   });
 
   cbInput.addEventListener('keydown', e => {
