@@ -4141,6 +4141,7 @@ Lumière : Il est interdit de venir avec sa propre lumière, durant le parcours 
 Effet présent durant le parcours : Effet de fumée, de lumière, de chaleur, d'eau, de laser et sonore
 Réservation : Il est très fortement conseiller de réservation en avance afin de s'assurer une place prioritaire
 Costume autorisé : Oui les costumes et accessoire sont entièrement autorisé ! /!\ Les accessoires sont interdit dans la maison, il a un bac à l'entrée pour les déposer /!\
+Pré-inscription : Cela permet d'être alerté dans les premiers pour avoir accés à la billeterie (réservation  en ligne), voici le lien : https://forms.gle/oGXBUNJJByTzWcjSA
 
   `;
 
@@ -4212,7 +4213,7 @@ function addCbBot(text) {
         body: JSON.stringify({
           model: "grok-3-mini",
           max_tokens: 120,
-          system: `Répond sans faute d'orthographe, corrige les fautes si il y en a dans ton message. Réponds en moins de 80 mots. Réponds toujours en 2-3 phrases maximum !, de façon courte et directe. Je veux une belle mis en page de tes réponse mais sans les carractère gras, n'i italique, ni souligné, je veux juste une réponse bien construit. Tu es l'assistant du Cirque Abandonné, une maison d'horreur. Réponds de façon chaleureuse mais simple afin qu'ils aient une réponse claire, uniquement en te basant sur les informations ci-dessous. Si tu ne sais pas, invite à contacter les organisateurs depuis la page de "contact". Si une question t'éloigne du sujet, recentre la conversation vers le sujet principale (cirque abandonné). Si jamais, on te pose une question sur comment on devient acteur, ne met pas de point après le lien, sinon le lien ne fonctionne pas.\n\nINFOS :\n${CB_EVENT_INFO}`,
+          system: `Répond sans faute d'orthographe, corrige les fautes si il y en a dans ton message. Réponds en moins de 80 mots. Réponds toujours en 2-3 phrases maximum !, de façon courte et directe. Je veux une belle mis en page de tes réponse mais sans les carractère gras, n'i italique, ni souligné, je veux juste une réponse bien construit. Tu es l'assistant du Cirque Abandonné, une maison d'horreur. Réponds de façon chaleureuse mais simple afin qu'ils aient une réponse claire, uniquement en te basant sur les informations ci-dessous. Si tu ne sais pas, invite à contacter les organisateurs depuis la page de "contact". Si une question t'éloigne du sujet, recentre la conversation vers le sujet principale (cirque abandonné). Si jamais, on te pose une question sur comment on devient acteur, ne met pas de point après le lien, sinon le lien ne fonctionne pas.Si on te parle de réservation, tu mentionnes le faites que pour le moment elle sont fermé mais qu'ils peuvent se pré-inscrire via le lien que je t'ai donné au dessous ! Comme pour l'autre lien, pas de point à la fin de la phrase sinon le lien n'est pas cliquable et il ne fonctionne pas !\n\nINFOS :\n${CB_EVENT_INFO}`,
           messages: cbHistory
         })
       });
