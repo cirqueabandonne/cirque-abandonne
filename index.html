@@ -3082,9 +3082,9 @@ document.querySelectorAll('.reglement-bloc').forEach(bloc => {
 .faq-trigger {
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
-  padding: 16px 18px;
+  padding: 18px 18px;
   background: none;
   border: none;
   cursor: pointer;
@@ -3093,7 +3093,13 @@ document.querySelectorAll('.reglement-bloc').forEach(bloc => {
   font-family: "Crimson Text", Georgia, serif;
   font-size: 1.05rem;
   font-weight: 600;
-  line-height: 1.4;
+  line-height: 1.5;
+  min-height: unset;
+  height: auto;
+  box-sizing: border-box;
+  white-space: normal;
+  word-break: break-word;
+  overflow: visible;
   transition: color 0.2s ease;
   -webkit-tap-highlight-color: transparent;
 }
@@ -3109,7 +3115,8 @@ document.querySelectorAll('.reglement-bloc').forEach(bloc => {
 .faq-trigger-emoji {
   font-size: 1.2rem;
   flex-shrink: 0;
-  line-height: 1;
+  line-height: 1.5;
+  padding-top: 1px;
 }
 
 .faq-trigger-text {
@@ -3124,6 +3131,7 @@ document.querySelectorAll('.reglement-bloc').forEach(bloc => {
   color: hsl(0, 0%, 45%);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s ease;
   margin-left: auto;
+  margin-top: 3px;
 }
 
 .faq-item.is-open .faq-chevron {
