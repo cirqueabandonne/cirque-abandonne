@@ -3023,279 +3023,510 @@ document.querySelectorAll('.reglement-bloc').forEach(bloc => {
 
 
 <style>
-/* ----- CONTENEUR FAQ NATIF ----- */
-.faq-wrapper {
-  max-width: 1000px;
-  margin: 30px auto;
-  padding: 28px;
-  background: hsl(0, 0%, 7%);
-  border-radius: 12px;
-  box-shadow: 0 0 40px rgba(255,0,0,0.12), inset 0 0 40px rgba(0,0,0,0.3);
-  border: 2px solid rgba(255,0,0,0.06);
+/* ===== FAQ MODERNE 2026 ===== */
+
+.faq-container {
+  max-width: 860px;
+  margin: 3rem auto 4rem;
+  padding: 0 1.5rem;
 }
 
-.faq-category {
-  margin: 35px 0 20px 0;
-  padding-bottom: 6px;
-  font-family: "Creepster", cursive;
-  font-size: 32px;
-  color: var(--primary-light, hsl(0, 70%, 52%));
-  text-shadow: 0 0 14px black, 0 0 6px red;
+.faq-section {
+  margin-bottom: 2.5rem;
+}
+
+.faq-section-header {
   display: flex;
   align-items: center;
-  gap: 14px;
-  border-bottom: 1px solid hsla(0, 70%, 40%, 0.35);
+  gap: 12px;
+  padding: 0 0 12px 0;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid hsla(0, 70%, 40%, 0.25);
+}
+
+.faq-section-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.faq-section-title {
+  font-family: "Creepster", cursive;
+  font-size: 1.7rem;
+  color: hsl(0, 70%, 55%);
+  text-shadow: 0 0 20px hsla(0, 80%, 30%, 0.5);
+  letter-spacing: 0.04em;
+  margin: 0;
 }
 
 .faq-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 
-details.faq-item-native {
-  background: linear-gradient(180deg, rgba(0,0,0,0.48), rgba(0,0,0,0.52));
-  border-radius: 10px;
-  border: 1px solid rgba(255,0,0,0.08);
+/* Chaque item FAQ */
+.faq-item {
+  border-radius: 12px;
+  border: 1px solid hsla(0, 0%, 20%, 0.7);
+  background: hsla(0, 0%, 8%, 0.8);
   overflow: hidden;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-details.faq-item-native summary {
+.faq-item.is-open {
+  border-color: hsla(0, 70%, 40%, 0.4);
+  box-shadow: 0 4px 24px hsla(0, 80%, 20%, 0.2);
+}
+
+/* Bouton question */
+.faq-trigger {
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 14px 16px;
+  padding: 16px 18px;
+  background: none;
+  border: none;
   cursor: pointer;
-  list-style: none;
-  font-family: "Creepster", cursive;
-  color: #ffdddd;
-  font-size: 18px;
-  transition: background 0.18s ease;
-  user-select: none;
-}
-
-details.faq-item-native summary::-webkit-details-marker { display: none; }
-
-details.faq-item-native summary:hover {
-  background: rgba(255,0,0,0.04);
-  color: #ffecec;
-}
-
-.faq-emoji {
-  font-size: 24px;
-  flex-shrink: 0;
-}
-
-.faq-summary-arrow {
-  margin-left: auto;
-  font-size: 18px;
-  color: #888;
-  transition: transform 0.25s ease;
-}
-
-details.faq-item-native[open] .faq-summary-arrow {
-  transform: rotate(45deg);
-  color: var(--primary-light, hsl(0, 70%, 52%));
-}
-
-.faq-answer-body {
-  padding: 14px 16px 18px 16px;
-  font-family: 'Crimson Text', Georgia, serif;
-  color: #e9e9e9;
-  font-size: 15px;
-  line-height: 1.55;
-}
-
-.faq-warning {
-  background: rgba(255, 60, 60, 0.10);
-  border-left: 4px solid #ff3b3b;
-  color: #ffd6d6;
-  padding: 8px 10px;
-  margin: 10px 0;
-  border-radius: 6px;
+  text-align: left;
+  color: hsl(0, 10%, 88%);
+  font-family: "Crimson Text", Georgia, serif;
+  font-size: 1.05rem;
   font-weight: 600;
-  font-size: 14px;
+  line-height: 1.4;
+  transition: color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.faq-trigger:hover {
+  color: #fff;
+}
+
+.faq-item.is-open .faq-trigger {
+  color: #fff;
+}
+
+.faq-trigger-emoji {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.faq-trigger-text {
+  flex: 1;
+}
+
+/* Icône chevron SVG */
+.faq-chevron {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  color: hsl(0, 0%, 45%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s ease;
+  margin-left: auto;
+}
+
+.faq-item.is-open .faq-chevron {
+  transform: rotate(180deg);
+  color: hsl(0, 70%, 55%);
+}
+
+/* Panneau réponse avec animation */
+.faq-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-item.is-open .faq-panel {
+  grid-template-rows: 1fr;
+}
+
+.faq-panel-inner {
+  overflow: hidden;
+}
+
+.faq-answer {
+  padding: 0 18px 18px 46px;
+  font-family: "Crimson Text", Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: hsl(0, 5%, 72%);
+}
+
+.faq-answer strong {
+  color: hsl(0, 5%, 88%);
+}
+
+.faq-answer a {
+  color: hsl(0, 65%, 60%);
+  text-decoration: none;
+  border-bottom: 1px solid hsla(0, 65%, 60%, 0.35);
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.faq-answer a:hover {
+  color: hsl(0, 70%, 70%);
+  border-color: hsla(0, 70%, 70%, 0.5);
+}
+
+/* Warning block */
+.faq-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: hsla(0, 70%, 30%, 0.12);
+  border-left: 3px solid hsl(0, 65%, 45%);
+  border-radius: 0 8px 8px 0;
+  color: hsl(0, 30%, 82%);
+  padding: 10px 14px;
+  margin: 12px 0 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.5;
 }
 
 @media (max-width: 720px) {
-  details.faq-item-native summary { font-size: 17px; }
-  .faq-emoji { font-size: 20px; }
+  .faq-trigger { font-size: 0.97rem; padding: 14px 14px; }
+  .faq-answer  { padding: 0 14px 16px 40px; font-size: 0.95rem; }
+  .faq-section-title { font-size: 1.45rem; }
 }
 </style>
 
-<div class="faq-wrapper">
+<div class="faq-container">
 
-<!-- SECTION 1 -->
-<div class="faq-category">🩸 1 — Réservations & Paiement</div>
-<div class="faq-list">
-
-  <details class="faq-item-native">
-    <summary><span class="faq-emoji">🎫</span>Comment se déroule ma réservation ?<span class="faq-summary-arrow">+</span></summary>
-    <div class="faq-answer-body">
-      Après votre réservation, vous recevrez automatiquement un <strong>email de confirmation</strong> contenant votre/vos billet(s) en PDF.
+  <!-- SECTION 1 -->
+  <div class="faq-section">
+    <div class="faq-section-header">
+      <span class="faq-section-icon">🩸</span>
+      <h2 class="faq-section-title">1 — Réservations & Paiement</h2>
     </div>
-  </details>
+    <div class="faq-list">
 
-  <details class="faq-item-native">
-    <summary><span class="faq-emoji">📧</span>Qui reçoit l’email de validation ?<span class="faq-summary-arrow">+</span></summary>
-    <div class="faq-answer-body">
-      L’email est envoyé à la <strong>personne qui fait la réservation</strong>.<br>
-      Pour les groupes, elle reçoit <strong>tous les billets</strong> dans un seul email.
-    </div>
-  </details>
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-trigger-emoji">🎫</span>
+          <span class="faq-trigger-text">Comment se déroule ma réservation ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-panel"><div class="faq-panel-inner">
+          <div class="faq-answer">
+            Après votre réservation, vous recevrez automatiquement un <strong>email de confirmation</strong> contenant votre/vos billet(s) en PDF.
+          </div>
+        </div></div>
+      </div>
 
-  <details class="faq-item-native">
-    <summary><span class="faq-emoji">⏳</span>Faut-il réserver à l’avance ?<span class="faq-summary-arrow">+</span></summary>
-    <div class="faq-answer-body">
-      Oui, la réservation est <strong>fortement conseillée</strong> pour fluidifier les entrées et éviter l’attente.
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-trigger-emoji">📧</span>
+          <span class="faq-trigger-text">Qui reçoit l'email de validation ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-panel"><div class="faq-panel-inner">
+          <div class="faq-answer">
+            L'email est envoyé à la <strong>personne qui fait la réservation</strong>.<br>
+            Pour les groupes, elle reçoit <strong>tous les billets</strong> dans un seul email.
+          </div>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-trigger-emoji">⏳</span>
+          <span class="faq-trigger-text">Faut-il réserver à l'avance ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-panel"><div class="faq-panel-inner">
+          <div class="faq-answer">
+            Oui, la réservation est <strong>fortement conseillée</strong> pour fluidifier les entrées et éviter l'attente.
+          </div>
+        </div></div>
+      </div>
+
     </div>
-  </details>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="faq-section">
+    <div class="faq-section-header">
+      <span class="faq-section-icon">💸</span>
+      <h2 class="faq-section-title">2 — Paiement de la réservation</h2>
+    </div>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-trigger-emoji">💶</span>
+          <span class="faq-trigger-text">Combien coûte l'entrée ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-panel"><div class="faq-panel-inner">
+          <div class="faq-answer">
+            L'entrée coûte <strong>5 euros</strong> par personne.
+          </div>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-trigger-emoji">❓</span>
+          <span class="faq-trigger-text">Pourquoi 5 euros ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-panel"><div class="faq-panel-inner">
+          <div class="faq-answer">
+            Ce tarif couvre une partie des frais :<br>
+            <strong>décors, matériel technique, son, lumières, sécurité, organisation</strong>.<br><br>
+            Il inclut également :<br>
+            • <strong>l'accès complet</strong> au parcours<br>
+            • <strong>1 boisson</strong><br>
+            • <strong>1 verre de bonbons</strong>
+          </div>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="faq-section">
+    <div class="faq-section-header">
+      <span class="faq-section-icon">🎪</span>
+      <h2 class="faq-section-title">3 — Informations pratiques</h2>
+    </div>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-trigger-emoji">🍔</span>
+          <span class="faq-trigger-text">Où peut-on manger ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-panel"><div class="faq-panel-inner">
+          <div class="faq-answer">
+            Un <strong>food-truck</strong> sera installé juste devant le Hall pour manger avant ou après votre passage.
+          </div>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-trigger-emoji">🅿️</span>
+          <span class="faq-trigger-text">Où se garer ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-panel"><div class="faq-panel-inner">
+          <div class="faq-answer">
+            Un <strong>parking gratuit</strong> est disponible juste en face du Hall Polyvalent.<br>
+            Il est accessible à tous et situé à quelques mètres seulement de l'entrée.
+          </div>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-trigger-emoji">👶</span>
+          <span class="faq-trigger-text">À partir de quel âge ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-panel"><div class="faq-panel-inner">
+          <div class="faq-answer">
+            Ouvert à <strong>tout âge</strong>.<br><br>
+            • <strong>17h30 – 19h00</strong> : Sans acteurs (tout public)<br>
+            • <strong>19h30 – 22h</strong> : Avec acteurs (déconseillé -12 ans)
+            <div class="faq-warning">/!\ Ce n'est pas interdit, seulement déconseillé. Les enfants de moins de 12 ans ont entièrement le droit de faire la maison avec les acteurs /!\</div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-trigger-emoji">👦</span>
+          <span class="faq-trigger-text">Trop peur de nos artistes ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-panel"><div class="faq-panel-inner">
+          <div class="faq-answer">
+            Nous avons un <strong>badge anti monstre</strong>, il permet d'éloigner tous nos artistes effrayants.<br>
+            Si vous le souhaitez, il sera disponible à l'entrée. Il suffira simplement de le demander à la caisse.
+          </div>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-trigger-emoji">👥</span>
+          <span class="faq-trigger-text">Peut-on participer en groupe ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-panel"><div class="faq-panel-inner">
+          <div class="faq-answer">
+            Oui. Les passages se font en <strong>groupes de 5 maximum</strong>.<br>
+            Si un groupe est incomplet, il est <strong>complété automatiquement</strong>.
+          </div>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-trigger-emoji">⏱️</span>
+          <span class="faq-trigger-text">Durée du parcours ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-panel"><div class="faq-panel-inner">
+          <div class="faq-answer">
+            Le parcours dure en moyenne <strong>5 à 10 minutes</strong> selon les groupes.
+          </div>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-trigger-emoji">🎭</span>
+          <span class="faq-trigger-text">Comment devenir acteur ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-panel"><div class="faq-panel-inner">
+          <div class="faq-answer">
+            Pour devenir acteur, remplissez simplement le formulaire :<br><br>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeIsw67Lfx7vHViLfdeRFhH5GFFP7KC2V8QJqMFOJjW3RK9jw/viewform?usp=send_form" target="_blank">
+              ➤ Devenir acteur
+            </a>
+          </div>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="faq-section">
+    <div class="faq-section-header">
+      <span class="faq-section-icon">⚠️</span>
+      <h2 class="faq-section-title">4 — Sécurité & Contraintes</h2>
+    </div>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-trigger-emoji">🚪</span>
+          <span class="faq-trigger-text">Sortie en cas de panique ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-panel"><div class="faq-panel-inner">
+          <div class="faq-answer">
+            Oui. Le parcours dispose de <strong>sorties de secours</strong> accessibles à tout moment.
+          </div>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-trigger-emoji">👻</span>
+          <span class="faq-trigger-text">Les entités peuvent-elles nous toucher ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-panel"><div class="faq-panel-inner">
+          <div class="faq-answer">
+            Oui, un <strong>contact physique maîtrisé</strong> est autorisé.
+            <div class="faq-warning">/!\ Tous les contacts sont contrôlés en sécurité par les acteurs /!\</div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-trigger-emoji">🚶</span>
+          <span class="faq-trigger-text">Indépendance de marche requise ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-panel"><div class="faq-panel-inner">
+          <div class="faq-answer">
+            Oui. Le parcours comporte des <strong>obstacles</strong> et parfois une <strong>faible visibilité</strong>, ce qui augmente les risques de chute.
+          </div>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="faq-section">
+    <div class="faq-section-header">
+      <span class="faq-section-icon">🎒</span>
+      <h2 class="faq-section-title">5 — Objets personnels & Consignes</h2>
+    </div>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-trigger-emoji">📸</span>
+          <span class="faq-trigger-text">Photos & vidéos autorisées ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-panel"><div class="faq-panel-inner">
+          <div class="faq-answer">
+            Oui, mais <strong>sans flash</strong> afin de préserver l'ambiance immersive.
+          </div>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-trigger-emoji">🎒</span>
+          <span class="faq-trigger-text">Que faire de mes affaires ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-panel"><div class="faq-panel-inner">
+          <div class="faq-answer">
+            Un <strong>bac</strong> est disponible et sécurisé à l'entrée pour mettre vos objets personnels.<br>
+            Après votre passage, il sera <strong>transféré automatiquement à la sortie</strong>.
+          </div>
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-trigger" aria-expanded="false">
+          <span class="faq-trigger-emoji">🧥</span>
+          <span class="faq-trigger-text">Les costumes sont-ils autorisés ?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-panel"><div class="faq-panel-inner">
+          <div class="faq-answer">
+            Oui, costumes et accessoires sont autorisés pour la soirée.
+            <div class="faq-warning">/!\ Tous les accessoires doivent être déposés dans le bac avant l'entrée dans la maison /!\</div>
+          </div>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
 
 </div>
 
-<!-- SECTION 2 -->
-<div class="faq-category">💸 2 — Paiement de la réservation</div>
-<div class="faq-list">
+<script>
+(function() {
+  // Accordéon exclusif : ferme toutes les autres quand on en ouvre une
+  document.querySelectorAll('.faq-trigger').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var item = btn.closest('.faq-item');
+      var isOpen = item.classList.contains('is-open');
 
-  <details class="faq-item-native">
-    <summary><span class="faq-emoji">💶</span>Combien coûte l’entrée ?<span class="faq-summary-arrow">+</span></summary>
-    <div class="faq-answer-body">
-      L’entrée coûte <strong>5 euros</strong> par personne.
-    </div>
-  </details>
+      // Fermer tous les items ouverts dans toute la FAQ
+      document.querySelectorAll('.faq-item.is-open').forEach(function(openItem) {
+        openItem.classList.remove('is-open');
+        openItem.querySelector('.faq-trigger').setAttribute('aria-expanded', 'false');
+      });
 
-  <details class="faq-item-native">
-    <summary><span class="faq-emoji">❓</span>Pourquoi 5 euros ?<span class="faq-summary-arrow">+</span></summary>
-    <div class="faq-answer-body">
-      Ce tarif couvre une partie des frais :<br>
-      <strong>décors, matériel technique, son, lumières, sécurité, organisation</strong>.<br><br>
-      Il inclut également :<br>
-      • <strong>l’accès complet</strong> au parcours<br>
-      • <strong>1 boisson</strong><br>
-      • <strong>1 verre de bonbons</strong>
-    </div>
-  </details>
-
-</div>
-
-<!-- SECTION 3 -->
-<div class="faq-category">🎪 3 — Informations pratiques</div>
-<div class="faq-list">
-
-  <details class="faq-item-native">
-    <summary><span class="faq-emoji">🍔</span>Où peut-on manger ?<span class="faq-summary-arrow">+</span></summary>
-    <div class="faq-answer-body">
-      Un <strong>food-truck</strong> sera installé juste devant le Hall pour manger avant ou après votre passage.
-    </div>
-  </details>
-
-  <details class="faq-item-native">
-    <summary><span class="faq-emoji">🅿️</span>Où se garer ?<span class="faq-summary-arrow">+</span></summary>
-    <div class="faq-answer-body">
-      Un <strong>parking gratuit</strong> est disponible juste en face du Hall Polyvalent.<br>
-      Il est accessible à tous et situé à quelques mètres seulement de l’entrée.
-    </div>
-  </details>
-
-  <details class="faq-item-native">
-    <summary><span class="faq-emoji">👶</span>À partir de quel âge ?<span class="faq-summary-arrow">+</span></summary>
-    <div class="faq-answer-body">
-      Ouvert à <strong>tout âge</strong>.<br><br>
-      • <strong>17h30 – 19h00</strong> : Sans acteurs (tout public)<br>
-      • <strong>19h30 – 22h</strong> : Avec acteurs (déconseillé -12 ans)
-      <div class="faq-warning">/!\ Ce n’est pas interdit, seulement déconseillé. Les enfants de moins de 12 ans ont entièrement le droit de faire la maison avec les acteurs /!\</div>
-    </div>
-  </details>
-
-  <details class="faq-item-native">
-    <summary><span class="faq-emoji">👦</span>Trop peur de nos artistes ?<span class="faq-summary-arrow">+</span></summary>
-    <div class="faq-answer-body">
-      Nous avons un <strong>badge anti monstre</strong>, il permet d’éloigner tous nos artistes effrayants.<br>
-      Si vous le souhaitez, il sera disponible à l’entrée. Il suffira simplement de le demander à la caisse.
-    </div>
-  </details>
-
-  <details class="faq-item-native">
-    <summary><span class="faq-emoji">👥</span>Peut-on participer en groupe ?<span class="faq-summary-arrow">+</span></summary>
-    <div class="faq-answer-body">
-      Oui. Les passages se font en <strong>groupes de 5 maximum</strong>.<br>
-      Si un groupe est incomplet, il est <strong>complété automatiquement</strong>.
-    </div>
-  </details>
-
-  <details class="faq-item-native">
-    <summary><span class="faq-emoji">⏱️</span>Durée du parcours ?<span class="faq-summary-arrow">+</span></summary>
-    <div class="faq-answer-body">
-      Le parcours dure en moyenne <strong>5 à 10 minutes</strong> selon les groupes.
-    </div>
-  </details>
-
-  <details class="faq-item-native">
-    <summary><span class="faq-emoji">🎭</span>Comment devenir acteur ?<span class="faq-summary-arrow">+</span></summary>
-    <div class="faq-answer-body">
-      Pour devenir acteur, remplissez simplement le formulaire :<br><br>
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeIsw67Lfx7vHViLfdeRFhH5GFFP7KC2V8QJqMFOJjW3RK9jw/viewform?usp=send_form" target="_blank" style="color:#ffbdbd;">
-        ➤ Devenir acteur
-      </a>
-    </div>
-  </details>
-
-</div>
-
-<!-- SECTION 4 -->
-<div class="faq-category">⚠️ 4 — Sécurité & Contraintes</div>
-<div class="faq-list">
-
-  <details class="faq-item-native">
-    <summary><span class="faq-emoji">🚪</span>Sortie en cas de panique ?<span class="faq-summary-arrow">+</span></summary>
-    <div class="faq-answer-body">
-      Oui. Le parcours dispose de <strong>sorties de secours</strong> accessibles à tout moment.
-    </div>
-  </details>
-
-  <details class="faq-item-native">
-    <summary><span class="faq-emoji">👻</span>Les entités peuvent-elles nous toucher ?<span class="faq-summary-arrow">+</span></summary>
-    <div class="faq-answer-body">
-      Oui, un <strong>contact physique maîtrisé</strong> est autorisé.<br>
-      <div class="faq-warning">/!\ Tous les contacts sont contrôlés en sécurité par les acteurs /!\</div>
-    </div>
-  </details>
-
-  <details class="faq-item-native">
-    <summary><span class="faq-emoji">🚶</span>Indépendance de marche requise ?<span class="faq-summary-arrow">+</span></summary>
-    <div class="faq-answer-body">
-      Oui. Le parcours comporte des <strong>obstacles</strong> et parfois une <strong>faible visibilité</strong>, ce qui augmente les risques de chute.
-    </div>
-  </details>
-
-</div>
-
-<!-- SECTION 5 -->
-<div class="faq-category">🎒 5 — Objets personnels & Consignes</div>
-<div class="faq-list">
-
-  <details class="faq-item-native">
-    <summary><span class="faq-emoji">📸</span>Photos & vidéos autorisées ?<span class="faq-summary-arrow">+</span></summary>
-    <div class="faq-answer-body">
-      Oui, mais <strong>sans flash</strong> afin de préserver l’ambiance immersive.
-    </div>
-  </details>
-
-  <details class="faq-item-native">
-    <summary><span class="faq-emoji">🎒</span>Que faire de mes affaires ?<span class="faq-summary-arrow">+</span></summary>
-    <div class="faq-answer-body">
-      Un <strong>bac</strong> est disponible et sécurisé à l’entrée pour mettre vos objets personnels.<br>
-      Après votre passage, il sera <strong>transféré automatiquement à la sortie</strong>.
-    </div>
-  </details>
-
-  <details class="faq-item-native">
-    <summary><span class="faq-emoji">🧥</span>Les costumes sont-ils autorisés ?<span class="faq-summary-arrow">+</span></summary>
-    <div class="faq-answer-body">
-      Oui, costumes et accessoires sont autorisés pour la soirée.<br>
-      <div class="faq-warning">/!\ Tous les accessoires doivent être déposés dans le bac avant l’entrée dans la maison /!\</div>
-    </div>
-  </details>
+      // Si l'item cliqué était fermé, on l'ouvre
+      if (!isOpen) {
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+})();
+</script>
 
 </div>
 
