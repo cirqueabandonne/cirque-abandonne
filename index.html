@@ -2143,51 +2143,7 @@ nav {
             box-shadow: 0 10px 36px hsla(0,80%,30%,0.7) !important;
         }
 
-        /* FOOTER */
-        .footer {
-            background: #040404 !important;
-            border-top: 1px solid var(--border) !important;
-        }
-
-        .footer-title {
-            font-size: 1.3rem !important;
-            letter-spacing: 0.06em !important;
-        }
-
-        .footer-subtitle {
-            font-family: 'Inter', sans-serif !important;
-            font-size: 0.72rem !important;
-            font-weight: 700 !important;
-            letter-spacing: 0.14em !important;
-            text-transform: uppercase !important;
-            color: var(--muted-foreground) !important;
-        }
-
-        .footer-text {
-            font-family: 'Inter', sans-serif !important;
-            font-size: 0.88rem !important;
-        }
-
-        .social-icons a {
-            width: 2.4rem !important;
-            height: 2.4rem !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            border-radius: 50% !important;
-            background: var(--card) !important;
-            border: 1px solid var(--border) !important;
-            color: var(--muted-foreground) !important;
-            font-size: 1rem !important;
-            transition: all 0.22s !important;
-        }
-
-        .social-icons a:hover {
-            background: var(--primary) !important;
-            border-color: var(--primary) !important;
-            color: #fff !important;
-            transform: translateY(-2px) !important;
-        }
+        /* footer styles dans .footer {} en bas */
 
         /* CHATBOT */
         #cb-toggle {
@@ -4125,76 +4081,126 @@ updateResaTimer();
 
 <style>
 .footer {
-  background: #040404;
+  background: #0a0a0a;
   color: #d0d0d0;
-  padding: 60px 20px 30px;
-  font-family: Arial, sans-serif;
+  padding: 55px 20px 28px;
+  font-family: 'Inter', Arial, sans-serif;
+  border-top: 1px solid hsla(0,70%,30%,0.3);
 }
 
 .footer-container {
   max-width: 1200px;
   margin: auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 40px;
   text-align: center;
+  align-items: start;
 }
 
 .footer-title {
-  font-size: 1.6rem;
-  font-weight: bold;
-  color: #ff0000;
+  font-family: 'Creepster', cursive;
+  font-size: 1.55rem;
+  color: #cc1111;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 18px hsla(0,80%,35%,0.45);
+  animation: flicker 5s infinite;
+  margin-bottom: 10px;
 }
 
 .footer-subtitle {
-  font-size: 1.1rem;
-  margin-bottom: 15px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  margin-bottom: 18px;
   color: #ffffff;
 }
 
 .footer-text {
-  font-size: 0.95rem;
-  line-height: 1.6;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #777;
 }
 
 .footer-small {
   font-size: 0.8rem;
-  color: #888;
-  margin-top: 10px;
+  color: #555;
+  margin-top: 8px;
 }
 
 .footer-link {
-  color: #2e3fff;
+  color: #e03535;
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.92rem;
+  transition: color 0.2s;
+  display: block;
+  margin-bottom: 6px;
 }
 
 .footer-link:hover {
+  color: #ff5555;
   text-decoration: underline;
 }
 
 .social-icons {
   display: flex;
   justify-content: center;
-  gap: 25px;
-  font-size: 30px;
+  gap: 22px;
 }
 
 .social-icons a {
   color: #cccccc;
-  transition: transform 0.3s ease, color 0.3s ease;
+  font-size: 1.65rem;
+  background: none;
+  border: none;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.25s ease, transform 0.25s ease;
+  text-decoration: none;
 }
 
 .social-icons a:hover {
-  color: #ff2e2e;
-  transform: scale(1.2);
+  color: #ff3333;
+  transform: scale(1.2) translateY(-2px);
+  background: none;
+  border: none;
+  box-shadow: none;
 }
 
 .footer-copy {
-  margin-top: 40px;
+  max-width: 1200px;
+  margin: 36px auto 0;
   text-align: center;
-  font-size: 0.8rem;
-  color: #777;
+  font-size: 0.82rem;
+  color: #555;
+  font-family: 'Inter', sans-serif;
+  padding-top: 20px;
+  border-top: 1px solid #1a1a1a;
+}
+
+.footer-phone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: #888;
+  margin-top: 4px;
+}
+
+.footer-phone-icon {
+  color: #c0306a;
+  font-size: 0.85rem;
 }
 
 </style>
@@ -4202,52 +4208,51 @@ updateResaTimer();
 <footer class="footer">
   <div class="footer-container">
 
+    <!-- Colonne 1 : Titre + description -->
     <div>
       <p class="footer-title">Le Cirque Abandonné</p>
       <p class="footer-text">
-        Événement d'horreur immersif Halloween organisé par le <a href="https://www.instagram.com/hbcbazadais_/" target="_blank" style="text-decoration: none; color: inherit;">Handball Club Bazadais</a>.
+        Événement d'horreur immersif Halloween organisé par le
+        <a href="https://www.instagram.com/hbcbazadais_/" target="_blank" style="text-decoration:none;color:inherit;">Handball Club Bazadais</a>.
       </p>
       <p class="footer-small">Âmes sensibles, s'abstenir.</p>
     </div>
 
+    <!-- Colonne 2 : Réseaux sociaux -->
     <div>
       <p class="footer-subtitle">Réseaux sociaux</p>
       <div class="social-icons">
-        <a href="https://www.instagram.com/le_cirque_abandonne/" target="_blank" title="Instagram">
-          <i class="fab fa-instagram"></i>
-        </a>
-        <a href="https://www.tiktok.com/@cirque.abandonne" target="_blank" title="TikTok">
-          <i class="fab fa-tiktok"></i>
-        </a>
-        <a href="https://youtube.com/@cirqueabandonne?si=vk_LMJ5PQtxUPm5y" target="_blank" title="Youtube">
-          <i class="fab fa-youtube"></i>
-        </a>
-        <a href="https://discord.com/invite/UrEKfuuXrZ" target="_blank" title="Discord">
-          <i class="fab fa-discord"></i>
-        </a>
-        <a href="https://g.page/r/CRKgIjXNvqyXEBM/review" target="_blank" title="Avis Google">
-           <i class="fas fa-map-marker-alt"></i>
-        </a>
+        <a href="https://www.instagram.com/le_cirque_abandonne/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@cirque.abandonne" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="https://youtube.com/@cirqueabandonne?si=vk_LMJ5PQtxUPm5y" target="_blank" title="Youtube"><i class="fab fa-youtube"></i></a>
+        <a href="https://discord.com/invite/UrEKfuuXrZ" target="_blank" title="Discord"><i class="fab fa-discord"></i></a>
+        <a href="https://g.page/r/CRKgIjXNvqyXEBM/review" target="_blank" title="Avis Google"><i class="fas fa-map-marker-alt"></i></a>
       </div>
     </div>
 
+    <!-- Colonne 3 : Contact -->
     <div>
       <p class="footer-subtitle">Contact</p>
       <a class="footer-link"
          href="https://mail.google.com/mail/?view=cm&fs=1&to=maisondhorreur33@gmail.com"
-         target="_blank" title="Email">
-        📧 maisondhorreur33@gmail.com
-          </a>
-        <p class="footer-text">📞 Téléphone : 06 . 04 . 14 . 80 . 19</p>
-      
+         target="_blank">
+        <span style="color:#c0306a;margin-right:5px;">📧</span> maisondhorreur33@gmail.com
+      </a>
+      <div class="footer-phone">
+        <span class="footer-phone-icon">📞</span>
+        <span>Téléphone : 06 . 04 . 14 . 80 . 19</span>
+      </div>
     </div>
 
   </div>
 
-  <p class="footer-copy">
-    <strong>© 2026 – <a href="https://www.instagram.com/hbcbazadais_/" target="_blank" style="text-decoration: none; color: inherit;">Handball Club Bazadais</a>. Tous droits réservés.</strong>
-  </p>
-  <p class="footer-small"><i>Site web créé par <strong><a href="https://www.instagram.com/soup.er_33/" target="_blank" style="text-decoration: none; color: inherit;">Lylian BONTEMPS</a></strong> et <strong><a href="https://www.instagram.com/alban_btps/" target="_blank" style="text-decoration: none; color: inherit;">Alban BONTEMPS</a></strong></i></p>
+  <div class="footer-copy">
+    <strong>© 2026 – <a href="https://www.instagram.com/hbcbazadais_/" target="_blank" style="text-decoration:none;color:inherit;">Handball Club Bazadais</a>. Tous droits réservés.</strong><br>
+    <span style="color:#444;font-style:italic;">Site web créé par
+      <strong><a href="https://www.instagram.com/soup.er_33/" target="_blank" style="text-decoration:none;color:inherit;">Lylian BONTEMPS</a></strong> et
+      <strong><a href="https://www.instagram.com/alban_btps/" target="_blank" style="text-decoration:none;color:inherit;">Alban BONTEMPS</a></strong>
+    </span>
+  </div>
 </footer>
 <!-- ===== FIN FOOTER ===== -->
 
@@ -4765,7 +4770,118 @@ if (actorBanner) {
   @keyframes cb-bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-5px)} }
   @keyframes cb-pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
   @keyframes cb-pop { from{opacity:0;transform:scale(0.8)} to{opacity:1;transform:scale(1)} }
-</style>
+
+        /* ═══════════════════════════════════════
+           ACCENTS ROUGE SANG SUPPLÉMENTAIRES
+        ═══════════════════════════════════════ */
+
+        /* Titres de section */
+        .section-title {
+            color: #ffffff !important;
+        }
+
+        /* Sous-titres de section légèrement rouges */
+        .section-subtitle {
+            color: hsla(0, 50%, 65%, 0.75) !important;
+        }
+
+        /* Eyebrow hero badge — doré sang */
+        .hero-eyebrow {
+            color: hsl(38, 90%, 62%) !important;
+            border-color: hsla(38, 90%, 60%, 0.28) !important;
+        }
+
+        /* Flèche des FAQ */
+        .faq-summary-arrow { color: hsla(0, 60%, 55%, 0.7) !important; }
+        details.faq-item-native[open] .faq-summary-arrow { color: hsl(0, 70%, 55%) !important; }
+
+        /* Catégories FAQ */
+        .faq-category {
+            color: hsl(0, 65%, 55%) !important;
+            border-bottom-color: hsla(0, 65%, 42%, 0.4) !important;
+        }
+
+        /* Nom du logo nav */
+        .nav-logo {
+            color: hsl(0, 70%, 50%) !important;
+            text-shadow: 0 0 20px hsla(0, 80%, 35%, 0.5) !important;
+        }
+
+        /* Puces des sessions */
+        .session-details li::before { color: hsl(0, 70%, 55%) !important; }
+
+        /* Tirets des règlements au survol */
+        .reglement-bloc:hover .reglement-titre,
+        .reglement-bloc.actif .reglement-titre {
+            color: hsl(0, 65%, 62%) !important;
+        }
+
+        /* Carte contact : titre section */
+        .contact-info-label { color: hsl(0, 60%, 62%) !important; }
+
+        /* Hero countdown couleur */
+        .num { color: hsl(0, 65%, 62%) !important; }
+        .time-box p { color: hsla(0, 30%, 65%, 0.7) !important; }
+
+        /* Resa nums */
+        .resa-num { color: hsl(0, 65%, 62%) !important; }
+
+        /* Quote section : tirets décoratifs */
+        .quote-section::before { color: hsl(0, 70%, 40%) !important; opacity: 0.12 !important; }
+
+        /* Page header soustitres */
+        .page-header p { color: hsla(0, 30%, 65%, 0.7) !important; }
+
+        /* Banner intensity dots */
+        .intensity-dot.filled { background: hsl(0, 70%, 52%) !important; border-color: hsl(0, 70%, 52%) !important; }
+        .intensity-dot { border-color: hsla(0, 50%, 45%, 0.55) !important; }
+
+        /* Liens dans réponse chatbot */
+        .cb-msg.bot .cb-msg-bubble a { color: hsl(0, 60%, 62%) !important; }
+
+        /* Open dot chatbot */
+        #cb-toggle { background: hsl(0, 72%, 42%) !important; }
+
+        /* Nav reserve btn */
+        .nav-reserve-btn {
+            background: hsl(0, 70%, 40%) !important;
+            color: #fff !important;
+        }
+        .nav-reserve-btn:hover { background: hsl(0, 68%, 55%) !important; }
+
+        /* Bouton primary hero */
+        .hero-btn, .btn-primary {
+            background: hsl(0, 70%, 42%) !important;
+            box-shadow: 0 4px 20px hsla(0, 80%, 30%, 0.45) !important;
+        }
+        .hero-btn:hover, .btn-primary:hover {
+            background: hsl(0, 68%, 56%) !important;
+            box-shadow: 0 8px 28px hsla(0, 80%, 30%, 0.65) !important;
+        }
+
+        /* Submit form */
+        button[type=submit] {
+            background: hsl(0, 70%, 40%) !important;
+        }
+        button[type=submit]:hover {
+            background: hsl(0, 68%, 56%) !important;
+        }
+
+        /* Banner actor icon */
+        .banner-arrow { color: hsl(0, 68%, 58%) !important; }
+
+        /* Footer copyright lien */
+        .footer-copy a { color: inherit !important; }
+
+        /* Key facts icons */
+        .key-fact-icon { color: hsl(0, 60%, 55%) !important; }
+
+        /* Mobile reserve btn */
+        .mobile-reserve-btn {
+            background: hsl(0, 70%, 40%) !important;
+        }
+
+        </style>
 
 <button id="cb-toggle" aria-label="Ouvrir le chat">
   <svg class="cb-icon-open" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
