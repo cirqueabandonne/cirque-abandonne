@@ -17,24 +17,31 @@
     <meta name="twitter:title" content="Le Cirque Abandonné">
     <meta name="twitter:description" content="Maison d'horreur à Bazas. 31 octobre 2026. Entrée 5€.">
     <meta name="twitter:image" content="assets/hero-circus.jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Inter:wght@400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     
     <style>
         /* CSS Variables */
         :root {
-            --background: hsl(0, 0%, 5%);
-            --foreground: hsl(0, 10%, 85%);
-            --card: hsl(0, 0%, 8%);
-            --primary: hsl(0, 70%, 40%);
-            --primary-foreground: hsl(0, 0%, 95%);
-            --border: hsl(0, 0%, 15%);
-            --muted: hsl(0, 0%, 12%);
-            --muted-foreground: hsl(0, 0%, 55%);
-            --accent-foreground: hsl(40, 40%, 90%);
-            --blood-glow: hsl(0, 80%, 30%);
+            --background: hsl(0, 0%, 4%);
+            --foreground: hsl(0, 5%, 88%);
+            --card: hsl(0, 0%, 9%);
+            --primary: hsl(0, 72%, 44%);
+            --primary-foreground: hsl(0, 0%, 98%);
+            --primary-light: hsl(0, 68%, 60%);
+            --border: hsla(0, 0%, 100%, 0.08);
+            --border-red: hsla(0, 70%, 42%, 0.38);
+            --muted: hsl(0, 0%, 13%);
+            --muted-foreground: hsl(0, 0%, 50%);
+            --accent-foreground: hsl(38, 30%, 88%);
+            --blood-glow: hsl(0, 80%, 28%);
             --fog: hsl(200, 10%, 70%);
+            --primary-light: hsl(0, 68%, 60%);
             --font-display: 'Creepster', cursive;
-            --font-body: 'Crimson Text', serif;
+            --font-body: 'Inter', sans-serif;
+            --font-serif: 'Crimson Text', serif;
+            --radius: 12px;
+            --radius-lg: 18px;
         }
 
         .skip-link {
@@ -45,7 +52,7 @@
             color: var(--primary-foreground);
             padding: 0.75rem 1.5rem;
             z-index: 10000;
-            font-family: var(--font-body);
+            font-family: var(--font-body); font-size: 15px;
             text-decoration: none;
         }
         .skip-link:focus {
@@ -76,7 +83,7 @@
         body {
             background-color: var(--background);
             color: var(--foreground);
-            font-family: var(--font-body);
+            font-family: var(--font-body); font-size: 15px;
             line-height: 1.6;
             overflow-x: hidden;
         }
@@ -369,7 +376,7 @@ nav {
             font-size: clamp(2.5rem, 6vw, 3.5rem);
             text-align: center;
             color: var(--primary);
-            margin-bottom: 4rem;
+            margin-bottom: 0.5rem;
         }
 
         /* Cards grid */
@@ -581,7 +588,7 @@ nav {
             border: 1px solid var(--border);
             border-radius: 0.25rem;
             color: var(--foreground);
-            font-family: var(--font-body);
+            font-family: var(--font-body); font-size: 15px;
             font-size: 1rem;
             transition: border-color 0.3s, box-shadow 0.3s;
         }
@@ -1275,7 +1282,7 @@ nav {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-family: var(--font-body);
+            font-family: var(--font-body); font-size: 15px;
             font-size: 1.1rem;
             color: var(--foreground);
             white-space: nowrap;
@@ -1374,7 +1381,7 @@ nav {
 }
 
 .banner-text {
-    font-family: var(--font-body);
+    font-family: var(--font-body); font-size: 15px;
     font-size: 1rem;
     color: var(--muted-foreground);
     font-style: italic;
@@ -1542,7 +1549,7 @@ nav {
 }
 
 .resa-label {
-    font-family: var(--font-body);
+    font-family: var(--font-body); font-size: 15px;
     font-size: 1rem;
     color: var(--muted-foreground);
     margin-top: 0.75rem;
@@ -1559,7 +1566,7 @@ nav {
 }
 
 .resa-date {
-    font-family: var(--font-body);
+    font-family: var(--font-body); font-size: 15px;
     font-size: 1.125rem;
     color: var(--muted-foreground);
     font-style: italic;
@@ -1642,7 +1649,687 @@ nav {
     }
 }
 
-    </style>
+    
+        /* ═══════════════════════════════════════
+           MODERNISATION VISUELLE 2026
+        ═══════════════════════════════════════ */
+
+        /* BODY */
+        body {
+            background-color: var(--background) !important;
+            font-family: 'Inter', sans-serif !important;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* NAV — glass morphism */
+        nav {
+            background: hsla(0, 0%, 4%, 0.82) !important;
+            backdrop-filter: blur(24px) saturate(1.5) !important;
+            -webkit-backdrop-filter: blur(24px) saturate(1.5) !important;
+            border-bottom: 1px solid var(--border-red) !important;
+            box-shadow: none !important;
+        }
+
+        .nav-logo {
+            font-size: 1.35rem !important;
+            letter-spacing: 0.06em !important;
+        }
+
+        .nav-links a {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 0.875rem !important;
+            font-weight: 500 !important;
+            color: var(--muted-foreground) !important;
+            padding: 0.38rem 0.7rem;
+            border-radius: 8px;
+            transition: color 0.2s, background 0.2s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--foreground) !important;
+            background: var(--border);
+        }
+
+        .nav-reserve-btn {
+            padding: 0.5rem 1.2rem !important;
+            border-radius: 9px !important;
+            font-size: 0.9rem !important;
+            transition: all 0.2s !important;
+            box-shadow: 0 2px 12px hsla(0,80%,30%,0.35) !important;
+        }
+
+        .nav-reserve-btn:hover {
+            transform: translateY(-1px) !important;
+            box-shadow: 0 6px 20px hsla(0,80%,30%,0.55) !important;
+            background: var(--primary-light) !important;
+        }
+
+        /* HERO */
+        .hero {
+            height: 92vh !important;
+        }
+
+        .hero-overlay {
+            background: linear-gradient(
+                to bottom,
+                hsla(0,0%,4%,0.15) 0%,
+                hsla(0,0%,4%,0.55) 55%,
+                var(--background) 100%
+            ) !important;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 7rem) !important;
+            color: #ffffff !important;
+            text-shadow: 0 0 80px hsla(0,70%,40%,0.7), 0 2px 8px rgba(0,0,0,0.9) !important;
+            line-height: 1 !important;
+            margin-bottom: 1.25rem !important;
+        }
+
+        .hero p {
+            font-family: 'Crimson Text', serif !important;
+            font-size: clamp(1.1rem, 2.5vw, 1.45rem) !important;
+            color: hsla(0,5%,85%,0.72) !important;
+        }
+
+        /* Hero eyebrow badge */
+        .hero-eyebrow {
+            display: inline-block;
+            font-family: 'Inter', sans-serif !important;
+            font-size: 0.75rem !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.18em !important;
+            text-transform: uppercase;
+            color: hsl(38,90%,62%) !important;
+            background: hsla(38,90%,58%,0.1);
+            border: 1px solid hsla(38,90%,60%,0.22);
+            padding: 0.3rem 1rem;
+            border-radius: 100px;
+            margin-bottom: 1.25rem;
+        }
+
+        /* Hero buttons */
+        .hero-btn {
+            display: inline-flex !important;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 2rem !important;
+            border-radius: 10px !important;
+            font-size: 1rem !important;
+            font-family: var(--font-display) !important;
+            background: var(--primary) !important;
+            color: #fff !important;
+            border: none !important;
+            box-shadow: 0 4px 20px hsla(0,80%,30%,0.45) !important;
+            transition: all 0.22s !important;
+        }
+
+        .hero-btn:hover {
+            background: var(--primary-light) !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 28px hsla(0,80%,30%,0.65) !important;
+            animation: none !important;
+        }
+
+        /* Key facts bar */
+        .key-facts-bar {
+            background: var(--card) !important;
+            border-top: 1px solid var(--border-red) !important;
+            border-bottom: 1px solid var(--border) !important;
+            padding: 0 !important;
+            gap: 0 !important;
+        }
+
+        .key-fact {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 0.88rem !important;
+            font-weight: 600 !important;
+            color: var(--muted-foreground) !important;
+            padding: 1rem 2rem !important;
+            border-right: 1px solid var(--border);
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .key-fact:last-child { border-right: none; }
+        .key-fact:hover { background: hsla(255,255,255,0.03); color: var(--foreground) !important; }
+        .key-fact-icon { font-size: 1.05rem !important; }
+
+        /* Section titles */
+        .section-title {
+            font-size: clamp(1.9rem, 4.5vw, 2.8rem) !important;
+            color: #ffffff !important;
+            letter-spacing: 0.03em !important;
+            margin-bottom: 0.4rem !important;
+        }
+
+        /* CARDS */
+        .horror-card {
+            background: var(--card) !important;
+            border: 1px solid var(--border) !important;
+            border-radius: var(--radius-lg) !important;
+            box-shadow: none !important;
+            transition: transform 0.3s ease, border-color 0.3s, box-shadow 0.3s !important;
+            animation: none !important;
+        }
+
+        .horror-card:hover {
+            border-color: var(--border-red) !important;
+            box-shadow: 0 8px 40px hsla(0,80%,20%,0.25) !important;
+            transform: translateY(-3px) !important;
+        }
+
+        .card-image { border-radius: 0 !important; }
+
+        .card-title {
+            font-size: 1.35rem !important;
+            color: #fff !important;
+        }
+
+        .card-text {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 0.9rem !important;
+            color: var(--muted-foreground) !important;
+            line-height: 1.7 !important;
+        }
+
+        /* INFO CARDS */
+        .info-card {
+            background: var(--card) !important;
+            border: 1px solid var(--border) !important;
+            border-radius: var(--radius) !important;
+            transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s !important;
+        }
+
+        .info-card:hover {
+            border-color: var(--border-red) !important;
+            box-shadow: 0 4px 24px hsla(0,80%,20%,0.2) !important;
+            transform: translateY(-2px) !important;
+        }
+
+        .info-card-text {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 0.88rem !important;
+            color: var(--muted-foreground) !important;
+        }
+
+        /* QUOTE */
+        .quote-section {
+            border-top: 1px solid var(--border) !important;
+        }
+
+        .quote-section blockquote {
+            font-family: 'Crimson Text', serif !important;
+            font-size: clamp(1.15rem, 2.5vw, 1.55rem) !important;
+            color: hsla(0,5%,80%,0.65) !important;
+        }
+
+        .quote-author {
+            font-size: 0.95rem !important;
+            letter-spacing: 0.1em !important;
+        }
+
+        /* SESSION CARDS */
+        .session-card {
+            background: var(--card) !important;
+            border: 1px solid var(--border) !important;
+            border-radius: var(--radius-lg) !important;
+            transition: border-color 0.25s, box-shadow 0.25s !important;
+        }
+
+        .session-card:hover {
+            border-color: var(--border-red) !important;
+            box-shadow: 0 0 30px hsla(0,80%,30%,0.12) !important;
+        }
+
+        .session-sans-acteurs { border-top: 3px solid hsl(200,55%,52%) !important; }
+        .session-avec-acteurs { border-top: 3px solid var(--primary) !important; }
+
+        .session-title { font-size: 1.45rem !important; color: #fff !important; }
+        .session-time { font-size: 1.1rem !important; color: var(--muted-foreground) !important; }
+        .session-audience { font-size: 0.85rem !important; }
+
+        .session-details li {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 0.88rem !important;
+            color: var(--muted-foreground) !important;
+        }
+
+        /* FLIP CARDS */
+        .flip-front {
+            background: var(--card) !important;
+            border: 1px solid var(--border-red) !important;
+            border-radius: var(--radius-lg) !important;
+            box-shadow: none !important;
+            transition: box-shadow 0.3s !important;
+        }
+
+        .flip-front:hover { box-shadow: 0 0 24px hsla(0,80%,30%,0.4) !important; }
+
+        .flip-back {
+            background: hsl(0,0%,11%) !important;
+            border: 1px solid var(--border-red) !important;
+            border-radius: var(--radius-lg) !important;
+            font-family: 'Inter', sans-serif !important;
+            font-size: 0.88rem !important;
+            color: var(--muted-foreground) !important;
+            line-height: 1.6 !important;
+        }
+
+        .title-front { font-size: 1.55rem !important; color: #fff !important; }
+        .small-txt { font-family: 'Inter', sans-serif !important; font-size: 0.78rem !important; }
+
+        /* ACTOR BANNER */
+        .actor-banner {
+            background: linear-gradient(135deg, var(--card) 0%, hsla(0,60%,13%,0.7) 50%, var(--card) 100%) !important;
+            border: 1px solid var(--border-red) !important;
+            border-radius: var(--radius-lg) !important;
+            transition: transform 0.3s, box-shadow 0.3s !important;
+        }
+
+        .actor-banner:hover {
+            transform: translateY(-4px) !important;
+            box-shadow: 0 12px 40px hsla(0,80%,30%,0.3) !important;
+        }
+
+        .banner-title {
+            font-size: clamp(1.35rem, 3.5vw, 2rem) !important;
+            color: #fff !important;
+        }
+
+        .banner-text { font-family: 'Inter', sans-serif !important; font-size: 0.88rem !important; }
+
+        /* PAGE HEADER */
+        .page-header {
+            height: 46vh !important;
+            align-items: flex-end !important;
+            padding-bottom: 2.5rem !important;
+        }
+
+        .page-header img { opacity: 0.4 !important; }
+
+        .page-header-content { padding: 0 1.5rem !important; }
+
+        .page-header h1 {
+            font-size: clamp(2.4rem, 7vw, 4.5rem) !important;
+            color: #fff !important;
+            text-shadow: 0 2px 16px rgba(0,0,0,0.6);
+        }
+
+        .page-header p {
+            font-family: 'Crimson Text', serif !important;
+            font-style: italic !important;
+            color: var(--muted-foreground) !important;
+            font-size: 1.05rem !important;
+        }
+
+        /* MAP */
+        .horror-card iframe,
+        div[style*="border-radius: 0.25rem"] {
+            border-radius: var(--radius-lg) !important;
+        }
+
+        /* REVIEWS */
+        .review {
+            background: var(--card) !important;
+            border: 1px solid var(--border) !important;
+            border-radius: var(--radius) !important;
+            font-family: 'Inter', sans-serif !important;
+            font-size: 0.88rem !important;
+            color: var(--muted-foreground) !important;
+            transition: border-color 0.2s;
+        }
+        .review:hover { border-color: var(--border-red) !important; }
+
+        /* REGLEMENT */
+        .reglement-bloc {
+            background: var(--card) !important;
+            border: 1px solid var(--border) !important;
+            border-radius: var(--radius) !important;
+            transition: all 0.22s !important;
+        }
+
+        .reglement-bloc:hover, .reglement-bloc.actif {
+            border-color: var(--border-red) !important;
+            background: hsl(0,0%,11%) !important;
+        }
+
+        .reglement-titre {
+            font-size: 0.9rem !important;
+            color: #fff !important;
+        }
+
+        .reglement-explication {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 0.83rem !important;
+            color: var(--muted-foreground) !important;
+        }
+
+        /* FAQ */
+        .faq-wrapper {
+            background: transparent !important;
+            box-shadow: none !important;
+            border: none !important;
+        }
+
+        .faq-category {
+            font-size: 1.35rem !important;
+            color: var(--primary-light) !important;
+            border-bottom: 1px solid var(--border-red) !important;
+            padding-bottom: 0.5rem !important;
+            margin: 2.5rem 0 1rem !important;
+        }
+
+        details.faq-item-native {
+            background: var(--card) !important;
+            border: 1px solid var(--border) !important;
+            border-radius: var(--radius) !important;
+            transition: border-color 0.2s !important;
+        }
+
+        details.faq-item-native[open],
+        details.faq-item-native:hover {
+            border-color: var(--border-red) !important;
+        }
+
+        details.faq-item-native summary {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 0.92rem !important;
+            font-weight: 500 !important;
+            color: var(--accent-foreground) !important;
+            padding: 0.9rem 1.1rem !important;
+        }
+
+        .faq-answer-body {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 0.88rem !important;
+            color: var(--muted-foreground) !important;
+            padding: 0.75rem 1.1rem 1.1rem 3rem !important;
+        }
+
+        .faq-warning {
+            background: hsla(0,60%,40%,0.07) !important;
+            border-left: 3px solid var(--primary) !important;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.83rem !important;
+        }
+
+        /* CONTACT FORM */
+        .contact-form label {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 0.82rem !important;
+            font-weight: 600 !important;
+            color: var(--muted-foreground) !important;
+        }
+
+        input, textarea {
+            font-family: 'Inter', sans-serif !important;
+            background: var(--card) !important;
+            border: 1px solid var(--border) !important;
+            border-radius: 8px !important;
+            color: var(--foreground) !important;
+            font-size: 0.9rem !important;
+            transition: border-color 0.2s, box-shadow 0.2s !important;
+        }
+
+        input:focus, textarea:focus {
+            outline: none !important;
+            border-color: var(--primary) !important;
+            box-shadow: 0 0 0 3px hsla(0,70%,40%,0.12) !important;
+        }
+
+        button[type=submit] {
+            font-family: var(--font-display) !important;
+            background: var(--primary) !important;
+            border: none !important;
+            border-radius: 9px !important;
+            font-size: 1.05rem !important;
+            letter-spacing: 0.06em !important;
+            transition: all 0.22s !important;
+            padding: 0.75rem 2rem !important;
+            width: 100% !important;
+        }
+
+        button[type=submit]:hover {
+            background: var(--primary-light) !important;
+            transform: translateY(-1px) !important;
+        }
+
+        .contact-info-card {
+            background: var(--card) !important;
+            border: 1px solid var(--border) !important;
+            border-radius: var(--radius) !important;
+            transition: border-color 0.2s !important;
+        }
+
+        .contact-info-card:hover { border-color: var(--border-red) !important; }
+        .contact-info-label { font-family: var(--font-display) !important; color: #fff !important; }
+        .contact-info-value { font-family: 'Inter', sans-serif !important; font-size: 0.85rem !important; }
+
+        /* RESA */
+        .resa-overlay {
+            background: radial-gradient(ellipse at center, hsla(0,80%,8%,0.5) 0%, hsla(0,0%,0%,0.82) 100%) !important;
+        }
+
+        .resa-title {
+            color: #fff !important;
+            font-size: clamp(1.6rem, 4vw, 2.8rem) !important;
+            text-shadow: none !important;
+        }
+
+        .resa-num {
+            background: hsla(255,255,255,0.04) !important;
+            border: 1px solid var(--border-red) !important;
+            border-radius: var(--radius) !important;
+            color: var(--primary-light) !important;
+            box-shadow: inset 0 1px 0 hsla(255,255,255,0.06), 0 0 24px hsla(0,80%,30%,0.25) !important;
+        }
+
+        .resa-label {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.13em !important;
+        }
+
+        .resa-btn {
+            border-radius: var(--radius) !important;
+            box-shadow: 0 4px 28px hsla(0,80%,30%,0.5) !important;
+            transition: all 0.22s !important;
+        }
+
+        .resa-btn:hover {
+            transform: translateY(-3px) !important;
+            background: var(--primary-light) !important;
+            box-shadow: 0 10px 36px hsla(0,80%,30%,0.7) !important;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: #040404 !important;
+            border-top: 1px solid var(--border) !important;
+        }
+
+        .footer-title {
+            font-size: 1.3rem !important;
+            letter-spacing: 0.06em !important;
+        }
+
+        .footer-subtitle {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 0.72rem !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.14em !important;
+            text-transform: uppercase !important;
+            color: var(--muted-foreground) !important;
+        }
+
+        .footer-text {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 0.88rem !important;
+        }
+
+        .social-icons a {
+            width: 2.4rem !important;
+            height: 2.4rem !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            border-radius: 50% !important;
+            background: var(--card) !important;
+            border: 1px solid var(--border) !important;
+            color: var(--muted-foreground) !important;
+            font-size: 1rem !important;
+            transition: all 0.22s !important;
+        }
+
+        .social-icons a:hover {
+            background: var(--primary) !important;
+            border-color: var(--primary) !important;
+            color: #fff !important;
+            transform: translateY(-2px) !important;
+        }
+
+        /* CHATBOT */
+        #cb-toggle {
+            background: var(--primary) !important;
+            box-shadow: 0 4px 18px hsla(0,80%,30%,0.55), 0 1px 0 hsla(255,255,255,0.15) inset !important;
+            border-radius: 50% !important;
+        }
+
+        #cb-window {
+            background: hsl(0,0%,9%) !important;
+            border: 1px solid var(--border-red) !important;
+            border-radius: var(--radius-lg) !important;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.75) !important;
+        }
+
+        #cb-header {
+            background: hsl(0,0%,11%) !important;
+            border-bottom: 1px solid var(--border) !important;
+        }
+
+        #cb-header-text h3 {
+            font-family: var(--font-display) !important;
+            font-size: 0.95rem !important;
+        }
+
+        #cb-header-text p {
+            font-family: 'Inter', sans-serif !important;
+        }
+
+        .cb-online-dot {
+            background: #22c55e !important;
+            box-shadow: 0 0 8px #22c55e !important;
+        }
+
+        .cb-msg-bubble {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 0.855rem !important;
+        }
+
+        .cb-msg.user .cb-msg-bubble {
+            background: var(--primary) !important;
+        }
+
+        .cb-msg.bot .cb-msg-bubble {
+            background: hsl(0,0%,13%) !important;
+            border: 1px solid var(--border) !important;
+            color: var(--accent-foreground) !important;
+        }
+
+        #cb-input {
+            background: hsl(0,0%,13%) !important;
+            border: 1px solid var(--border) !important;
+            border-radius: 8px !important;
+            font-family: 'Inter', sans-serif !important;
+            font-size: 0.875rem !important;
+            color: var(--foreground) !important;
+        }
+
+        #cb-input:focus { border-color: var(--border-red) !important; }
+
+        #cb-send {
+            background: var(--primary) !important;
+            border-radius: 8px !important;
+        }
+
+        #cb-badge {
+            background: hsl(0,0%,11%) !important;
+            border: 1px solid var(--border-red) !important;
+            border-radius: var(--radius) !important;
+            font-family: 'Inter', sans-serif !important;
+            font-size: 0.84rem !important;
+            color: var(--accent-foreground) !important;
+        }
+
+        #cb-input-zone { background: hsl(0,0%,9%) !important; border-top: 1px solid var(--border) !important; }
+
+        /* NUMBER COUNTDOWN in hero */
+        #countdown { gap: 0.75rem !important; }
+
+        .num {
+            background: hsla(255,255,255,0.04) !important;
+            border: 1px solid var(--border-red) !important;
+            border-radius: 10px !important;
+            color: var(--primary-light) !important;
+            box-shadow: inset 0 1px 0 hsla(255,255,255,0.06), 0 0 18px hsla(0,80%,30%,0.22) !important;
+        }
+
+        .time-box p {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 0.68rem !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.12em !important;
+            text-transform: uppercase !important;
+            color: var(--muted-foreground) !important;
+        }
+
+        /* Map border radius */
+        div[style*="border-radius: 0.25rem; overflow: hidden; height: 400px"] {
+            border-radius: var(--radius-lg) !important;
+            border: 1px solid var(--border-red) !important;
+            box-shadow: 0 0 30px hsla(0,80%,30%,0.18) !important;
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            background: hsla(0,0%,4%,0.98) !important;
+            backdrop-filter: blur(20px) !important;
+        }
+
+        .mobile-menu a {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 0.95rem !important;
+            font-weight: 500 !important;
+            color: var(--muted-foreground) !important;
+            border-bottom: 1px solid var(--border);
+            padding: 0.65rem 0 !important;
+        }
+
+        .mobile-menu a:hover, .mobile-menu a.active { color: var(--primary-light) !important; }
+
+        /* Page transitions */
+        .page.active { animation: modernPageIn 0.4s ease-out; }
+
+        @keyframes modernPageIn {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero sub-text (date) */
+        .hero-content > p:last-of-type {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 0.88rem !important;
+            color: var(--muted-foreground) !important;
+            letter-spacing: 0.04em;
+        }
+
+        /* Backdrop on map inner div */
+        div[style*="radial-gradient(circle at center"] {
+            border-radius: var(--radius-lg) !important;
+        }
+
+        </style>
 </head>
 <body>
     <a href="#main-content" class="skip-link">Aller au contenu principal</a>
@@ -1706,11 +2393,12 @@ nav {
                 <img src="assets/hero-circus.jpg" alt="Le Cirque Abandonné">
                 <div class="hero-overlay"></div>
                 <div class="hero-content">
+                    <div class="hero-eyebrow">Halloween · 31 octobre 2026 · Bazas (33)</div>
                     <h1>Le Cirque Abandonné</h1>
                     <p>« Entrez sous le chapiteau... si vous l'osez. »</p>
-                    <a href="#" class="hero-btn" data-page="Réservation">Réservez votre billet ...</a><br><br>
+                    <a href="#" class="hero-btn" data-page="Réservation">🎟 Réserver ma place</a><br><br>
         <div class="resa-center">
-            <h2 class="resa-title"><u>Les rideaux s'ouvrent dans :</u></h2>
+            <p style="font-family:'Inter',sans-serif;font-size:0.85rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted-foreground);margin-bottom:0.75rem;">Les rideaux s'ouvrent dans</p>
                         </div>
                     <div id="countdown">
   <div class="time-box"><span id="days" class="num">0</span><p>Jours</p></div>
@@ -2291,7 +2979,7 @@ html {
 }
 
 .small-txt {
-    font-family: var(--font-body);
+    font-family: var(--font-body); font-size: 15px;
     font-size: 15px;
     opacity: 0.7;
 }
@@ -2301,7 +2989,7 @@ html {
     background: var(--card);
     border: 2px solid var(--primary);
     transform: rotateY(180deg);
-    font-family: var(--font-body);
+    font-family: var(--font-body); font-size: 15px;
     font-size: 18px;
     color: white;
     text-align: center;
@@ -3433,12 +4121,11 @@ updateResaTimer();
 
 <!-- Footer -->
 <!-- ===== FOOTER COMPLET ===== -->
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<!-- font-awesome already loaded in head -->
 
 <style>
 .footer {
-  background: #0b0b0b;
+  background: #040404;
   color: #d0d0d0;
   padding: 60px 20px 30px;
   font-family: Arial, sans-serif;
