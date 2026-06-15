@@ -161,10 +161,12 @@ nav {
 
 .mobile-menu {
     display: none;
-    background: hsla(0, 0%, 5%, 0.95);
+    background: hsla(0, 0%, 5%, 0.98);
     backdrop-filter: blur(12px);
     border-top: 1px solid var(--border);
     padding: 1rem 1.5rem;
+    position: relative;
+    z-index: 49;
 }
 
 .mobile-menu.active {
@@ -774,7 +776,7 @@ nav {
                 hsl(0, 70%, 25%) 60%,
                 hsl(0, 60%, 20%) 80%,
                 hsl(0, 50%, 15%) 100%);
-            z-index: 9999;
+            z-index: 9000;
             pointer-events: none;
             opacity: 0;
             filter: blur(2px);
@@ -3951,7 +3953,7 @@ if (actorBanner) {
     display: flex; align-items: center; justify-content: center;
     box-shadow: 0 4px 24px hsla(0, 80%, 30%, 0.6);
     transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s;
-    z-index: 9999;
+    z-index: 10001;
   }
   #cb-toggle:hover { transform: scale(1.1); box-shadow: 0 6px 30px hsla(0,80%,30%,0.8); }
   #cb-toggle .cb-icon-open  { opacity:1; transform:rotate(0deg); transition: opacity 0.2s, transform 0.2s; }
@@ -3964,7 +3966,7 @@ if (actorBanner) {
     background: hsl(0, 70%, 40%); color: #fff;
     font-family: 'Crimson Text', serif; font-size: 14px;
     padding: 12px 16px 12px 12px;
-    border-radius: 12px; z-index: 9998;
+    border-radius: 12px; z-index: 10000;
     box-shadow: 0 4px 20px rgba(0,0,0,0.15);
     animation: cb-pop 0.4s cubic-bezier(.34,1.56,.64,1) both;
     display: flex; align-items: center; gap: 10px;
@@ -3978,14 +3980,14 @@ if (actorBanner) {
 
   #cb-window {
     position: fixed; bottom: 100px; right: 28px;
-    width: 340px; max-width: calc(100vw - 56px);
+    width: 340px; max-width: calc(100vw - 32px);
     height: 480px; max-height: calc(100vh - 140px);
     background: hsl(0, 0%, 6%);
     border: 1px solid hsl(0, 70%, 40%);
     border-radius: 16px;
     box-shadow: 0 24px 60px rgba(0,0,0,0.7), 0 0 30px hsla(0,80%,30%,0.2);
     display: flex; flex-direction: column; overflow: hidden;
-    z-index: 9998;
+    z-index: 10000;
     transform: translateY(20px) scale(0.95); opacity: 0; pointer-events: none;
     transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), opacity 0.25s ease;
   }
@@ -4078,6 +4080,24 @@ if (actorBanner) {
   @keyframes cb-bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-5px)} }
   @keyframes cb-pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
   @keyframes cb-pop { from{opacity:0;transform:scale(0.8)} to{opacity:1;transform:scale(1)} }
+
+  @media (max-width: 768px) {
+    #cb-toggle {
+      bottom: 16px !important;
+      right: 16px !important;
+    }
+    #cb-window {
+      bottom: 88px;
+      right: 8px;
+      max-width: calc(100vw - 16px);
+      max-height: calc(100vh - 120px);
+    }
+    #cb-badge {
+      bottom: 96px;
+      right: 8px;
+      max-width: calc(100vw - 32px);
+    }
+  }
 </style>
 
 <button id="cb-toggle" aria-label="Ouvrir le chat">
