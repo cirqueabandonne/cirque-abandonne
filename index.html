@@ -3573,6 +3573,9 @@ updateResaTimer();
         // Navigation
         const pages = document.querySelectorAll('.page');
         const navLinks = document.querySelectorAll('[data-page]');
+
+        // Initialise l'historique sur la page d'accueil au chargement du site
+        history.replaceState({ page: 'home' }, '', '#home');
         const mobileToggle = document.getElementById('mobileToggle');
         const mobileMenu = document.getElementById('mobileMenu');
         const bloodTransition = document.getElementById('bloodTransition');
@@ -3672,7 +3675,14 @@ document.querySelectorAll('[data-page]').forEach(link => {
             }, 1000);
         }
 
-        function showPage(pageName) {
+        function showPage(pageName, updateHistory = true) {
+            // Enregistre la page dans l'historique du navigateur pour que
+            // le bouton "retour" (y compris le geste retour sur mobile)
+            // revienne à la page précédente du site au lieu de le quitter
+            if (updateHistory) {
+                history.pushState({ page: pageName }, '', '#' + encodeURIComponent(pageName));
+            }
+
             // Trigger blood transition
             triggerBloodTransition();
 
@@ -3723,6 +3733,14 @@ mobileToggle.textContent = '☰';  // Reset l'icône du bouton;
                 window.scrollTo(0, 0);
             }, 150);
         }
+
+        // ========== GESTION DU BOUTON "RETOUR" (mobile & navigateur) ==========
+        // Quand l'utilisateur fait un retour arrière, on affiche la page
+        // précédente du site au lieu de quitter le site
+        window.addEventListener('popstate', (e) => {
+            const pageName = (e.state && e.state.page) ? e.state.page : 'home';
+            showPage(pageName, false);
+        });
 
         // Add click listeners to all nav links
         navLinks.forEach(link => {
