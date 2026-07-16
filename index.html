@@ -131,6 +131,22 @@ nav {
     max-width: 60vw;
 }
 
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-width: 0;
+    text-decoration: none;
+}
+
+.club-logo {
+    height: 42px;
+    width: 42px;
+    object-fit: contain;
+    flex-shrink: 0;
+    border-radius: 50%;
+}
+
 .nav-links {
     display: flex;
     gap: 2rem;
@@ -217,6 +233,10 @@ nav {
     .nav-links a {
         font-size: 0.95rem;
     }
+    .club-logo {
+        height: 36px;
+        width: 36px;
+    }
 }
 
 /* ===== MOBILE (max 768px) ===== */
@@ -234,6 +254,13 @@ nav {
         font-size: 1rem;
         max-width: 70vw;
     }
+    .club-logo {
+        height: 30px;
+        width: 30px;
+    }
+    .nav-brand {
+        gap: 0.4rem;
+    }
 }
 
 /* ===== TRÈS PETIT MOBILE (max 380px) ===== */
@@ -243,6 +270,10 @@ nav {
     }
     .nav-logo {
         font-size: 0.85rem;
+    }
+    .club-logo {
+        height: 26px;
+        width: 26px;
     }
 }
 
@@ -1676,7 +1707,10 @@ nav {
         <div class="blood-drip"></div>
         
         <div class="nav-container">
-            <a href="#" class="nav-logo" data-page="home">Le Cirque Abandonné</a>
+            <a href="#" class="nav-brand" data-page="home">
+                <img src="assets/logo.png" alt="Handball Club Bazadais" class="club-logo">
+                <span class="nav-logo">Le Cirque Abandonné</span>
+            </a>
             <ul class="nav-links">
                 <li><a href="#" data-page="home" class="active">Accueil</a></li>
                 <li><a href="#" data-page="infos">Infos Pratiques</a></li>
@@ -3512,6 +3546,23 @@ updateResaTimer();
   color: #777;
 }
 
+.footer-logo {
+  display: block;
+  height: 80px;
+  width: 80px;
+  object-fit: contain;
+  margin: 40px auto 0;
+  border-radius: 50%;
+}
+
+@media (max-width: 480px) {
+  .footer-logo {
+    height: 60px;
+    width: 60px;
+    margin-top: 30px;
+  }
+}
+
 </style>
 
 <footer class="footer">
@@ -3558,6 +3609,8 @@ updateResaTimer();
     </div>
 
   </div>
+
+  <img src="assets/logo.png" alt="Logo Handball Club Bazadais" class="footer-logo">
 
   <p class="footer-copy">
     <strong>© 2026 – <a href="https://www.instagram.com/hbcbazadais_/" target="_blank" style="text-decoration: none; color: inherit;">Handball Club Bazadais</a>. Tous droits réservés.</strong>
