@@ -151,9 +151,9 @@ nav {
     position: relative;
     display: block;
     inset: auto;
-    height: 150px;
-    width: 150px;
-    max-width: 150px;
+    height: clamp(150px, 14vw, 260px);
+    width: clamp(150px, 14vw, 260px);
+    max-width: 260px;
     object-fit: contain;
     margin: 0 auto 1.2rem;
     z-index: 10;
@@ -161,18 +161,18 @@ nav {
 
 @media (max-width: 768px) {
     .hero-content .hero-logo {
-        height: 100px;
-        width: 100px;
-        max-width: 100px;
+        height: 120px;
+        width: 120px;
+        max-width: 120px;
         margin-bottom: 0.8rem;
     }
 }
 
 @media (max-width: 380px) {
     .hero-content .hero-logo {
-        height: 80px;
-        width: 80px;
-        max-width: 80px;
+        height: 90px;
+        width: 90px;
+        max-width: 90px;
     }
 }
 
