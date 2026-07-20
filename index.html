@@ -1678,6 +1678,93 @@ nav {
     background: hsla(0, 70%, 50%, 1);
 }
 
+/* Carte billet HelloAsso */
+.ticket-card {
+    max-width: 420px;
+    margin: 0 auto 2rem;
+    background: hsla(0, 0%, 8%, 0.9);
+    border: 2px solid var(--primary);
+    border-radius: 16px;
+    padding: 2rem 1.75rem;
+    box-shadow: 0 0 35px hsla(0, 80%, 30%, 0.45), inset 0 0 25px hsla(0, 80%, 10%, 0.3);
+    position: relative;
+    text-align: center;
+}
+.ticket-label {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+    margin-bottom: 0.5rem;
+}
+.ticket-price {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 9vw, 4.5rem);
+    color: var(--primary);
+    text-shadow: 0 0 25px var(--blood-glow);
+    line-height: 1;
+}
+.ticket-price span {
+    font-size: 1.5rem;
+    vertical-align: super;
+}
+.ticket-sub {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--foreground);
+    margin: 0.75rem 0 1.5rem;
+}
+.ticket-divider {
+    border: none;
+    border-top: 2px dashed hsla(0, 70%, 40%, 0.4);
+    margin: 1.5rem 0;
+}
+.ticket-includes {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    text-align: left;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--foreground);
+}
+.ticket-includes li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.6rem;
+}
+.ticket-includes li::before {
+    content: "🎪";
+}
+.ticket-btn {
+    display: inline-block;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: var(--primary);
+    border: 2px solid var(--primary);
+    border-radius: 8px;
+    color: var(--primary-foreground);
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 25px hsla(0, 80%, 30%, 0.5);
+}
+.ticket-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 35px hsla(0, 80%, 30%, 0.7);
+    background: hsla(0, 70%, 50%, 1);
+}
+.ticket-secure {
+    margin-top: 0.9rem;
+    font-size: 0.8rem;
+    color: var(--muted-foreground);
+    font-family: var(--font-body);
+}
+
 @media (max-width: 600px) {
     .resa-timer {
         gap: 0.5rem;
@@ -2248,7 +2335,7 @@ updateCountdown();
                     <div class="flip-back">
                         <p><strong>Tarif unique : 5€</strong><br><br>
                         Contient :<br>
-                        <strong>Entrée</strong> + <strong>bonbons</strong> + <strong>boisson</strong>.<br><br>
+                        Accès <strong>INFINI</strong> au parcours + <strong>bonbons</strong> + <strong>boisson</strong>.<br><br>
                         Paiement CB ou espèces.</p>
                     </div>
                 </div>
@@ -3097,7 +3184,7 @@ details.faq-item-native[open] .faq-summary-arrow {
       Ce tarif couvre une partie des frais :<br>
       <strong>décors, matériel technique, son, lumières, sécurité, organisation</strong>.<br><br>
       Il inclut également :<br>
-      • <strong>l’accès complet</strong> au parcours<br>
+      • un <strong>accès illimité</strong> au parcours (autant de fois que vous voulez dans la soirée !)<br>
       • <strong>1 boisson</strong><br>
       • <strong>1 verre de bonbons</strong>
     </div>
@@ -3251,46 +3338,79 @@ details.faq-item-native[open] .faq-summary-arrow {
         <div class="resa-overlay"></div>
 
         <div class="resa-center">
-            <h1 class="resa-title">Ouverture de la billetterie dans :</h1>
+            <h1 class="resa-title">Réservez votre entrée</h1>
 
-            <!-- Timer -->
-            <div class="resa-timer" id="resaTimer">
-                <div class="resa-time-box">
-                    <span class="resa-num" id="resaDays">00</span>
-                    <p class="resa-label">Jours</p>
-                </div>
-                <div class="resa-sep">:</div>
-                <div class="resa-time-box">
-                    <span class="resa-num" id="resaHours">00</span>
-                    <p class="resa-label">Heures</p>
-                </div>
-                <div class="resa-sep">:</div>
-                <div class="resa-time-box">
-                    <span class="resa-num" id="resaMinutes">00</span>
-                    <p class="resa-label">Minutes</p>
-                </div>
-                <div class="resa-sep">:</div>
-                <div class="resa-time-box">
-                    <span class="resa-num" id="resaSeconds">00</span>
-                    <p class="resa-label">Secondes</p>
+            <div class="resa-open" id="resaOpen">
+                <div class="ticket-card">
+                    <p class="ticket-label">Tarif unique</p>
+                    <div class="ticket-price">5<span>€</span></div>
+                    <p class="ticket-sub">Pour tous, quel que soit l'âge</p>
+                    <hr class="ticket-divider">
+                    <ul class="ticket-includes">
+                        <li>Accès <strong>INFINI</strong> au parcours</li>
+                        <li>1 boisson offerte</li>
+                        <li>1 verre de bonbons</li>
+                    </ul>
+                    <a href="#" data-page="billetterie-attente" class="ticket-btn">
+                        Réserver ma place →
+                    </a>
+                    <p class="ticket-secure">🔒 Paiement sécurisé via HelloAsso</p>
                 </div>
             </div>
 
-            <!-- Message quand timer terminé -->
-            <div class="resa-open" id="resaOpen" style="display:none;">
-                <p class="resa-open-text">🎟️ La billetterie est ouverte !</p>
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSeIsw67Lfx7vHViLfdeRFhH5GFFP7KC2V8QJqMFOJjW3RK9jw/viewform" 
-                   target="_blank" class="resa-btn">
-                    Réserver ma place →
-                </a>
-            </div>
-
-            <p class="resa-date">📅 Ouverture le 14 août 2026 à 12h00</p>
+            <p class="resa-date">📅 Samedi 31 octobre 2026 · 17h30 - 22h</p>
         </div>
     </div>
 
 </div>
 <!-- FIN PAGE RÉSERVATION -->
+
+<!-- PAGE BILLETTERIE EN ATTENTE (non listée dans le menu, accessible uniquement via le bouton "Réserver ma place") -->
+<!-- ⚠️ À SUPPRIMER / REMPLACER dès que le lien HelloAsso est disponible :
+     il suffira alors de faire pointer le bouton "Réserver ma place" ci-dessus
+     directement vers l'URL HelloAsso (target="_blank"), et de retirer cette page. -->
+<div id="billetterie-attente" class="page">
+    <div class="resa-hero">
+        <img src="assets/rideau-cirque.jpg" alt="Cirque Abandonné" class="resa-bg-img">
+        <div class="resa-overlay"></div>
+
+        <div class="resa-center">
+            <h1 class="resa-title">Ouverture de la billetterie dans :</h1>
+
+            <!-- Timer -->
+            <div class="resa-timer" id="waitTimer">
+                <div class="resa-time-box">
+                    <span class="resa-num" id="waitDays">00</span>
+                    <p class="resa-label">Jours</p>
+                </div>
+                <div class="resa-sep">:</div>
+                <div class="resa-time-box">
+                    <span class="resa-num" id="waitHours">00</span>
+                    <p class="resa-label">Heures</p>
+                </div>
+                <div class="resa-sep">:</div>
+                <div class="resa-time-box">
+                    <span class="resa-num" id="waitMinutes">00</span>
+                    <p class="resa-label">Minutes</p>
+                </div>
+                <div class="resa-sep">:</div>
+                <div class="resa-time-box">
+                    <span class="resa-num" id="waitSeconds">00</span>
+                    <p class="resa-label">Secondes</p>
+                </div>
+            </div>
+
+            <!-- Message quand timer terminé -->
+            <div class="resa-open" id="waitOpen" style="display:none;">
+                <p class="resa-open-text">🎟️ La billetterie est ouverte !</p>
+                <p class="resa-date">Le lien de réservation arrive très bientôt, revenez nous voir 🎪</p>
+            </div>
+
+            <p class="resa-date">📅 Ouverture le 1er septembre 2026 à 12h00</p>
+        </div>
+    </div>
+</div>
+<!-- FIN PAGE BILLETTERIE EN ATTENTE -->
 
  <!-- CONTACT PAGE -->
 <div id="contact" class="page"><br><br>
@@ -3564,18 +3684,20 @@ details.faq-item-native[open] .faq-summary-arrow {
       submitBtn.style.display = "inline-block";
     });
   });
-  // ========== TIMER PAGE RÉSERVATION ==========
-const resaTarget = new Date("August 14, 2026 12:00:00").getTime();
+  // ========== TIMER PAGE "BILLETTERIE EN ATTENTE" ==========
+const waitTarget = new Date("September 1, 2026 12:00:00").getTime();
 
-function updateResaTimer() {
+function updateWaitTimer() {
     const now = new Date().getTime();
-    const diff = resaTarget - now;
+    const diff = waitTarget - now;
+
+    const waitTimerEl = document.getElementById('waitTimer');
+    const waitOpenEl = document.getElementById('waitOpen');
+    if (!waitTimerEl || !waitOpenEl) return;
 
     if (diff <= 0) {
-        // Timer terminé : afficher le bouton de réservation
-        document.getElementById('resaTimer').style.display = 'none';
-        document.getElementById('resaOpen').style.display = 'block';
-        document.querySelector('.resa-date').style.display = 'none';
+        waitTimerEl.style.display = 'none';
+        waitOpenEl.style.display = 'block';
         return;
     }
 
@@ -3596,14 +3718,14 @@ function updateResaTimer() {
         }
     }
 
-    setVal('resaDays',    days);
-    setVal('resaHours',   hours);
-    setVal('resaMinutes', minutes);
-    setVal('resaSeconds', seconds);
+    setVal('waitDays',    days);
+    setVal('waitHours',   hours);
+    setVal('waitMinutes', minutes);
+    setVal('waitSeconds', seconds);
 }
 
-setInterval(updateResaTimer, 1000);
-updateResaTimer();
+setInterval(updateWaitTimer, 1000);
+updateWaitTimer();
 </script>
 
             </div>
@@ -4389,7 +4511,7 @@ if (actorBanner) {
 Nom : Le Cirque Abandonné — Maison d'horreur
 Date : Samedi 31 octobre 2026
 Lieu : Hall polyvalent deBazas (33)
-Prix : Entrée 5€ / Contient :Entrée + bonbons + boisson.
+Prix : Entrée 5€ / Contient : Accès infini au parcours + bonbons + boisson.
 Concept : Une maison hanté temporairement instalé dans le hall polyvalent de Bazas pour Halloween. Parcours immersif avec décors, acteurs, et animations effrayantes. Ouvert à tous les âges (déconseillé au enfant de moins de 12 ans).
 Horraire : Ouverture des portes à 17h30 / Première session sans acteurs de 17h30 à 19h / Deuxième session avec acteurs de 19h30 à 22h
 Organisateurs : Handball Club Bazadais
