@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PVPTZ04DKW"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      // Par défaut, on refuse les cookies tant que le visiteur n'a pas répondu au bandeau
+      gtag('consent', 'default', {
+        'analytics_storage': 'denied',
+        'ad_storage': 'denied'
+      });
+
+      gtag('config', 'G-PVPTZ04DKW');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Le Cirque Abandonné - Maison d'horreur</title>
@@ -1708,6 +1723,128 @@ nav {
     </style>
 </head>
 <body>
+
+<!-- ===== BANDEAU COOKIES ===== -->
+<style>
+  #cookie-banner {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 99999;
+    background: hsl(0, 0%, 6%);
+    border-top: 2px solid var(--primary, hsl(0, 70%, 40%));
+    box-shadow: 0 0 25px hsla(0, 80%, 30%, 0.5);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    font-family: 'Crimson Text', serif;
+    color: hsl(0, 10%, 85%);
+    animation: cookie-rise 0.5s ease;
+  }
+  @keyframes cookie-rise {
+    from { transform: translateY(100%); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+  }
+  #cookie-banner p {
+    margin: 0;
+    max-width: 640px;
+    text-align: center;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  #cookie-banner .cookie-title {
+    font-family: 'Creepster', cursive;
+    color: var(--primary, hsl(0, 70%, 40%));
+    font-size: 1.3rem;
+    letter-spacing: 0.05em;
+    display: block;
+    margin-bottom: 0.35rem;
+    text-shadow: 0 0 10px hsla(0, 80%, 30%, 0.6);
+  }
+  #cookie-banner .cookie-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-shrink: 0;
+  }
+  #cookie-banner button {
+    font-family: 'Crimson Text', serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 0.6rem 1.4rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  #cookie-accept {
+    background: var(--primary, hsl(0, 70%, 40%));
+    border: 2px solid var(--primary, hsl(0, 70%, 40%));
+    color: white;
+    box-shadow: 0 0 12px hsla(0, 80%, 30%, 0.5);
+  }
+  #cookie-accept:hover {
+    background: hsl(0, 80%, 30%);
+    box-shadow: 0 0 20px hsla(0, 80%, 30%, 0.8);
+  }
+  #cookie-refuse {
+    background: transparent;
+    border: 2px solid hsl(0, 0%, 35%);
+    color: hsl(0, 10%, 85%);
+  }
+  #cookie-refuse:hover {
+    border-color: hsl(0, 0%, 55%);
+    color: white;
+  }
+  @media (max-width: 600px) {
+    #cookie-banner { flex-direction: column; text-align: center; }
+  }
+</style>
+
+<div id="cookie-banner" role="dialog" aria-label="Consentement aux cookies">
+  <p>
+    <span class="cookie-title">🎪 Un petit cookie avant d'entrer sous le chapiteau...</span>
+    Ce site utilise des cookies pour analyser sa fréquentation. Acceptez-vous qu'on vous suive... dans les statistiques uniquement, promis 🤡🦇
+  </p>
+  <div class="cookie-actions">
+    <button id="cookie-refuse" type="button">Refuser</button>
+    <button id="cookie-accept" type="button">Accepter</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  var banner = document.getElementById('cookie-banner');
+  var choice = localStorage.getItem('cookie_consent');
+
+  function applyConsent(granted) {
+    if (typeof gtag === 'function') {
+      gtag('consent', 'update', {
+        'analytics_storage': granted ? 'granted' : 'denied',
+        'ad_storage': 'denied'
+      });
+    }
+  }
+
+  if (choice === 'accepted' || choice === 'refused') {
+    banner.style.display = 'none';
+    applyConsent(choice === 'accepted');
+  }
+
+  document.getElementById('cookie-accept').addEventListener('click', function() {
+    localStorage.setItem('cookie_consent', 'accepted');
+    applyConsent(true);
+    banner.style.display = 'none';
+  });
+
+  document.getElementById('cookie-refuse').addEventListener('click', function() {
+    localStorage.setItem('cookie_consent', 'refused');
+    applyConsent(false);
+    banner.style.display = 'none';
+  });
+})();
+</script>
+<!-- ===== FIN BANDEAU COOKIES ===== -->
     <a href="#main-content" class="skip-link">Aller au contenu principal</a>
     <!-- Blood Transition -->
     <div class="blood-transition" id="bloodTransition"></div>
