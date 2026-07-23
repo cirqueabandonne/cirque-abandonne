@@ -14,7 +14,10 @@
         'ad_storage': 'denied'
       });
 
-      gtag('config', 'G-PVPTZ04DKW');
+      gtag('config', 'G-PVPTZ04DKW', {
+        page_title: 'Accueil',
+        page_path: '/home'
+      });
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -4030,6 +4033,28 @@ document.querySelectorAll('[data-page]').forEach(link => {
             }, 1000);
         }
 
+        // ========== SUIVI GOOGLE ANALYTICS DES SECTIONS (pages virtuelles) ==========
+        const CB_PAGE_TITLES = {
+            'home': 'Accueil',
+            'infos': 'Infos pratiques',
+            "L'expérience / Les avis": 'Expérience / Avis',
+            'reglement': 'Règlement',
+            'faq': 'FAQ',
+            'Réservation': 'Réservation',
+            'billetterie-attente': 'Billetterie - Attente',
+            'contact': 'Contact'
+        };
+
+        function trackVirtualPageView(pageName) {
+            if (typeof gtag !== 'function') return;
+            const title = CB_PAGE_TITLES[pageName] || pageName;
+            gtag('event', 'page_view', {
+                page_title: title,
+                page_path: '/' + encodeURIComponent(pageName),
+                page_location: window.location.origin + window.location.pathname + '#' + encodeURIComponent(pageName)
+            });
+        }
+
         function showPage(pageName, updateHistory = true) {
             // Enregistre la page dans l'historique du navigateur pour que
             // le bouton "retour" (y compris le geste retour sur mobile)
@@ -4037,6 +4062,9 @@ document.querySelectorAll('[data-page]').forEach(link => {
             if (updateHistory) {
                 history.pushState({ page: pageName }, '', '#' + encodeURIComponent(pageName));
             }
+
+            // Envoie une "vue de page" virtuelle à Google Analytics
+            trackVirtualPageView(pageName);
 
             // Trigger blood transition
             triggerBloodTransition();
